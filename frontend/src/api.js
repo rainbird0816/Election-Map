@@ -36,5 +36,8 @@ export const getPresidentRegion = (daesu, region_code) =>
 export const getPresidentHistory = (region_code) =>
   get("/president/history", { region_code });
 export const getSummary = (params) => get("/summary", params);
+export const getOverview = (params) => get("/overview", params);
 export const getPrecinctLookup = (daesu, sigungu_code, mode) =>
   get("/precinct/lookup", { daesu, sigungu_code, mode });
+export const getPrecinctTrend = (sigungu, dong) =>
+  get("/precinct/trend", { sigungu, dong });

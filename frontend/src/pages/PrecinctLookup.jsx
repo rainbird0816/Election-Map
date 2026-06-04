@@ -1,10 +1,15 @@
 import { useEffect, useState } from "react";
 import {
+  LineChart, Line, XAxis, YAxis, Tooltip, Legend as RLegend, ResponsiveContainer, CartesianGrid,
+} from "recharts";
+import {
   getPresidentElections, getPresidentMap, getPrecinctLookup,
-  getAssemblyDaesu, getAssemblyKeys, getAssemblyDistrict,
+  getAssemblyDaesu, getAssemblyKeys, getAssemblyDistrict, getPrecinctTrend,
 } from "../api";
 
 const fmt = (n) => (n == null ? "—" : Number(n).toLocaleString());
+const CAMPS = ["민주", "보수", "진보", "중도"];
+const CAMP_COLOR = { 민주: "#152484", 보수: "#E61E2B", 진보: "#D6001C", 중도: "#FF7920" };
 const SIDO = [
   ["11", "서울특별시"], ["26", "부산광역시"], ["27", "대구광역시"], ["28", "인천광역시"],
   ["29", "광주광역시"], ["30", "대전광역시"], ["31", "울산광역시"], ["36", "세종특별자치시"],
@@ -32,6 +37,7 @@ export default function PrecinctLookup() {
   const [units, setUnits] = useState([]);          // 시군구(대선) 또는 선거구(총선) 목록
   const [unit, setUnit] = useState(null);          // 선택된 시군구 code(대선) / 선거구 key(총선)
   const [data, setData] = useState(null);          // {candidates, rows}
+  const [trend, setTrend] = useState(null);        // {dong, rows} 연도별 추이(대선)
 
   // 선거 목록(모드별)
   useEffect(() => {
@@ -59,7 +65,7 @@ export default function PrecinctLookup() {
 
   // 단위 선택 → 데이터
   useEffect(() => {
-    setData(null);
+    setData(null); setTrend(null);
     if (!daesu || !unit) return;
     if (mode === "대선") {
       getPrecinctLookup(daesu, unit, grain)
@@ -77,6 +83,13 @@ export default function PrecinctLookup() {
   const cands = data?.candidates || [];
   const rows = data?.rows || [];
   const unitLabel = mode === "대선" ? "시군구" : "선거구";
+
+  function clickRow(r) {
+    if (mode !== "대선" || !r.dong || r.dong === "기타") return;
+    setTrend({ dong: r.dong, rows: null });
+    getPrecinctTrend(unit, r.dong)
+      .then((d) => setTrend({ dong: r.dong, rows: d.trend })).catch(() => setTrend(null));
+  }
 
   return (
     <div className="lookup-page">
@@ -114,6 +127,26 @@ export default function PrecinctLookup() {
       {mode === "총선" && !units.length && daesu && (
         <p className="hint">이 대수·시도의 투표구 데이터가 없습니다(투표구별은 21·22대만 제공).</p>
       )}
+      {mode === "대선" && trend && (
+        <div className="trend-panel">
+          <div className="trend-head">
+            <b>{trend.dong}</b> 역대 대선 진영별 득표율 추이
+            <button className="link-btn" onClick={() => setTrend(null)}>닫기 ✕</button>
+          </div>
+          {!trend.rows ? <p className="muted">불러오는 중…</p>
+            : trend.rows.length < 2 ? <p className="hint">비교할 과거 데이터가 부족합니다(동명 변경 등).</p> : (
+            <ResponsiveContainer width="100%" height={200}>
+              <LineChart data={trend.rows} margin={{ top: 5, right: 10, bottom: 0, left: -18 }}>
+                <CartesianGrid strokeDasharray="3 3" stroke="#eee" />
+                <XAxis dataKey="year" fontSize={11} /><YAxis fontSize={11} unit="%" />
+                <Tooltip formatter={(v) => `${v}%`} /><RLegend wrapperStyle={{ fontSize: 12 }} />
+                {CAMPS.map((c) => <Line key={c} type="monotone" dataKey={c} name={c}
+                  stroke={CAMP_COLOR[c]} strokeWidth={2} dot={{ r: 2 }} />)}
+              </LineChart>
+            </ResponsiveContainer>
+          )}
+        </div>
+      )}
       {!data ? <p className="muted">불러오는 중…</p> : (
         <div className="prec-wrap tall">
           <table className="prec-table">
@@ -126,7 +159,8 @@ export default function PrecinctLookup() {
             </thead>
             <tbody>
               {rows.map((r, i) => (
-                <tr key={i}>
+                <tr key={i} className={mode === "대선" && r.dong && r.dong !== "기타" ? "clickable" : ""}
+                  onClick={() => clickRow(r)}>
                   <td>{r.dong}</td><td>{r.unit}</td><td className="num">{fmt(r.tusu)}</td>
                   {cands.map((c) => <td key={c.idx} className="num">{fmt(r.votes[c.idx])}</td>)}
                 </tr>
@@ -135,6 +169,7 @@ export default function PrecinctLookup() {
           </table>
         </div>
       )}
+      {mode === "대선" && <p className="muted">행(읍면동/투표구)을 클릭하면 그 지역의 역대 대선 추이가 표시됩니다.</p>}
       <p className="muted">후보 전원(낙선 포함). 출처: 중앙선관위 개표결과. 지선은 선관위가 투표구별을 제공하지 않아 제외(지방선거 탭에서 시군구 단위 확인).</p>
     </div>
   );

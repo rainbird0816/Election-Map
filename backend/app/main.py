@@ -415,6 +415,87 @@ def summary(kind: str, daesu: int | None = None, election_id: int | None = None,
     raise HTTPException(400, f"unknown kind: {kind}")
 
 
+_ASM_YEAR = {14: 1992, 15: 1996, 16: 2000, 17: 2004, 18: 2008, 19: 2012, 20: 2016, 21: 2020, 22: 2024}
+_HOE_YEAR = {3: 2002, 4: 2006, 5: 2010, 6: 2014, 7: 2018, 8: 2022}
+
+
+@api.get("/overview")
+def overview(kind: str, sgtype: int | None = None, office: str | None = None):
+    """개관(데이터 사실 분석): 회차별 정당 의석/당선 시계열. 프론트가 헤드라인·Δ·추이 렌더."""
+    colors = _party_colors()
+    series = []
+
+    def pack(eid, label, year, rows, vkey="n"):
+        ps = [{"party": r["party"], "color": colors.get(r["party"], "#bbb"), "seats": r[vkey]}
+              for r in rows if r[vkey]]
+        ps.sort(key=lambda x: -x["seats"])
+        if ps:
+            series.append({"id": eid, "label": label, "year": year, "parties": ps})
+
+    if kind == "assembly":
+        for d in range(14, 23):
+            pack(d, f"{d}대", _ASM_YEAR[d],
+                 q("SELECT party, COUNT(*) n FROM assembly_sgg WHERE daesu=? AND elected=1 GROUP BY party", (d,)))
+        unit = "석"
+    elif kind == "council":
+        for h in range(3, 9):
+            pack(h, f"{h}회", _HOE_YEAR[h],
+                 q("SELECT party, COUNT(*) n FROM council WHERE hoecha=? AND sgtype=? AND elected=1 GROUP BY party", (h, sgtype)))
+        unit = "석"
+    elif kind == "local":
+        for h in range(3, 9):
+            pack(h, f"{h}회", _HOE_YEAR[h],
+                 q("SELECT p.name party, COUNT(*) n FROM candidates c JOIN parties p ON p.id=c.party_id "
+                   "WHERE c.office=? AND c.election_id=? AND c.is_elected=1 GROUP BY p.name", (office, h)))
+        unit = "명"
+    elif kind == "president":
+        for d in range(16, 22):
+            cands = _pres_cands(d)
+            rows = q("SELECT idx, SUM(votes) v FROM pres_region WHERE daesu=? AND level='시도' GROUP BY idx", (d,))
+            agg = {}
+            for r in rows:
+                p = cands.get(r["idx"], {}).get("party")
+                agg[p] = agg.get(p, 0) + (r["v"] or 0)
+            tot = sum(agg.values()) or 1
+            ps = sorted([{"party": k, "color": colors.get(k, "#bbb"), "seats": round(v / tot * 100, 1)}
+                         for k, v in agg.items()], key=lambda x: -x["seats"])
+            if ps:
+                series.append({"id": d, "label": f"{d}대", "year": PRES_YEAR[d], "parties": ps})
+        unit = "%"
+    else:
+        raise HTTPException(400, f"unknown kind: {kind}")
+    return {"kind": kind, "unit": unit, "series": series}
+
+
+@api.get("/precinct/trend")
+def precinct_trend(sigungu: str, dong: str):
+    """대선 읍면동(투표구) 연도별 진영 득표율 추이 — 투표소 클릭 시."""
+    out = []
+    for daesu in sorted(PRES_YEAR):
+        cands = _pres_cands(daesu)
+        rows = q("SELECT votes_json FROM pres_precinct WHERE daesu=? AND region_code=? AND dong=?",
+                 (daesu, sigungu, dong))
+        if not rows:
+            continue
+        camp = {"민주": 0, "보수": 0, "진보": 0, "중도": 0}
+        total = 0
+        for r in rows:
+            try:
+                v = json.loads(r["votes_json"])
+            except Exception:
+                continue
+            for idx, val in enumerate(v):
+                total += val or 0
+                c = _camp(cands.get(idx, {}).get("party"))
+                if c in camp:
+                    camp[c] += val or 0
+        if not total:
+            continue
+        out.append({"daesu": daesu, "year": PRES_YEAR[daesu],
+                    **{k: round(camp[k] / total * 100, 2) for k in camp}})
+    return {"trend": out, "camp_color": CAMP_COLOR}
+
+
 @api.get("/precinct/lookup")
 def precinct_lookup(daesu: int, sigungu_code: str, mode: str = "투표구"):
     """대선 투표소(투표구)·읍면동별 종합. mode=투표구|읍면동."""

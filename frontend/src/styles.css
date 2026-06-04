@@ -135,3 +135,18 @@ body { margin: 0; color: #1a1a1a; background: #fafafa; }
 .pr-party { border-bottom: 1px solid #f0f0f0; padding: 6px 2px; }
 .pr-party-head { font-size: 13px; display: flex; align-items: center; gap: 6px; }
 .pr-names { font-size: 12px; color: #444; margin: 3px 0 0 17px; line-height: 1.5; }
+
+/* 투표소 연도별 추이 패널 */
+.trend-panel { border: 1px solid var(--line); border-radius: 8px; padding: 10px 12px; margin: 4px 0 12px; background: #fcfcfd; }
+.trend-head { font-size: 13px; margin-bottom: 4px; display: flex; align-items: center; gap: 8px; }
+.trend-head .link-btn { margin-left: auto; }
+.prec-table tr.clickable { cursor: pointer; }
+.prec-table tr.clickable:hover { background: #eef4ff; }
+
+/* 개관 페이지 */
+.overview .overview-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 18px; align-items: start; }
+@media (max-width: 900px) { .overview .overview-grid { grid-template-columns: 1fr; } }
+.ov-card { border: 1px solid var(--line); border-radius: 8px; padding: 12px 14px; background: #fff; }
+.ov-headline { font-size: 14px; margin: 4px 0 10px; }
+.ov-table td.up { color: #c0392b; font-weight: 700; }
+.ov-table td.down { color: #1c63d6; font-weight: 700; }

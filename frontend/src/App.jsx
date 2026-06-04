@@ -12,6 +12,7 @@ import SummaryPanel from "./pages/SummaryPanel.jsx";
 import PrecinctLookup from "./pages/PrecinctLookup.jsx";
 import SigunguDashboard from "./pages/SigunguDashboard.jsx";
 import PrDetail from "./pages/PrDetail.jsx";
+import OverviewPage from "./pages/OverviewPage.jsx";
 import { getElections, getMap, getCouncilMap, getPresidentElections, getPresidentMap } from "./api";
 
 // 지방의원 데이터가 있는 지선 회차
@@ -77,6 +78,7 @@ export default function App() {
 
   const isCouncil = type === "지선" && superView === "지방의원";
   const isLookup = type === "투표소";
+  const isOverview = type === "개관";
   const sidoOffice = type === "총선" ? "국회의원"
     : superView === "교육감" ? "교육감" : "광역단체장";
   const districtConf = type === "총선" ? DISTRICT_GEO[electionId] : null;
@@ -176,9 +178,10 @@ export default function App() {
       <header className="topbar">
         <h1>한국 선거 지도</h1>
         <nav className="tabs">
-          {["지선", "총선", "대선", "투표소"].map((t) => (
+          {["지선", "총선", "대선", "투표소", "개관"].map((t) => (
             <button key={t} className={`tab ${type === t ? "active" : ""}`} onClick={() => setType(t)}>
-              {t === "지선" ? "지방선거" : t === "총선" ? "국회의원" : t === "대선" ? "대통령" : "투표소 조회"}
+              {t === "지선" ? "지방선거" : t === "총선" ? "국회의원" : t === "대선" ? "대통령"
+                : t === "투표소" ? "투표소 조회" : "개관"}
             </button>
           ))}
         </nav>
@@ -210,7 +213,7 @@ export default function App() {
             ))}
           </nav>
         )}
-        {!isLookup && (
+        {!isLookup && !isOverview && (
         <div className="selector">
           <label>{type === "지선" ? "회차" : "대수"}&nbsp;</label>
           {isPres ? (
@@ -232,7 +235,8 @@ export default function App() {
 
       {error && <div className="error">백엔드 연결 오류: {error}</div>}
 
-      {isLookup ? <main className="layout single"><PrecinctLookup /></main> : (
+      {isLookup ? <main className="layout single"><PrecinctLookup /></main>
+      : isOverview ? <main className="layout single"><OverviewPage /></main> : (
       <>
       <div className="crumbs">
         {isPres ? (
