@@ -11,6 +11,7 @@ import PresidentDetail from "./pages/PresidentDetail.jsx";
 import SummaryPanel from "./pages/SummaryPanel.jsx";
 import PrecinctLookup from "./pages/PrecinctLookup.jsx";
 import SigunguDashboard from "./pages/SigunguDashboard.jsx";
+import PrDetail from "./pages/PrDetail.jsx";
 import { getElections, getMap, getCouncilMap, getPresidentElections, getPresidentMap } from "./api";
 
 // 지방의원 데이터가 있는 지선 회차
@@ -157,7 +158,7 @@ export default function App() {
       setSido({ code, name: nameOfSido(code) });
       setView("sigungu");
       setSelected({ code, office: "대통령" });
-    } else if (type === "지선" && (superView === "단체장" || isCouncil)) {
+    } else if (type === "지선" && (superView === "단체장" || (isCouncil && councilType !== 8))) {
       setSido({ code, name: nameOfSido(code) });
       setView("sigungu");
       setSelected(isCouncil ? null : { code, office: "광역단체장" });
@@ -192,8 +193,9 @@ export default function App() {
         )}
         {isCouncil && (
           <nav className="tabs subtabs">
-            {[[5, "광역의원"], [6, "기초의원"]].map(([v, label]) => (
-              <button key={v} className={`tab ${councilType === v ? "active" : ""}`} onClick={() => setCouncilType(v)}>
+            {[[5, "광역의원"], [6, "기초의원"], [8, "광역비례"], [9, "기초비례"]].map(([v, label]) => (
+              <button key={v} className={`tab ${councilType === v ? "active" : ""}`}
+                onClick={() => { setCouncilType(v); setView("sido"); setSido(null); setSelected(null); setSigunguMap([]); }}>
                 {label}
               </button>
             ))}
@@ -347,6 +349,16 @@ export default function App() {
               <SummaryPanel params={summaryParams} label="시도를 클릭하면 후보별 득표·시군구·역대 추이가 보입니다." />
             )}
           </aside>
+        ) : isCouncil && councilType === 9 && view === "sigungu" && selected?.code && selected.code.length > 2 ? (
+          <PrDetail hoecha={electionId} sgtype={9} sigungu={selected.code} />
+        ) : isCouncil && councilType === 8 ? (
+          selected?.code ? (
+            <PrDetail hoecha={electionId} sgtype={8} sido={selected.code} />
+          ) : (
+            <aside className="detail">
+              <SummaryPanel params={summaryParams} label="시도를 클릭하면 그 시도의 광역비례 의석·당선자가 보입니다." />
+            </aside>
+          )
         ) : type === "지선" && view === "sigungu" && selected?.code && selected.code.length > 2 ? (
           <SigunguDashboard
             hoecha={electionId}

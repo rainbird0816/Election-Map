@@ -26,6 +26,8 @@ export const getCouncilMap = (hoecha, sgtype, parent) =>
   get("/council/map", { hoecha, sgtype, ...(parent ? { parent } : {}) });
 export const getCouncilDetail = (hoecha, sigungu_code) =>
   get("/council/detail", { hoecha, sigungu_code });
+export const getCouncilPr = (hoecha, sgtype, sido, sigungu) =>
+  get("/council/pr", { hoecha, sgtype, ...(sido ? { sido } : {}), ...(sigungu ? { sigungu } : {}) });
 export const getPresidentElections = () => get("/president/elections");
 export const getPresidentMap = (daesu, parent) =>
   get("/president/map", { daesu, ...(parent ? { parent } : {}) });

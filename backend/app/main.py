@@ -200,6 +200,32 @@ def assembly_sido(daesu: int, sido: str):
     return out
 
 
+@api.get("/council/pr")
+def council_pr(hoecha: int, sgtype: int, sido: str | None = None, sigungu: str | None = None):
+    """비례대표(광역 8/기초 9) 정당별 의석 + 당선자 명단. sido/sigungu=코드."""
+    colors = _party_colors()
+    where, args, scope = "hoecha=? AND sgtype=?", [hoecha, sgtype], "전국"
+    if sigungu:
+        where += " AND sigungu_code=?"
+        args.append(sigungu)
+        r = q("SELECT name FROM regions WHERE code=?", (sigungu,))
+        scope = r[0]["name"] if r else "시군구"
+    elif sido:
+        short = next((s for s, c in SIDO_CODE.items() if c == sido), sido)
+        where += " AND sido=?"
+        args.append(short)
+        scope = short
+    rows = q(f"SELECT party, name FROM council WHERE {where} ORDER BY party, idx", tuple(args))
+    by = {}
+    for r in rows:
+        by.setdefault(r["party"], []).append(r["name"])
+    parties = [{"party": p, "color": colors.get(p, "#bbb"), "seats": len(ns), "names": ns}
+               for p, ns in by.items()]
+    parties.sort(key=lambda x: -x["seats"])
+    lab = "광역비례" if sgtype == 8 else "기초비례"
+    return {"scope": scope, "label": lab, "total": len(rows), "parties": parties}
+
+
 PRES_YEAR = {16: 2002, 17: 2007, 18: 2012, 19: 2017, 20: 2022, 21: 2025}
 
 
