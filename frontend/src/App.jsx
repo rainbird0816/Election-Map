@@ -22,6 +22,13 @@ const DISTRICT_GEO = {
   121: { topo: "/geo/assembly-21.topo.json", win: "/geo/assembly-21-winners.json", daesu: 21 },
 };
 
+// 시도 행정표준코드 -> 축약명(geo SIDO 속성과 매칭)
+const SIDO_SHORT = {
+  "11": "서울", "26": "부산", "27": "대구", "28": "인천", "29": "광주", "30": "대전",
+  "31": "울산", "36": "세종", "41": "경기", "42": "강원", "43": "충북", "44": "충남",
+  "45": "전북", "46": "전남", "47": "경북", "48": "경남", "50": "제주",
+};
+
 export default function App() {
   const [elections, setElections] = useState([]);
   const [presList, setPresList] = useState([]);
@@ -73,6 +80,8 @@ export default function App() {
     : superView === "교육감" ? "교육감" : "광역단체장";
   const districtConf = type === "총선" ? DISTRICT_GEO[electionId] : null;
   const showDistrict = !!districtConf && assemblyView === "district";
+  // 시도별 보기에서 시도 선택 + 경계 데이터 있으면 그 시도 지역구 경계로 줌
+  const districtZoom = type === "총선" && assemblyView === "sido" && !!districtConf && !!selected?.code;
 
   // 시도 지도(지선 광역/지방의원 / 총선 시도집계 / 대선)
   useEffect(() => {
@@ -154,6 +163,7 @@ export default function App() {
       setSelected(isCouncil ? null : { code, office: "광역단체장" });
     } else {
       setSelected({ code, office: sidoOffice });
+      setSelectedDist(null);
     }
   }
   function backToNation() {
@@ -249,9 +259,15 @@ export default function App() {
             )}
           </>
         ) : (
-          <span className="crumb cur">
-            전국 · 국회의원 {showDistrict ? "(지역구 경계)" : "(시도별 의석)"}
-          </span>
+          <>
+            <button className="crumb" onClick={() => { setSelected(null); setSelectedDist(null); }}
+              disabled={showDistrict || !selected?.code}>전국 · 국회의원</button>
+            {showDistrict ? (
+              <><span className="sep">›</span><span className="crumb cur">전체 지역구 경계</span></>
+            ) : selected?.code ? (
+              <><span className="sep">›</span><span className="crumb cur">{nameOfSido(selected.code)} 지역구</span></>
+            ) : null}
+          </>
         )}
       </div>
 
@@ -262,6 +278,18 @@ export default function App() {
               <MapDistrict
                 geoUrl={districtConf.topo}
                 winners={districtWin}
+                selectedKey={selectedDist?.key}
+                onSelect={(key, props, w) =>
+                  setSelectedDist({ key, sido: props.SIDO, sgg: props.SGG, party: w?.party, color: w?.color, name: w?.name })}
+              />
+              <Legend mapData={districtLegend} />
+            </>
+          ) : districtZoom ? (
+            <>
+              <MapDistrict
+                geoUrl={districtConf.topo}
+                winners={districtWin}
+                sidoFilter={SIDO_SHORT[selected.code]}
                 selectedKey={selectedDist?.key}
                 onSelect={(key, props, w) =>
                   setSelectedDist({ key, sido: props.SIDO, sgg: props.SGG, party: w?.party, color: w?.color, name: w?.name })}
@@ -348,7 +376,17 @@ export default function App() {
             )}
           </aside>
         ) : type === "총선" ? (
-          selected?.code ? (
+          selectedDist ? (
+            <aside className="detail">
+              <h2>{selectedDist.sido} {selectedDist.sgg} <span className="office-badge">지역구</span></h2>
+              <div className="winner-card" style={{ borderLeftColor: selectedDist.color }}>
+                <div className="wc-label">당선자</div>
+                <div className="wc-name">{selectedDist.name || "—"}</div>
+                <div className="wc-party" style={{ color: selectedDist.color }}>{selectedDist.party}</div>
+              </div>
+              <AssemblyDistrictDetail daesu={districtConf.daesu} dkey={selectedDist.key} />
+            </aside>
+          ) : selected?.code ? (
             <AssemblySidoDetail daesu={electionId - 100} sido={selected.code} sidoName={nameOfSido(selected.code)} />
           ) : (
             <aside className="detail">

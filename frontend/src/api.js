@@ -19,6 +19,9 @@ export const getAssemblyDistrict = (daesu, key) =>
   get("/assembly/district", { daesu, key });
 export const getAssemblySido = (daesu, sido) =>
   get("/assembly/sido", { daesu, sido });
+export const getAssemblyDaesu = () => get("/assembly/daesu");
+export const getAssemblyKeys = (daesu, sido) =>
+  get("/assembly/keys", { daesu, sido });
 export const getCouncilMap = (hoecha, sgtype, parent) =>
   get("/council/map", { hoecha, sgtype, ...(parent ? { parent } : {}) });
 export const getCouncilDetail = (hoecha, sigungu_code) =>

@@ -414,6 +414,25 @@ def precinct_lookup(daesu: int, sigungu_code: str, mode: str = "투표구"):
     return {"candidates": clist, "rows": rows}
 
 
+@api.get("/assembly/daesu")
+def assembly_daesu():
+    """투표구별(gukhoe_precinct) 보유 총선 대수 — 투표소 조회용."""
+    rows = q("SELECT DISTINCT daesu FROM gukhoe_precinct ORDER BY daesu DESC")
+    return [{"daesu": r["daesu"], "name": f"제{r['daesu']}대 국회의원선거"} for r in rows]
+
+
+@api.get("/assembly/keys")
+def assembly_keys(daesu: int, sido: str):
+    """총선 시도의 선거구 키 목록(SIDO_SGG) — 투표소 조회 드릴다운. sido=시도코드."""
+    short = next((s for s, c in SIDO_CODE.items() if c == sido), sido)
+    rows = q("SELECT DISTINCT key FROM gukhoe_cand WHERE daesu=? AND key LIKE ?",
+             (daesu, short + " %"))
+    out = [{"key": r["key"], "sgg": r["key"].split(" ", 1)[1] if " " in r["key"] else r["key"]}
+           for r in rows]
+    out.sort(key=lambda x: _sgg_sort_key(x["sgg"]))
+    return out
+
+
 @api.get("/assembly/district")
 def assembly_district(daesu: int, key: str):
     """총선 선거구 상세: 후보 전원(낙선 포함) + 투표구별 득표.
