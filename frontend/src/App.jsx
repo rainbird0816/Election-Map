@@ -36,7 +36,7 @@ export default function App() {
   const [elections, setElections] = useState([]);
   const [presList, setPresList] = useState([]);
   const [daesu, setDaesu] = useState(null);
-  const [type, setType] = useState("지선");
+  const [type, setType] = useState("개관");
   const [electionId, setElectionId] = useState(null);
   const [error, setError] = useState(null);
 
@@ -179,7 +179,7 @@ export default function App() {
       <header className="topbar">
         <h1>한국 선거 지도</h1>
         <nav className="tabs">
-          {["지선", "총선", "대선", "투표소", "개관"].map((t) => (
+          {["개관", "대선", "총선", "지선", "투표소"].map((t) => (
             <button key={t} className={`tab ${type === t ? "active" : ""}`} onClick={() => setType(t)}>
               {t === "지선" ? "지방선거" : t === "총선" ? "국회의원" : t === "대선" ? "대통령"
                 : t === "투표소" ? "투표소 조회" : "개관"}

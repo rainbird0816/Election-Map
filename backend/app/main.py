@@ -261,7 +261,8 @@ def council_pr(hoecha: int, sgtype: int, sido: str | None = None, sigungu: str |
     return {"scope": scope, "label": lab, "total": len(rows), "parties": parties}
 
 
-PRES_YEAR = {16: 2002, 17: 2007, 18: 2012, 19: 2017, 20: 2022, 21: 2025}
+PRES_YEAR = {13: 1987, 14: 1992, 15: 1997, 16: 2002, 17: 2007, 18: 2012,
+             19: 2017, 20: 2022, 21: 2025}
 
 
 def _pres_cands(daesu):
@@ -329,10 +330,12 @@ def president_region(daesu: int, region_code: str):
 # 정당 -> 진영(대선 추이용)
 CAMP = {
     "민주": {"새천년민주당", "열린우리당", "대통합민주신당", "민주통합당", "더불어민주당",
-            "민주당", "새정치민주연합", "새정치국민회의"},
-    "보수": {"한나라당", "새누리당", "자유한국당", "미래통합당", "국민의힘", "신한국당"},
-    "진보": {"민주노동당", "통합진보당", "정의당", "진보당", "민중연합당"},
-    "중도": {"국민의당", "바른정당", "개혁신당", "국민중심당", "창조한국당"},
+            "민주당", "새정치민주연합", "새정치국민회의", "평화민주당", "통일민주당"},
+    "보수": {"한나라당", "새누리당", "자유한국당", "미래통합당", "국민의힘", "신한국당",
+            "민주정의당", "민주자유당"},
+    "진보": {"민주노동당", "통합진보당", "정의당", "진보당", "민중연합당", "국민승리21"},
+    "중도": {"국민의당", "바른정당", "개혁신당", "국민중심당", "창조한국당",
+            "신민주공화당", "통일국민당", "국민신당", "신정치개혁당"},
 }
 CAMP_COLOR = {"민주": "#152484", "보수": "#E61E2B", "진보": "#D6001C", "중도": "#FF7920", "기타": "#9E9E9E"}
 
@@ -454,52 +457,83 @@ _ASM_YEAR = {14: 1992, 15: 1996, 16: 2000, 17: 2004, 18: 2008, 19: 2012, 20: 201
 _HOE_YEAR = {3: 2002, 4: 2006, 5: 2010, 6: 2014, 7: 2018, 8: 2022}
 
 
-@api.get("/overview")
-def overview(kind: str, sgtype: int | None = None, office: str | None = None):
-    """개관(데이터 사실 분석): 회차별 정당 의석/당선 시계열. 프론트가 헤드라인·Δ·추이 렌더."""
-    colors = _party_colors()
-    series = []
+# 계열(lineage) 라벨별 대표색 — 개관 계열 묶기용
+LINEAGE_COLOR = {
+    "민주당계": "#152484", "보수계(국민의힘)": "#E61E2B", "진보정당계(정의당)": "#E5007F",
+    "충청계(자민련/선진당)": "#0F8B8D", "국민의당/제3지대": "#FF7920",
+    "무소속": "#888888", "기타/군소정당": "#9E9E9E",
+}
+ETC_LABEL = "기타/군소정당"
 
-    def pack(eid, label, year, rows, vkey="n"):
-        ps = [{"party": r["party"], "color": colors.get(r["party"], "#bbb"), "seats": r[vkey]}
-              for r in rows if r[vkey]]
-        ps.sort(key=lambda x: -x["seats"])
-        if ps:
-            series.append({"id": eid, "label": label, "year": year, "parties": ps})
+
+def _lineage_map():
+    """정당명 -> 계열 라벨. parties.lineage_id LEFT JOIN party_lineage."""
+    rows = q("SELECT p.name, l.label FROM parties p "
+             "LEFT JOIN party_lineage l ON l.id = p.lineage_id")
+    return {r["name"]: (r["label"] or ETC_LABEL) for r in rows}
+
+
+@api.get("/overview")
+def overview(kind: str, sgtype: int | None = None, office: str | None = None,
+             group: str = "lineage"):
+    """개관: 회차별 정당/계열 의석·당선·득표 시계열. 프론트가 헤드라인·Δ·추이·판단 렌더.
+    group=lineage(계열별, 개명·통합 정당 묶음) | party(개별 정당)."""
+    colors = _party_colors()
+    lin = _lineage_map()
+    raw = []   # [{id,label,year, agg:{name:value}}]
 
     if kind == "assembly":
         for d in range(14, 23):
-            pack(d, f"{d}대", _ASM_YEAR[d],
-                 q("SELECT party, COUNT(*) n FROM assembly_sgg WHERE daesu=? AND elected=1 GROUP BY party", (d,)))
+            rows = q("SELECT party, COUNT(*) n FROM assembly_sgg WHERE daesu=? AND elected=1 GROUP BY party", (d,))
+            raw.append({"id": d, "label": f"{d}대", "year": _ASM_YEAR[d],
+                        "agg": {r["party"]: r["n"] for r in rows if r["n"]}})
         unit = "석"
     elif kind == "council":
         for h in range(3, 9):
-            pack(h, f"{h}회", _HOE_YEAR[h],
-                 q("SELECT party, COUNT(*) n FROM council WHERE hoecha=? AND sgtype=? AND elected=1 GROUP BY party", (h, sgtype)))
+            rows = q("SELECT party, COUNT(*) n FROM council WHERE hoecha=? AND sgtype=? AND elected=1 GROUP BY party", (h, sgtype))
+            raw.append({"id": h, "label": f"{h}회", "year": _HOE_YEAR[h],
+                        "agg": {r["party"]: r["n"] for r in rows if r["n"]}})
         unit = "석"
     elif kind == "local":
         for h in range(3, 9):
-            pack(h, f"{h}회", _HOE_YEAR[h],
-                 q("SELECT p.name party, COUNT(*) n FROM candidates c JOIN parties p ON p.id=c.party_id "
-                   "WHERE c.office=? AND c.election_id=? AND c.is_elected=1 GROUP BY p.name", (office, h)))
+            rows = q("SELECT p.name party, COUNT(*) n FROM candidates c JOIN parties p ON p.id=c.party_id "
+                     "WHERE c.office=? AND c.election_id=? AND c.is_elected=1 GROUP BY p.name", (office, h))
+            raw.append({"id": h, "label": f"{h}회", "year": _HOE_YEAR[h],
+                        "agg": {r["party"]: r["n"] for r in rows if r["n"]}})
         unit = "명"
     elif kind == "president":
-        for d in range(16, 22):
+        for d in range(13, 22):
             cands = _pres_cands(d)
             rows = q("SELECT idx, SUM(votes) v FROM pres_region WHERE daesu=? AND level='시도' GROUP BY idx", (d,))
+            if not rows:
+                continue
             agg = {}
             for r in rows:
                 p = cands.get(r["idx"], {}).get("party")
-                agg[p] = agg.get(p, 0) + (r["v"] or 0)
+                if p:
+                    agg[p] = agg.get(p, 0) + (r["v"] or 0)
             tot = sum(agg.values()) or 1
-            ps = sorted([{"party": k, "color": colors.get(k, "#bbb"), "seats": round(v / tot * 100, 1)}
-                         for k, v in agg.items()], key=lambda x: -x["seats"])
-            if ps:
-                series.append({"id": d, "label": f"{d}대", "year": PRES_YEAR[d], "parties": ps})
+            raw.append({"id": d, "label": f"{d}대", "year": PRES_YEAR[d],
+                        "agg": {k: round(v / tot * 100, 1) for k, v in agg.items()}})
         unit = "%"
     else:
         raise HTTPException(400, f"unknown kind: {kind}")
-    return {"kind": kind, "unit": unit, "series": series}
+
+    series = []
+    for s in raw:
+        bucket = {}
+        for name, val in s["agg"].items():
+            if group == "lineage":
+                key = lin.get(name, ETC_LABEL)
+                color = LINEAGE_COLOR.get(key, "#9E9E9E")
+            else:
+                key, color = name, colors.get(name, "#bbb")
+            b = bucket.setdefault(key, {"party": key, "color": color, "seats": 0})
+            b["seats"] = round(b["seats"] + val, 1) if unit == "%" else b["seats"] + val
+        ps = sorted(bucket.values(), key=lambda x: -x["seats"])
+        if ps:
+            series.append({"id": s["id"], "label": s["label"], "year": s["year"], "parties": ps})
+    return {"kind": kind, "unit": unit, "group": group, "series": series}
 
 
 @api.get("/precinct/trend")

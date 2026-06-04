@@ -150,3 +150,6 @@ body { margin: 0; color: #1a1a1a; background: #fafafa; }
 .ov-headline { font-size: 14px; margin: 4px 0 10px; }
 .ov-table td.up { color: #c0392b; font-weight: 700; }
 .ov-table td.down { color: #1c63d6; font-weight: 700; }
+.ov-insight { grid-column: 1 / -1; }
+.insight-list { margin: 6px 0 0; padding-left: 18px; font-size: 13.5px; line-height: 1.9; }
+.insight-list li { margin-bottom: 2px; }

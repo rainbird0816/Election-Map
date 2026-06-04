@@ -1,8 +1,27 @@
 import { useEffect, useState } from "react";
-import { getRegionResults, getRegionHistory, getCouncilDetail } from "../api";
+import { getRegionResults, getRegionHistory, getCouncilDetail, getCouncilPr } from "../api";
 import CouncilSeatsPanel from "../components/CouncilSeatsPanel.jsx";
 
 const fmt = (n) => (n == null ? "무투표" : Number(n).toLocaleString());
+
+// 비례대표(광역비례 8 / 기초비례 9): 정당별 의석 + 당선자 명단
+function PrSection({ pr }) {
+  if (!pr?.parties?.length) return <p className="muted">데이터 없음</p>;
+  return (
+    <table className="cand-table">
+      <tbody>
+        {pr.parties.map((p, i) => (
+          <tr key={i}>
+            <td><span className="dot" style={{ background: p.color || "#bbb" }} /></td>
+            <td>{p.party}</td>
+            <td className="num">{p.seats}석</td>
+            <td>{(p.names || []).join(", ")}</td>
+          </tr>
+        ))}
+      </tbody>
+    </table>
+  );
+}
 
 function CandTable({ rows, winnerTag = "당선" }) {
   if (!rows?.length) return <p className="muted">데이터 없음</p>;
@@ -29,14 +48,19 @@ export default function SigunguDashboard({ hoecha, sggCode, sggName, sidoCode, s
   const [basic, setBasic] = useState(null);
   const [hist, setHist] = useState(null);
   const [council, setCouncil] = useState(null);
+  const [prMetro, setPrMetro] = useState(null); // 광역비례(시도 단위)
+  const [prBasic, setPrBasic] = useState(null); // 기초비례(시군구 단위)
 
   useEffect(() => {
     setMetro(null); setBasic(null); setHist(null); setCouncil(null);
+    setPrMetro(null); setPrBasic(null);
     if (!hoecha || !sggCode) return;
     getRegionResults(sidoCode, hoecha).then(setMetro).catch(() => setMetro([]));
     getRegionResults(sggCode, hoecha).then(setBasic).catch(() => setBasic([]));
     getRegionHistory(sggCode, "기초단체장").then(setHist).catch(() => setHist(null));
     getCouncilDetail(hoecha, sggCode).then(setCouncil).catch(() => setCouncil([]));
+    if (sidoCode) getCouncilPr(hoecha, 8, sidoCode).then(setPrMetro).catch(() => setPrMetro(null));
+    getCouncilPr(hoecha, 9, null, sggCode).then(setPrBasic).catch(() => setPrBasic(null));
   }, [hoecha, sggCode, sidoCode]);
 
   const metroWin = metro?.[0];
@@ -76,6 +100,9 @@ export default function SigunguDashboard({ hoecha, sggCode, sggName, sidoCode, s
         </div>
       )) : <p className="muted">데이터 없음</p>}
 
+      <h3 className="sec-title">광역비례의원 <span className="muted">({sidoName} 시·도 비례, 당선자)</span></h3>
+      <PrSection pr={prMetro} />
+
       <h3 className="sec-title">기초의원 (구·시·군의원)</h3>
       {Object.keys(groups[6]).length ? Object.entries(groups[6]).map(([sgg, cands]) => (
         <div key={sgg} className="sgg-block">
@@ -83,6 +110,9 @@ export default function SigunguDashboard({ hoecha, sggCode, sggName, sidoCode, s
           <CandTable rows={cands} />
         </div>
       )) : <p className="muted">데이터 없음</p>}
+
+      <h3 className="sec-title">기초비례의원 <span className="muted">({sggName} 비례, 당선자)</span></h3>
+      <PrSection pr={prBasic} />
 
       {hist?.winners?.length > 0 && (
         <>
