@@ -1,0 +1,8 @@
+{
+  "name": "korea-election-map",
+  "private": true,
+  "description": "한국 선거 결과 지도 — Vercel 모노레포 루트(프론트 빌드 스크립트)",
+  "scripts": {
+    "build": "npm --prefix frontend install && npm --prefix frontend run build"
+  }
+}
