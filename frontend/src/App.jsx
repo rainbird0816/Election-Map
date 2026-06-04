@@ -5,6 +5,7 @@ import MapDistrict from "./maps/MapDistrict.jsx";
 import Legend from "./components/Legend.jsx";
 import RegionDetail from "./pages/RegionDetail.jsx";
 import AssemblyDistrictDetail from "./pages/AssemblyDistrictDetail.jsx";
+import AssemblySidoDetail from "./pages/AssemblySidoDetail.jsx";
 import CouncilDetail from "./pages/CouncilDetail.jsx";
 import PresidentDetail from "./pages/PresidentDetail.jsx";
 import SummaryPanel from "./pages/SummaryPanel.jsx";
@@ -39,7 +40,7 @@ export default function App() {
   // 지선 직책 토글(단체장/교육감/지방의원), 총선 선거구 경계
   const [superView, setSuperView] = useState("단체장");
   const [councilType, setCouncilType] = useState(5); // 5 광역의원 / 6 기초의원
-  const [assemblyView, setAssemblyView] = useState("district");
+  const [assemblyView, setAssemblyView] = useState("sido");
   const [districtWin, setDistrictWin] = useState(null);
   const [selectedDist, setSelectedDist] = useState(null); // {key, sido, sgg, party, color}
 
@@ -57,7 +58,7 @@ export default function App() {
     setSelected(null);
     setSelectedDist(null);
     setSigunguMap([]);
-    setAssemblyView("district");
+    setAssemblyView("sido");
     setSuperView("단체장");
     if (isPres) {
       if (presList.length) setDaesu(presList[presList.length - 1].daesu);
@@ -190,7 +191,7 @@ export default function App() {
         )}
         {type === "총선" && districtConf && (
           <nav className="tabs subtabs">
-            {[["district", "지역구 경계"], ["sido", "시도 집계"]].map(([v, label]) => (
+            {[["sido", "시도별 지역구"], ["district", "전체 지역구 지도"]].map(([v, label]) => (
               <button key={v} className={`tab ${assemblyView === v ? "active" : ""}`} onClick={() => setAssemblyView(v)}>
                 {label}
               </button>
@@ -340,6 +341,14 @@ export default function App() {
               <div className="detail empty">이 회차의 지방의원 데이터는 아직 없습니다.</div>
             )}
           </aside>
+        ) : type === "총선" ? (
+          selected?.code ? (
+            <AssemblySidoDetail daesu={electionId - 100} sido={selected.code} sidoName={nameOfSido(selected.code)} />
+          ) : (
+            <aside className="detail">
+              <SummaryPanel params={summaryParams} label="시도를 클릭하면 그 시도의 지역구별 결과가 보입니다." />
+            </aside>
+          )
         ) : selected?.code ? (
           <RegionDetail code={selected.code} electionId={electionId} office={selected.office || sidoOffice} />
         ) : (

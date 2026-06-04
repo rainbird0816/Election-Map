@@ -100,6 +100,25 @@ SIDO_CODE = {
 }
 
 
+# 선거구명 자연순 정렬: 제N(숫자 오름차순) → 갑을병정 → 가나다…하·거…(중선거구 letter)
+_KR = ("가나다라마바사아자차카타파하" "거너더러머버서어저처커터퍼허"
+       "고노도로모보소오조초코토포호" "구누두루무부수우주추쿠투푸후")
+_GAP = "갑을병정무기경신임계"
+
+
+def _sgg_sort_key(name):
+    import re
+    s = (name or "").replace("선거구", "")
+    m = re.search(r"제(\d+)$", s)
+    if m:
+        return (s[:m.start()], 0, int(m.group(1)))
+    if s and s[-1] in _GAP:
+        return (s[:-1], 1, _GAP.index(s[-1]))
+    if len(s) > 1 and s[-1] in _KR:
+        return (s[:-1], 2, _KR.index(s[-1]))
+    return (s, 3, 0)
+
+
 def _top_parties(rows, code_field):
     """[(region_key, party, color, seats)] -> region별 {top_parties, winner}."""
     by = {}
@@ -147,13 +166,38 @@ def council_map(hoecha: int, sgtype: int, parent: str | None = None):
 
 @api.get("/council/detail")
 def council_detail(hoecha: int, sigungu_code: str):
-    """시군구의 광역의원·기초의원 선거구별 후보(낙선 포함)."""
-    return q(
+    """시군구의 광역의원·기초의원 선거구별 후보(낙선 포함). 선거구 자연순."""
+    rows = q(
         "SELECT c.sgtype, c.sgg, c.idx, c.party, c.name, c.votes, c.rate, c.elected, p.color_hex "
         "FROM council c LEFT JOIN parties p ON p.name=c.party "
-        "WHERE c.hoecha=? AND c.sigungu_code=? "
-        "ORDER BY c.sgtype, c.sgg, c.elected DESC, c.votes DESC",
+        "WHERE c.hoecha=? AND c.sigungu_code=?",
         (hoecha, sigungu_code))
+    rows.sort(key=lambda r: (r["sgtype"], _sgg_sort_key(r["sgg"]),
+                             0 if r["elected"] else 1, -(r["votes"] or 0)))
+    return rows
+
+
+@api.get("/assembly/sido")
+def assembly_sido(daesu: int, sido: str):
+    """총선 시도 드릴다운: 해당 시도의 선거구별 후보(낙선 포함), 자연순.
+    sido = 시도 코드(예 '11')."""
+    short = next((s for s, c in SIDO_CODE.items() if c == sido), sido)
+    colors = _party_colors()
+    rows = q("SELECT sgg, idx, party, name, votes, rate, elected FROM assembly_sgg "
+             "WHERE daesu=? AND sido=?", (daesu, short))
+    by = {}
+    for r in rows:
+        by.setdefault(r["sgg"], []).append(r)
+    out = []
+    for sgg, cs in by.items():
+        cs.sort(key=lambda x: (0 if x["elected"] else 1, -(x["votes"] or 0)))
+        for c in cs:
+            c["color_hex"] = colors.get(c["party"], "#bbb")
+        win = cs[0]
+        out.append({"sgg": sgg, "winner_name": win["name"], "winner_party": win["party"],
+                    "color_hex": win["color_hex"], "candidates": cs})
+    out.sort(key=lambda x: _sgg_sort_key(x["sgg"]))
+    return out
 
 
 PRES_YEAR = {16: 2002, 17: 2007, 18: 2012, 19: 2017, 20: 2022, 21: 2025}

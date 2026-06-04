@@ -17,6 +17,8 @@ export const getRegionResults = (code, electionId) =>
   get(`/region/${code}/results`, { election_id: electionId });
 export const getAssemblyDistrict = (daesu, key) =>
   get("/assembly/district", { daesu, key });
+export const getAssemblySido = (daesu, sido) =>
+  get("/assembly/sido", { daesu, sido });
 export const getCouncilMap = (hoecha, sgtype, parent) =>
   get("/council/map", { hoecha, sgtype, ...(parent ? { parent } : {}) });
 export const getCouncilDetail = (hoecha, sigungu_code) =>
