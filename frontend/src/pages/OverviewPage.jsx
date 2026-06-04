@@ -23,7 +23,7 @@ function buildInsights(series, unit, group) {
   let changes = 0;
   for (let i = 1; i < winners.length; i++) if (winners[i] !== winners[i - 1]) changes++;
   const span = `${series[0].label}~${series[series.length - 1].label}`;
-  out.push(`${span} ${series.length}번의 선거에서 1위 ${ent}이(가) ${changes}번 교체됐습니다${changes === 0 ? " — 줄곧 한 세력이 우위" : ""}.`);
+  out.push(`${span} ${series.length}번의 선거에서 1위 ${ent}이 ${changes}번 교체됐습니다${changes === 0 ? " — 줄곧 한 세력이 우위" : ""}.`);
 
   let best = 1, cur = 1, bestP = winners[0];
   for (let i = 1; i < winners.length; i++) {
