@@ -13,6 +13,7 @@ import PrecinctLookup from "./pages/PrecinctLookup.jsx";
 import SigunguDashboard from "./pages/SigunguDashboard.jsx";
 import PrDetail from "./pages/PrDetail.jsx";
 import OverviewPage from "./pages/OverviewPage.jsx";
+import CouncilSeatsPanel from "./components/CouncilSeatsPanel.jsx";
 import { getElections, getMap, getCouncilMap, getPresidentElections, getPresidentMap } from "./api";
 
 // 지방의원 데이터가 있는 지선 회차
@@ -373,22 +374,16 @@ export default function App() {
           />
         ) : isCouncil ? (
           <aside className="detail">
-            {view === "sigungu" && selected?.code ? (
-              <CouncilDetail
-                hoecha={electionId}
-                code={selected.code}
-                name={sigunguMap.find((d) => d.region_code === selected.code)?.region_name || "선거구"}
-              />
-            ) : COUNCIL_HOECHA.has(electionId) ? (
-              <SummaryPanel
-                params={view === "sigungu" && sido?.code
-                  ? { kind: "council", hoecha: electionId, sgtype: councilType, sido: sido.code }
-                  : summaryParams}
-                label={view === "sigungu"
-                  ? `${sido?.name} · 시군구를 클릭하면 선거구별 결과가 보입니다.`
-                  : "시도를 클릭하면 그 시도 요약이, 시군구를 클릭하면 상세가 보입니다."} />
-            ) : (
+            {!COUNCIL_HOECHA.has(electionId) ? (
               <div className="detail empty">이 회차의 지방의원 데이터는 아직 없습니다.</div>
+            ) : view === "sigungu" && sido?.code ? (
+              <>
+                <h2>{sido.name} <span className="office-badge">광역의회</span></h2>
+                <CouncilSeatsPanel hoecha={electionId} level="metro" sido={sido.code} heading={false} />
+                <p className="muted">시군구를 클릭하면 그 기초자치단체 종합(기초의회 포함)이 보입니다.</p>
+              </>
+            ) : (
+              <SummaryPanel params={summaryParams} label="시도를 클릭하면 광역의회, 시군구를 클릭하면 기초의회 의석분포가 보입니다." />
             )}
           </aside>
         ) : type === "총선" ? (

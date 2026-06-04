@@ -1,19 +1,8 @@
 import { useEffect, useState } from "react";
 import { getRegionResults, getRegionHistory, getCouncilDetail } from "../api";
-import SeatChart from "../components/SeatChart.jsx";
+import CouncilSeatsPanel from "../components/CouncilSeatsPanel.jsx";
 
 const fmt = (n) => (n == null ? "무투표" : Number(n).toLocaleString());
-
-// 정당별 의석 집계 -> SeatChart rows
-function seatRows(council, sgtype) {
-  const agg = {};
-  for (const r of council || []) {
-    if ((sgtype && r.sgtype !== sgtype) || !r.elected) continue;
-    const a = agg[r.party] || (agg[r.party] = { label: r.party, color: r.color_hex || "#bbb", value: 0 });
-    a.value += 1;
-  }
-  return Object.values(agg).sort((a, b) => b.value - a.value);
-}
 
 function CandTable({ rows, winnerTag = "당선" }) {
   if (!rows?.length) return <p className="muted">데이터 없음</p>;
@@ -62,15 +51,8 @@ export default function SigunguDashboard({ hoecha, sggCode, sggName, sidoCode, s
     <aside className="detail">
       <h2>{sidoName} {sggName} <span className="office-badge">종합</span></h2>
 
-      <h3 className="sec-title">의석 분포 <span className="muted">(기초자치단체 · 광역+기초의원)</span></h3>
-      <SeatChart rows={seatRows(council)} />
-      <div className="mini-legend">
-        {seatRows(council).map((r) => (
-          <span key={r.label} className="legend-item">
-            <span className="swatch sm" style={{ background: r.color }} />{r.label} {r.value}
-          </span>
-        ))}
-      </div>
+      <h3 className="sec-title">기초의회 의석분포 <span className="muted">(기초의원+기초비례)</span></h3>
+      <CouncilSeatsPanel hoecha={hoecha} level="basic" sigungu={sggCode} heading={false} />
 
       <h3 className="sec-title">광역단체장 <span className="muted">({sidoName} 시·도지사)</span></h3>
       {metroWin ? (

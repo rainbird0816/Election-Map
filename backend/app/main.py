@@ -119,8 +119,11 @@ def _sgg_sort_key(name):
     return (s, 3, 0)
 
 
+TIE_COLOR = "#888888"  # 무소속 = 동률(경합)
+
+
 def _top_parties(rows, code_field):
-    """[(region_key, party, color, seats)] -> region별 {top_parties, winner}."""
+    """[(region_key, party, color, seats)] -> region별 {top_parties, winner}. 동률이면 경합색."""
     by = {}
     for r in rows:
         by.setdefault(r[code_field], []).append(r)
@@ -128,14 +131,46 @@ def _top_parties(rows, code_field):
     for key, lst in by.items():
         lst = sorted(lst, key=lambda x: -x["seats"])
         top = lst[0]
+        tie = len(lst) > 1 and lst[1]["seats"] == top["seats"]
         out.append({
             "region_code": top.get("region_code", key),
             "region_name": top.get("region_name", key),
-            "winner_party": top["party"], "color_hex": top["color_hex"],
-            "winner_seats": top["seats"],
+            "winner_party": "경합" if tie else top["party"],
+            "color_hex": TIE_COLOR if tie else top["color_hex"],
+            "winner_seats": top["seats"], "tie": tie,
             "top_parties_json": [{"party": x["party"], "color": x["color_hex"], "seats": x["seats"]} for x in lst],
         })
     return out
+
+
+@api.get("/council/seats")
+def council_seats(hoecha: int, level: str, sido: str | None = None, sigungu: str | None = None):
+    """지방의회 구성 의석: metro=광역의원+광역비례(5+8), basic=기초의원+기초비례(6+9). 동률→경합."""
+    colors = _party_colors()
+    sgtypes = (5, 8) if level == "metro" else (6, 9)
+    where = "hoecha=? AND sgtype IN (?,?) AND elected=1"
+    args = [hoecha, *sgtypes]
+    scope = "전국"
+    if sigungu:
+        where += " AND sigungu_code=?"
+        args.append(sigungu)
+        r = q("SELECT name FROM regions WHERE code=?", (sigungu,))
+        scope = r[0]["name"] if r else "시군구"
+    elif sido:
+        short = next((s for s, c in SIDO_CODE.items() if c == sido), sido)
+        where += " AND sido=?"
+        args.append(short)
+        scope = short
+    rows = q(f"SELECT party, COUNT(*) n FROM council WHERE {where} GROUP BY party", tuple(args))
+    parties = sorted([{"party": r["party"], "color": colors.get(r["party"], "#bbb"), "seats": r["n"]}
+                      for r in rows], key=lambda x: -x["seats"])
+    total = sum(p["seats"] for p in parties)
+    tie = len(parties) > 1 and parties[1]["seats"] == parties[0]["seats"]
+    label = "광역의회 (광역의원+비례)" if level == "metro" else "기초의회 (기초의원+비례)"
+    return {"scope": scope, "label": label, "total": total, "parties": parties,
+            "winner_party": "경합" if tie else (parties[0]["party"] if parties else None),
+            "winner_color": TIE_COLOR if tie else (parties[0]["color"] if parties else "#bbb"),
+            "tie": tie}
 
 
 @api.get("/council/map")
