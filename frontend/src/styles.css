@@ -1,0 +1,114 @@
+:root {
+  --line: #e3e3e3;
+  --muted: #888;
+  font-family: -apple-system, "Segoe UI", "Malgun Gothic", sans-serif;
+}
+* { box-sizing: border-box; }
+body { margin: 0; color: #1a1a1a; background: #fafafa; }
+
+.topbar {
+  display: flex; align-items: center; gap: 16px;
+  padding: 12px 20px; border-bottom: 1px solid var(--line); background: #fff;
+}
+.topbar h1 { font-size: 18px; margin: 0; }
+.tabs .tab {
+  border: 1px solid var(--line); background: #f3f4f6; border-radius: 999px;
+  padding: 6px 14px; font-size: 13px; cursor: pointer;
+}
+.tabs .tab.active { background: #111; color: #fff; border-color: #111; }
+.subtabs .tab { font-size: 12px; padding: 4px 10px; }
+.subtabs .tab.active { background: #2563eb; border-color: #2563eb; }
+.selector { margin-left: auto; font-size: 14px; }
+.selector select { padding: 5px 8px; font-size: 14px; }
+
+.crumbs { display: flex; align-items: center; gap: 8px; padding: 8px 20px 0; font-size: 13px; }
+.crumb { background: none; border: none; color: #2563eb; cursor: pointer; padding: 2px 4px; font-size: 13px; }
+.crumb:disabled { color: #999; cursor: default; }
+.crumb.cur { color: #111; font-weight: 700; }
+.crumbs .sep { color: #bbb; }
+.map-loading { padding: 40px; color: var(--muted); text-align: center; }
+.office-badge { font-size: 12px; font-weight: 600; color: #fff; background: #555; border-radius: 6px; padding: 2px 7px; vertical-align: middle; }
+
+.error { background: #fde8e8; color: #b91c1c; padding: 8px 20px; font-size: 14px; }
+.hint  { background: #fff7ed; color: #9a3412; padding: 8px 20px; font-size: 14px; }
+
+.layout { display: grid; grid-template-columns: minmax(360px, 1fr) 420px; gap: 8px; }
+.map-pane { padding: 12px 20px; }
+
+.legend { display: flex; flex-wrap: wrap; gap: 12px; margin-top: 8px; font-size: 13px; }
+.legend-item { display: inline-flex; align-items: center; gap: 5px; }
+.swatch { width: 13px; height: 13px; border-radius: 3px; display: inline-block; border: 1px solid rgba(0,0,0,.15); }
+.swatch.sm { width: 10px; height: 10px; }
+
+.detail {
+  border-left: 1px solid var(--line); background: #fff; padding: 16px 18px;
+  min-height: calc(100vh - 56px); overflow-y: auto;
+}
+.detail.empty, .detail .muted { color: var(--muted); }
+.detail h2 { margin: 0 0 12px; font-size: 20px; }
+.detail h3 { margin: 20px 0 8px; font-size: 15px; }
+
+.winner-card {
+  border: 1px solid var(--line); border-left: 5px solid #ccc;
+  border-radius: 8px; padding: 10px 14px; margin-bottom: 12px;
+}
+.wc-label { font-size: 12px; color: var(--muted); }
+.wc-name { font-size: 18px; font-weight: 700; }
+.wc-party { font-size: 14px; font-weight: 600; }
+
+.results-table, .winners-list { width: 100%; font-size: 13px; }
+.results-table { border-collapse: collapse; }
+.results-table th, .results-table td { text-align: left; padding: 5px 6px; border-bottom: 1px solid var(--line); }
+.results-table td:nth-child(3), .results-table td:nth-child(4) { text-align: right; }
+.results-table tr.elected { font-weight: 700; background: #f9fafb; }
+
+.winners-list { list-style: none; padding: 0; margin: 0; }
+.winners-list li { display: flex; align-items: center; gap: 8px; padding: 4px 0; border-bottom: 1px solid #f0f0f0; }
+.winners-list .yr { width: 42px; color: var(--muted); }
+
+.seatbars { margin: 6px 0 4px; }
+.seatrow { display: flex; align-items: center; gap: 8px; font-size: 13px; margin: 3px 0; }
+.seatlabel { width: 116px; display: inline-flex; align-items: center; gap: 5px; }
+.seatbar { flex: 1; background: #f0f0f0; border-radius: 3px; height: 14px; overflow: hidden; }
+.seatbar i { display: block; height: 100%; }
+.seatnum { width: 28px; text-align: right; font-weight: 700; }
+.winners-list .party { margin-left: auto; color: var(--muted); }
+
+/* 총선 선거구 상세: 후보표 + 투표구표 */
+.sec-title { margin: 18px 0 8px; font-size: 15px; }
+.sec-title .muted { font-weight: 400; font-size: 12px; }
+.cand-table { width: 100%; border-collapse: collapse; font-size: 13px; }
+.cand-table th, .cand-table td { padding: 5px 6px; border-bottom: 1px solid var(--line); text-align: left; }
+.cand-table th.num, .cand-table td.num { text-align: right; font-variant-numeric: tabular-nums; }
+.cand-table tr.elected-row { font-weight: 700; background: #f9fafb; }
+.dot { display: inline-block; width: 11px; height: 11px; border-radius: 50%; border: 1px solid rgba(0,0,0,.15); }
+.win-tag { margin-left: 6px; font-size: 11px; color: #fff; background: #2563eb; border-radius: 3px; padding: 1px 5px; }
+.link-btn { margin: 14px 0 6px; background: none; border: none; color: #2563eb; cursor: pointer; font-size: 13px; padding: 0; }
+.link-btn:hover { text-decoration: underline; }
+.prec-wrap { max-height: 360px; overflow: auto; border: 1px solid var(--line); border-radius: 6px; }
+.prec-table { width: 100%; border-collapse: collapse; font-size: 12px; }
+.prec-table th, .prec-table td { padding: 3px 6px; border-bottom: 1px solid #f0f0f0; white-space: nowrap; }
+.prec-table th { position: sticky; top: 0; background: #fafafa; text-align: right; }
+.prec-table th:first-child, .prec-table td:first-child,
+.prec-table th:nth-child(2), .prec-table td:nth-child(2) { text-align: left; }
+.prec-table td.num, .prec-table th.num { text-align: right; font-variant-numeric: tabular-nums; }
+
+/* 지방의원 상세 */
+.sgg-block { margin: 6px 0 12px; }
+.sgg-name { font-weight: 700; font-size: 13px; margin: 8px 0 2px; color: #333; }
+.office-badge { font-size: 12px; font-weight: 600; color: #fff; background: #6b7280; border-radius: 4px; padding: 2px 7px; vertical-align: middle; }
+
+/* 전국 요약(평가) */
+.summary-note { font-size: 13px; font-weight: 600; color: #333; margin: 2px 0 10px; }
+.seatsub { font-size: 11px; color: var(--muted); margin-left: 6px; }
+
+/* 투표소 조회 페이지 */
+.layout.single { display: block; padding: 16px 24px; }
+.lookup-page h2 { font-size: 20px; margin: 0 0 14px; }
+.lookup-controls { display: flex; flex-wrap: wrap; gap: 14px; align-items: flex-end; margin-bottom: 14px; }
+.lookup-controls label { display: flex; flex-direction: column; font-size: 12px; color: var(--muted); gap: 3px; }
+.lookup-controls select { padding: 5px 8px; font-size: 14px; border: 1px solid var(--line); border-radius: 6px; }
+.seg { display: inline-flex; border: 1px solid var(--line); border-radius: 6px; overflow: hidden; }
+.seg-btn { padding: 6px 14px; background: #fff; border: none; cursor: pointer; font-size: 13px; }
+.seg-btn.active { background: #2563eb; color: #fff; }
+.prec-wrap.tall { max-height: calc(100vh - 230px); }

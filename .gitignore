@@ -1,0 +1,23 @@
+# 파이썬
+**/__pycache__/
+backend/.venv/
+*.pyc
+
+# 비밀(선관위 OpenAPI 키) — 절대 커밋 금지
+backend/.secrets/
+
+# 프론트
+frontend/node_modules/
+frontend/dist/
+
+# 원본 대용량 데이터(개표결과 Excel) — DB로 가공되어 불필요
+data/raw/*.xlsx
+*.bin
+
+# 빌드/배포
+.vercel/
+
+# 주의: backend/db/election.sqlite 는 의도적으로 커밋(배포에 필요)
+
+# 원본 PDF(투표율 출처, DB로 가공됨)
+data/raw/*.pdf
