@@ -58,7 +58,19 @@ cd frontend && npm install
 npm run dev      # http://localhost:5173  (/api -> :8000 프록시, rewrite 없음)
 ```
 
-## 배포 (단일 Docker 컨테이너)
+## 배포 A — Git + Vercel (권장: URL 즉시)
+프론트는 Vercel 정적 호스팅, `/api/*` 는 FastAPI 서버리스 함수(`api/index.py`)로 rewrite, SQLite는 함수에 동봉(`vercel.json`의 includeFiles). 설정 파일 이미 포함.
+```bash
+# 1) GitHub 저장소에 푸시
+git remote add origin https://github.com/<user>/korea-election-map.git
+git push -u origin master
+# 2) vercel.com → Add New Project → 이 저장소 Import → (설정 자동 인식) Deploy
+#    또는 CLI:  npm i -g vercel && vercel --prod
+```
+- `vercel.json`이 빌드(`frontend` Vite)·출력(`frontend/dist`)·`/api` 라우팅·DB 동봉을 자동 구성. 추가 설정 불필요.
+- DB(`backend/db/election.sqlite`)는 git에 커밋되어 있어야 함(이미 커밋). 원본 Excel/PDF·API키는 `.gitignore` 제외.
+
+## 배포 B — 단일 Docker 컨테이너
 FastAPI가 `/api/*`(API)와 빌드된 프론트 정적파일을 함께 서빙. SQLite(읽기전용) 동봉.
 ```bash
 docker build -t korea-election .
