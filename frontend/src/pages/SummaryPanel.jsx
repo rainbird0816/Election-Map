@@ -1,5 +1,6 @@
 import { useEffect, useState } from "react";
 import { getSummary } from "../api";
+import SeatChart from "../components/SeatChart.jsx";
 
 // 전국 요약(선거별 평가). params로 kind/식별자 전달.
 export default function SummaryPanel({ params, label }) {
@@ -16,8 +17,9 @@ export default function SummaryPanel({ params, label }) {
   const max = Math.max(...data.rows.map((r) => r.value)) || 1;
   return (
     <>
-      <h2>{data.title} <span className="office-badge">전국 요약</span></h2>
+      <h2>{data.title} <span className="office-badge">요약</span></h2>
       {data.note && <p className="summary-note">{data.note}</p>}
+      {data.unit !== "%" && <SeatChart rows={data.rows} unit={data.unit} />}
       <div className="seatbars">
         {data.rows.map((r, i) => (
           <div className="seatrow" key={i}>

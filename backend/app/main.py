@@ -326,7 +326,8 @@ def president_national(daesu: int):
 
 @api.get("/summary")
 def summary(kind: str, daesu: int | None = None, election_id: int | None = None,
-            office: str | None = None, hoecha: int | None = None, sgtype: int | None = None):
+            office: str | None = None, hoecha: int | None = None, sgtype: int | None = None,
+            sido: str | None = None, sigungu: str | None = None):
     """선거별 전국 요약(평가). 통일 형식: {title, rows:[{label,color,value,sub}]}."""
     colors = _party_colors()
     if kind == "president":
@@ -354,13 +355,28 @@ def summary(kind: str, daesu: int | None = None, election_id: int | None = None,
                 for k, v in sorted(agg.items(), key=lambda x: -x[1][0])]
         return {"title": f"{office} 당선자 정당분포", "unit": "명", "note": "", "rows": rows}
     if kind == "council":
+        where = "hoecha=? AND sgtype=? AND elected=1"
+        args = [hoecha, sgtype]
+        scope = "전국"
+        if sigungu:
+            where += " AND sigungu_code=?"
+            args.append(sigungu)
+            scope = q("SELECT name FROM regions WHERE code=?", (sigungu,))
+            scope = scope[0]["name"] if scope else "시군구"
+        elif sido:
+            short = next((s for s, c in SIDO_CODE.items() if c == sido), sido)
+            where += " AND sido=?"
+            args.append(short)
+            scope = short
         agg = {}
-        for r in q("SELECT party, COUNT(*) n FROM council WHERE hoecha=? AND sgtype=? AND elected=1 GROUP BY party", (hoecha, sgtype)):
+        for r in q(f"SELECT party, COUNT(*) n FROM council WHERE {where} GROUP BY party", tuple(args)):
             agg[r["party"]] = r["n"]
         lab = "광역의원" if sgtype == 5 else "기초의원"
+        total = sum(agg.values())
         rows = [{"label": k, "color": colors.get(k, "#bbb"), "value": v, "sub": f"{v}석"}
                 for k, v in sorted(agg.items(), key=lambda x: -x[1])]
-        return {"title": f"{lab} 의석 정당분포", "unit": "석", "note": "", "rows": rows}
+        return {"title": f"{scope} {lab} 의석", "unit": "석",
+                "note": f"총 {total}석" if total else "", "rows": rows}
     if kind == "superintendent":
         agg = {}
         for r in q("SELECT top_parties_json FROM region_election_summary WHERE election_id=? AND office='교육감'", (election_id,)):

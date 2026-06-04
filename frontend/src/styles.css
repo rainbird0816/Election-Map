@@ -124,3 +124,9 @@ body { margin: 0; color: #1a1a1a; background: #fafafa; }
 .sgg-win { font-weight: 600; }
 .sgg-party { margin-left: auto; color: var(--muted); font-size: 12px; }
 .sgg-list .cand-table { margin: 0 0 8px 18px; width: calc(100% - 18px); }
+
+/* 의석 도넛 다이어그램 */
+.seatchart { position: relative; margin: 4px 0 6px; }
+.seatchart-center { position: absolute; top: 50%; left: 0; right: 0; transform: translateY(-50%);
+  text-align: center; font-size: 13px; font-weight: 700; pointer-events: none; }
+.mini-legend { display: flex; flex-wrap: wrap; gap: 8px; font-size: 12px; margin: 2px 0 8px; color: #444; }

@@ -336,7 +336,13 @@ export default function App() {
                 name={sigunguMap.find((d) => d.region_code === selected.code)?.region_name || "선거구"}
               />
             ) : COUNCIL_HOECHA.has(electionId) ? (
-              <SummaryPanel params={summaryParams} label="시도를 클릭해 시군구로 들어가면 선거구별 결과가 보입니다." />
+              <SummaryPanel
+                params={view === "sigungu" && sido?.code
+                  ? { kind: "council", hoecha: electionId, sgtype: councilType, sido: sido.code }
+                  : summaryParams}
+                label={view === "sigungu"
+                  ? `${sido?.name} · 시군구를 클릭하면 선거구별 결과가 보입니다.`
+                  : "시도를 클릭하면 그 시도 요약이, 시군구를 클릭하면 상세가 보입니다."} />
             ) : (
               <div className="detail empty">이 회차의 지방의원 데이터는 아직 없습니다.</div>
             )}
