@@ -799,6 +799,146 @@ def winners(level: str = "metro", parent: str | None = None):
     return {"office": office, "columns": columns, "regions": regions}
 
 
+PRES_YEAR = {13: 1987, 14: 1992, 15: 1997, 16: 2002, 17: 2007, 18: 2012,
+             19: 2017, 20: 2022, 21: 2025}
+
+
+@api.get("/region/{code}/timeline")
+def region_timeline(code: str):
+    """한 시군구가 뽑는 모든 선출직의 연도별 후보 전원·당선. 대통령·국회의원·
+    시도지사·시군구청장·광역의원·기초의원·교육감."""
+    reg = q("SELECT code, name, parent_code FROM regions WHERE code=?", (code,))
+    if not reg:
+        raise HTTPException(404, f"unknown region: {code}")
+    reg = reg[0]
+    if len(code) <= 2:
+        raise HTTPException(400, "시군구 코드(5자리)만 지원합니다.")
+    sido_code = reg["parent_code"]
+    sido_short = next((s for s, c in SIDO_CODE.items() if c == sido_code), sido_code)
+    colors = _party_colors()
+    col = lambda p: colors.get(p, "#bbb")
+    sections = []
+
+    # 1) 대통령 (pres_region 구시군)
+    pres = q("""SELECT pr.daesu, pc.name, pc.party, pr.votes, pr.rate
+                FROM pres_region pr JOIN pres_cand pc
+                  ON pc.daesu=pr.daesu AND pc.idx=pr.idx
+                WHERE pr.level='구시군' AND pr.region_code=?
+                ORDER BY pr.daesu, pr.votes DESC""", (code,))
+    pyears = {}
+    for r in pres:
+        y = pyears.setdefault(r["daesu"], {"year": PRES_YEAR.get(r["daesu"]), "label": f"제{r['daesu']}대",
+                                          "candidates": []})
+        y["candidates"].append({"name": r["name"], "party": r["party"], "color": col(r["party"]),
+                                "votes": r["votes"], "rate": r["rate"]})
+    for y in pyears.values():
+        for i, c in enumerate(y["candidates"]):
+            c["elected"] = 1 if i == 0 else 0
+    if pyears:
+        sections.append({"office": "대통령", "kind": "single",
+                         "years": [pyears[k] for k in sorted(pyears)]})
+
+    # 2) 국회의원 (assembly_sgg, 선거구명에 시군구명 포함 — best-effort)
+    asm_year = {r["id"] - 100: r["election_date"][:4]
+                for r in q("SELECT id, election_date FROM elections WHERE type='총선'")}
+    asm = q("""SELECT daesu, sgg, party, name, votes, rate, elected FROM assembly_sgg
+               WHERE sido=? AND sgg LIKE ? ORDER BY daesu, sgg, votes DESC""",
+            (sido_short, f"%{reg['name']}%"))
+    ayears = {}
+    for r in asm:
+        y = ayears.setdefault(r["daesu"], {"year": asm_year.get(r["daesu"]), "label": f"제{r['daesu']}대", "races": {}})
+        race = y["races"].setdefault(r["sgg"], [])
+        race.append({"name": r["name"], "party": r["party"], "color": col(r["party"]),
+                     "votes": r["votes"], "rate": r["rate"], "elected": r["elected"]})
+    if ayears:
+        out = []
+        for k in sorted(ayears):
+            yv = ayears[k]
+            yv["races"] = [{"sgg": s, "candidates": cs} for s, cs in yv["races"].items()]
+            out.append(yv)
+        sections.append({"office": "국회의원", "kind": "races", "years": out})
+
+    # 지선 회차→연도
+    hoe_year = {r["hoecha"]: r["election_date"][:4]
+                for r in q("SELECT hoecha, election_date FROM elections WHERE type='지선'")}
+
+    # 3) 시도지사 (metro_sgg 시군구별 광역단체장 후보 전원)
+    ms = q("""SELECT hoecha, party, name, votes, rate FROM metro_sgg
+              WHERE sigungu_code=? AND office='광역단체장' ORDER BY hoecha, votes DESC""", (code,))
+    msy = {}
+    for r in ms:
+        y = msy.setdefault(r["hoecha"], {"year": hoe_year.get(r["hoecha"]), "label": f"{r['hoecha']}회",
+                                        "candidates": []})
+        y["candidates"].append({"name": r["name"], "party": r["party"], "color": col(r["party"]),
+                                "votes": r["votes"], "rate": r["rate"]})
+    for y in msy.values():
+        for i, c in enumerate(y["candidates"]):
+            c["elected"] = 1 if i == 0 else 0
+    if msy:
+        sections.append({"office": "시도지사", "kind": "single",
+                         "years": [msy[k] for k in sorted(msy)]})
+
+    # 4) 시군구청장 (기초단체장, candidates+results)
+    bh = q("""SELECT e.hoecha, ca.name, p.name AS party, p.color_hex, rs.votes, rs.vote_rate, ca.is_elected
+              FROM candidates ca
+              JOIN elections e ON e.id=ca.election_id AND e.type='지선'
+              LEFT JOIN parties p ON p.id=ca.party_id
+              LEFT JOIN results rs ON rs.candidate_id=ca.id AND rs.election_id=ca.election_id
+              WHERE ca.office='기초단체장' AND ca.region_code=?
+              ORDER BY e.hoecha, rs.votes DESC""", (code,))
+    bhy = {}
+    for r in bh:
+        y = bhy.setdefault(r["hoecha"], {"year": hoe_year.get(r["hoecha"]), "label": f"{r['hoecha']}회",
+                                        "candidates": []})
+        y["candidates"].append({"name": r["name"], "party": r["party"], "color": r["color_hex"] or "#bbb",
+                                "votes": r["votes"], "rate": r["vote_rate"], "elected": r["is_elected"]})
+    if bhy:
+        sections.append({"office": "시군구청장", "kind": "single",
+                         "years": [bhy[k] for k in sorted(bhy)]})
+
+    # 5)·6) 광역의원·기초의원 (council, 선거구별 후보 + 다수당)
+    for sgt, label in ((5, "광역의원"), (6, "기초의원")):
+        cc = q("""SELECT hoecha, sgg, party, name, votes, rate, elected FROM council
+                  WHERE sigungu_code=? AND sgtype=? ORDER BY hoecha, sgg""", (code, sgt))
+        cy = {}
+        for r in cc:
+            y = cy.setdefault(r["hoecha"], {"year": hoe_year.get(r["hoecha"]), "label": f"{r['hoecha']}회",
+                                           "races": {}, "_seats": {}})
+            y["races"].setdefault(r["sgg"], []).append(
+                {"name": r["name"], "party": r["party"], "color": col(r["party"]),
+                 "votes": r["votes"], "rate": r["rate"], "elected": r["elected"]})
+            if r["elected"]:
+                y["_seats"][r["party"]] = y["_seats"].get(r["party"], 0) + 1
+        if cy:
+            out = []
+            for k in sorted(cy):
+                yv = cy[k]
+                seats = sorted(({"party": p, "color": col(p), "seats": n} for p, n in yv.pop("_seats").items()),
+                               key=lambda x: -x["seats"])
+                yv["seats"] = seats
+                yv["races"] = [{"sgg": s, "candidates": cs} for s, cs in yv["races"].items()]
+                out.append(yv)
+            sections.append({"office": label, "kind": "council", "years": out})
+
+    # 7) 교육감 (시도 단위)
+    edu = q("""SELECT e.hoecha, e.election_date, s.top_parties_json
+               FROM region_election_summary s JOIN elections e ON e.id=s.election_id
+               WHERE s.office='교육감' AND s.region_code=? ORDER BY e.hoecha""", (sido_code,))
+    eyears = []
+    for r in edu:
+        try:
+            tp = json.loads(r["top_parties_json"])[0]
+        except (json.JSONDecodeError, IndexError, TypeError):
+            tp = {}
+        eyears.append({"year": hoe_year.get(r["hoecha"]), "label": f"{r['hoecha']}회",
+                       "name": tp.get("name"), "lean": tp.get("lean"), "color": tp.get("color") or "#9E9E9E"})
+    if eyears:
+        sections.append({"office": "교육감", "kind": "edu", "years": eyears})
+
+    return {"region": {"code": code, "name": reg["name"], "sido_code": sido_code, "sido_name": sido_short},
+            "sections": sections}
+
+
 @api.get("/winners/summary")
 def winners_summary():
     """전국 단체장 정당별·회차별 의석(당선인 수) 요약. 광역단체장/기초단체장."""

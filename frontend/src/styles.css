@@ -218,3 +218,32 @@ body { margin: 0; color: #1a1a1a; background: #fafafa; }
 .sum-total { font-size: 12px; color: var(--muted); text-align: right; font-variant-numeric: tabular-nums; }
 .sum-legend { display: flex; flex-wrap: wrap; gap: 4px 14px; margin-top: 10px; font-size: 12px; }
 .sum-leg { display: inline-flex; align-items: center; gap: 5px; }
+
+/* 당선인 지도 모드 */
+.win-modehead { display: flex; align-items: center; justify-content: space-between; gap: 12px; margin-bottom: 6px; }
+.win-modehead h2 { margin: 0; }
+.winmap-controls { align-items: center; }
+.winmap-layout { display: grid; grid-template-columns: minmax(340px, 1fr) 440px; gap: 12px; align-items: start; }
+@media (max-width: 900px) { .winmap-layout { grid-template-columns: 1fr; } }
+.winmap-detail { max-height: calc(100vh - 250px); overflow-y: auto; }
+
+/* 시군구 종합 연표 */
+.region-timeline h2 { margin: 0 0 4px; font-size: 18px; }
+.tl-section { margin: 14px 0; }
+.tl-office { margin: 0 0 6px; font-size: 14px; color: #374151; border-bottom: 1px solid var(--line); padding-bottom: 3px; }
+.tl-years { display: flex; flex-wrap: wrap; gap: 6px; }
+.tl-cell-wrap { display: flex; flex-direction: column; }
+.tl-cell { display: flex; flex-direction: column; align-items: flex-start; gap: 1px; min-width: 92px;
+  padding: 5px 9px; border: none; border-radius: 6px; cursor: pointer; text-align: left; line-height: 1.25; }
+.tl-cell:disabled { cursor: default; }
+.tl-cell.open { outline: 2px solid #1118; outline-offset: 1px; }
+.tl-year { font-size: 11px; font-weight: 700; opacity: .9; }
+.tl-head { font-size: 12.5px; font-weight: 700; }
+.tl-sub { font-size: 10px; opacity: .85; }
+.tl-detail { margin: 6px 0 2px; border: 1px solid var(--line); border-radius: 8px; padding: 8px 10px; background: #fafafa; }
+.tl-cands { width: 100%; }
+.tl-cands tr.elected-row { font-weight: 700; background: #fff; }
+.tl-seats { display: flex; flex-wrap: wrap; gap: 5px 10px; margin-bottom: 8px; font-size: 12px; }
+.tl-seat { display: inline-flex; align-items: center; gap: 4px; border-left: 3px solid; padding: 1px 6px; background: #fff; border-radius: 3px; }
+.tl-race { margin: 8px 0; }
+.tl-race-name { font-size: 12px; font-weight: 600; color: #374151; margin-bottom: 2px; }

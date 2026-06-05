@@ -57,3 +57,4 @@ export const getByelectionDetail = (sgId, sgtype) =>
 export const getWinners = (level = "metro", parent) =>
   get("/winners", { level, ...(parent ? { parent } : {}) });
 export const getWinnersSummary = () => get("/winners/summary");
+export const getRegionTimeline = (code) => get(`/region/${code}/timeline`);
