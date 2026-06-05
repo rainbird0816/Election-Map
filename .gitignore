@@ -6,6 +6,10 @@ backend/.venv/
 # 비밀(선관위 OpenAPI 키) — 절대 커밋 금지
 backend/.secrets/
 
+# 텔레그램 봇 토큰 — 절대 커밋 금지
+bridge/.env
+bridge/node_modules/
+
 # 프론트
 frontend/node_modules/
 frontend/dist/

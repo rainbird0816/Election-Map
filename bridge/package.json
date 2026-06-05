@@ -1,0 +1,9 @@
+{
+  "name": "korea-election-telegram-bridge",
+  "private": true,
+  "type": "module",
+  "description": "텔레그램 ↔ Claude Code 양방향 제어 브리지",
+  "scripts": {
+    "start": "node --env-file=.env telegram-bot.mjs"
+  }
+}
