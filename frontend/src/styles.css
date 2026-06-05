@@ -183,3 +183,23 @@ body { margin: 0; color: #1a1a1a; background: #fafafa; }
 .bye-toggle { color: var(--muted); font-size: 11px; text-align: center; }
 .bye-cands { width: 100%; border-top: 1px solid var(--line); }
 .bye-cands tr.elected-row { font-weight: 700; background: #f9fafb; }
+
+/* 역대 단체장 당선인 매트릭스 */
+.win-crumbs { padding: 0 0 10px; }
+.win-wrap { overflow-x: auto; max-height: calc(100vh - 250px); }
+.win-table { border-collapse: separate; border-spacing: 2px; font-size: 12px; }
+.win-table th { background: #fafafa; padding: 5px 8px; font-weight: 600; text-align: center; white-space: nowrap; position: sticky; top: 0; }
+.win-table th.num { font-variant-numeric: tabular-nums; }
+.win-rowhead { text-align: left !important; position: sticky; left: 0; z-index: 2; min-width: 110px; }
+.win-rowhead.clickable { cursor: pointer; color: #1d4ed8; }
+.win-rowhead.clickable:hover { text-decoration: underline; }
+.win-table tr.active .win-rowhead { background: #eef4ff; }
+.win-cell { padding: 4px 8px; text-align: center; border-radius: 4px; line-height: 1.25; min-width: 78px; }
+.win-cell.empty { background: #f3f4f6; color: #bbb; }
+.win-cell .wc-name { display: block; font-weight: 700; font-size: 12.5px; }
+.win-cell .wc-party { display: block; font-size: 10px; opacity: .85; }
+.win-strip { display: flex; flex-wrap: wrap; align-items: center; gap: 6px; margin: 4px 0 12px; }
+.win-strip.detail { margin-top: -4px; }
+.strip-label { font-size: 12px; font-weight: 700; color: var(--muted); margin-right: 4px; }
+.strip-chip { display: inline-flex; flex-direction: column; align-items: center; padding: 4px 10px; border-radius: 6px; font-size: 12px; line-height: 1.3; }
+.strip-chip small { font-size: 10px; opacity: .85; }

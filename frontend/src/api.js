@@ -54,3 +54,5 @@ export const getPrecinctTrend = (sigungu, dong) =>
 export const getByelectionList = () => get("/byelection/list");
 export const getByelectionDetail = (sgId, sgtype) =>
   get("/byelection/detail", { sg_id: sgId, sgtype });
+export const getWinners = (level = "metro", parent) =>
+  get("/winners", { level, ...(parent ? { parent } : {}) });

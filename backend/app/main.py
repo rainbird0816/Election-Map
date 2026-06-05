@@ -755,6 +755,50 @@ def byelection_detail(sg_id: str, sgtype: int):
     return out
 
 
+# ── 당선인 매트릭스: 전국(광역단체장)→광역(기초단체장)→기초, 연도별 당선인만 ──
+@api.get("/winners")
+def winners(level: str = "metro", parent: str | None = None):
+    """단체장 당선인을 지역×회차 매트릭스로. level=metro(시도×회차 광역단체장),
+    basic(parent 시도의 시군구×회차 기초단체장). 셀 색=단체장 정당색."""
+    office = "광역단체장" if level == "metro" else "기초단체장"
+    sql = """SELECT s.region_code, r.name AS region_name, r.parent_code,
+                    e.id AS election_id, e.hoecha, e.election_date,
+                    ca.name AS winner_name, p.name AS party, p.color_hex
+             FROM region_election_summary s
+             JOIN elections e        ON e.id = s.election_id
+             LEFT JOIN regions r     ON r.code = s.region_code
+             LEFT JOIN candidates ca ON ca.id = s.winner_candidate_id
+             LEFT JOIN parties p     ON p.id = s.winner_party_id
+             WHERE s.office = ?"""
+    args = [office]
+    if level == "basic":
+        if not parent:
+            raise HTTPException(400, "basic level requires parent (시도코드)")
+        sql += " AND r.parent_code = ?"
+        args.append(parent)
+    rows = q(sql, tuple(args))
+
+    cols = {}
+    by = {}
+    for r in rows:
+        cols[r["election_id"]] = {"election_id": r["election_id"], "hoecha": r["hoecha"],
+                                 "year": (r["election_date"] or "")[:4]}
+        reg = by.setdefault(r["region_code"], {
+            "region_code": r["region_code"], "region_name": r["region_name"],
+            "parent_code": r["parent_code"], "cells": {}})
+        reg["cells"][r["election_id"]] = {
+            "name": r["winner_name"], "party": r["party"],
+            "color_hex": r["color_hex"] or "#bbb"}
+    columns = sorted(cols.values(), key=lambda c: c["election_id"])
+
+    if level == "metro":
+        order = {c: i for i, c in enumerate(SIDO_CODE.values())}
+        regions = sorted(by.values(), key=lambda x: order.get(x["region_code"], 99))
+    else:
+        regions = sorted(by.values(), key=lambda x: x["region_code"])
+    return {"office": office, "columns": columns, "regions": regions}
+
+
 # API는 /api 프리픽스. 빌드된 프론트(dist)가 있으면 정적 서빙(단일 서버 배포).
 app.include_router(api, prefix="/api")
 if DIST.exists():
