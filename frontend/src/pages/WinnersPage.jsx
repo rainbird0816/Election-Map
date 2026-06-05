@@ -63,8 +63,8 @@ function MapMode() {
   }, [type, jisun.length, pres.length]);
 
   const opts = isPres
-    ? pres.map((p) => ({ value: p.daesu, label: `${p.name} (${p.year})` }))
-    : jisun.map((e) => ({ value: e.id, label: `${e.name} (${e.election_date?.slice(0, 4)})` }));
+    ? pres.map((p) => ({ value: p.daesu, label: `${p.year}년` }))
+    : jisun.map((e) => ({ value: e.id, label: `${e.election_date?.slice(0, 4)}년` }));
 
   function fetchSido() {
     if (isPres) return getPresidentMap(elec);
@@ -110,7 +110,7 @@ function MapMode() {
             <button key={t} className={`seg-btn ${type === t ? "active" : ""}`} onClick={() => setType(t)}>{t}</button>
           ))}
         </div>
-        <label>{isPres ? "대수" : "회차"}
+        <label>연도
           <select value={elec ?? ""} onChange={(e) => { setElec(Number(e.target.value)); setSel(null); }}>
             {opts.map((o) => <option key={o.value} value={o.value}>{o.label}</option>)}
           </select>
@@ -189,7 +189,7 @@ function TableMode() {
           <thead>
             <tr>
               <th className="win-rowhead">{colLabel}</th>
-              {data.columns.map((c) => <th key={c.election_id} className="num">{c.year}<span className="muted"> {c.hoecha}회</span></th>)}
+              {data.columns.map((c) => <th key={c.election_id} className="num">{c.year}</th>)}
             </tr>
           </thead>
           <tbody>
@@ -226,7 +226,7 @@ function TableMode() {
             const total = data.totals[c.election_id] || 0;
             return (
               <div key={c.election_id} className="sum-row">
-                <span className="sum-year">{c.year}<small> {c.hoecha}회</small></span>
+                <span className="sum-year">{c.year}</span>
                 <div className="sum-bar">
                   {parties.map((p) => {
                     const n = p.cells[c.election_id] || 0;
@@ -283,7 +283,7 @@ function TableMode() {
           <Matrix data={basic} colLabel="시군구 / 연도" onRow={(r) => setSgg({ code: r.region_code, name: r.region_name })} activeCode={sgg?.code} />
         </>
       )}
-      <p className="muted">당선인만 표시(낙선 제외). 출처: 중앙선거관리위원회. 광역·기초단체장 3~8회(2002~2022).</p>
+      <p className="muted">당선인만 표시(낙선 제외). 출처: 중앙선거관리위원회. 광역·기초단체장 2002~2022.</p>
     </>
   );
 }
