@@ -261,6 +261,49 @@ def council_pr(hoecha: int, sgtype: int, sido: str | None = None, sigungu: str |
     return {"scope": scope, "label": lab, "total": len(rows), "parties": parties}
 
 
+# ── 광역 종합: 시군구별 광역단체장·광역비례(metro_sgg, ingest_metro_sgg.py 적재) ──
+@api.get("/metro/sgg-map")
+def metro_sgg_map(hoecha: int, sido: str):
+    """광역 종합 드릴다운: 시도 내 시군구별 광역단체장 최다 득표 정당색(지도 채색)."""
+    short = next((s for s, c in SIDO_CODE.items() if c == sido), sido)
+    colors = _party_colors()
+    rows = q(
+        "SELECT sigungu_code, sigungu_name, party, SUM(votes) AS seats FROM metro_sgg "
+        "WHERE hoecha=? AND office='광역단체장' AND sido=? GROUP BY sigungu_code, party",
+        (hoecha, short))
+    for r in rows:
+        r["region_code"] = r["sigungu_code"]
+        r["region_name"] = r["sigungu_name"]
+        r["color_hex"] = colors.get(r["party"], "#bbb")
+    return _top_parties(rows, "sigungu_code")
+
+
+@api.get("/metro/sgg-detail")
+def metro_sgg_detail(hoecha: int, sigungu: str):
+    """그 시군구의 광역단체장 후보별 득표(낙선 포함, 득표순)."""
+    colors = _party_colors()
+    rows = q(
+        "SELECT party, name, votes, rate FROM metro_sgg "
+        "WHERE hoecha=? AND office='광역단체장' AND sigungu_code=? ORDER BY votes DESC",
+        (hoecha, sigungu))
+    for r in rows:
+        r["color_hex"] = colors.get(r["party"], "#bbb")
+    return rows
+
+
+@api.get("/metro/sgg-pr")
+def metro_sgg_pr(hoecha: int, sigungu: str):
+    """그 시군구의 광역비례 정당별 득표(득표순)."""
+    colors = _party_colors()
+    rows = q(
+        "SELECT party, votes, rate FROM metro_sgg "
+        "WHERE hoecha=? AND office='광역비례' AND sigungu_code=? ORDER BY votes DESC",
+        (hoecha, sigungu))
+    for r in rows:
+        r["color_hex"] = colors.get(r["party"], "#bbb")
+    return rows
+
+
 PRES_YEAR = {13: 1987, 14: 1992, 15: 1997, 16: 2002, 17: 2007, 18: 2012,
              19: 2017, 20: 2022, 21: 2025}
 

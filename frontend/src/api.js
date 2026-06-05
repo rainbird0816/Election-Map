@@ -30,6 +30,12 @@ export const getCouncilPr = (hoecha, sgtype, sido, sigungu) =>
   get("/council/pr", { hoecha, sgtype, ...(sido ? { sido } : {}), ...(sigungu ? { sigungu } : {}) });
 export const getCouncilSeats = (hoecha, level, sido, sigungu) =>
   get("/council/seats", { hoecha, level, ...(sido ? { sido } : {}), ...(sigungu ? { sigungu } : {}) });
+export const getMetroSggMap = (hoecha, sido) =>
+  get("/metro/sgg-map", { hoecha, sido });
+export const getMetroSggDetail = (hoecha, sigungu) =>
+  get("/metro/sgg-detail", { hoecha, sigungu });
+export const getMetroSggPr = (hoecha, sigungu) =>
+  get("/metro/sgg-pr", { hoecha, sigungu });
 export const getPresidentElections = () => get("/president/elections");
 export const getPresidentMap = (daesu, parent) =>
   get("/president/map", { daesu, ...(parent ? { parent } : {}) });
