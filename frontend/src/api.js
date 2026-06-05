@@ -56,3 +56,4 @@ export const getByelectionDetail = (sgId, sgtype) =>
   get("/byelection/detail", { sg_id: sgId, sgtype });
 export const getWinners = (level = "metro", parent) =>
   get("/winners", { level, ...(parent ? { parent } : {}) });
+export const getWinnersSummary = () => get("/winners/summary");

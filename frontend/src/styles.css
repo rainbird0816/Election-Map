@@ -203,3 +203,18 @@ body { margin: 0; color: #1a1a1a; background: #fafafa; }
 .strip-label { font-size: 12px; font-weight: 700; color: var(--muted); margin-right: 4px; }
 .strip-chip { display: inline-flex; flex-direction: column; align-items: center; padding: 4px 10px; border-radius: 6px; font-size: 12px; line-height: 1.3; }
 .strip-chip small { font-size: 10px; opacity: .85; }
+
+/* 전국 정당별 의석 요약(연도별) */
+.win-sum { border: 1px solid var(--line); border-radius: 10px; padding: 12px 16px; margin: 4px 0 18px; background: #fff; }
+.win-sum-head { display: flex; align-items: center; justify-content: space-between; gap: 12px; margin-bottom: 10px; flex-wrap: wrap; }
+.win-sum-head b { font-size: 14px; }
+.sum-bars { display: flex; flex-direction: column; gap: 5px; }
+.sum-row { display: grid; grid-template-columns: 64px 1fr 48px; align-items: center; gap: 8px; }
+.sum-year { font-size: 12px; font-weight: 600; text-align: right; }
+.sum-year small { color: var(--muted); font-weight: 400; }
+.sum-bar { display: flex; height: 22px; border-radius: 4px; overflow: hidden; background: #f3f4f6; }
+.sum-seg { display: flex; align-items: center; justify-content: center; font-size: 11px; font-weight: 700;
+  font-variant-numeric: tabular-nums; min-width: 0; transition: width .2s; }
+.sum-total { font-size: 12px; color: var(--muted); text-align: right; font-variant-numeric: tabular-nums; }
+.sum-legend { display: flex; flex-wrap: wrap; gap: 4px 14px; margin-top: 10px; font-size: 12px; }
+.sum-leg { display: inline-flex; align-items: center; gap: 5px; }

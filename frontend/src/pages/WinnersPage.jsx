@@ -1,5 +1,5 @@
 import { useEffect, useMemo, useState } from "react";
-import { getWinners } from "../api";
+import { getWinners, getWinnersSummary } from "../api";
 
 // 배경색 대비 글자색(밝으면 검정, 어두우면 흰색)
 function textOn(hex) {
@@ -24,8 +24,11 @@ export default function WinnersPage() {
   const [basic, setBasic] = useState(null);     // 선택 시도의 기초단체장
   const [sido, setSido] = useState(null);       // {code, name}
   const [sgg, setSgg] = useState(null);         // {code, name}
+  const [summary, setSummary] = useState(null); // 전국 정당별·회차별 의석
+  const [sumLevel, setSumLevel] = useState("metro"); // metro | basic
 
   useEffect(() => { getWinners("metro").then(setMetro).catch(() => setMetro({ columns: [], regions: [] })); }, []);
+  useEffect(() => { getWinnersSummary().then(setSummary).catch(() => setSummary(null)); }, []);
 
   useEffect(() => {
     setBasic(null); setSgg(null);
@@ -67,6 +70,60 @@ export default function WinnersPage() {
     );
   }
 
+  function Summary() {
+    if (!summary) return null;
+    const data = summary[sumLevel];
+    const cols = summary.columns;
+    const parties = data.parties.filter((p) => p.total > 0);
+    const officeLabel = sumLevel === "metro" ? "광역단체장(시·도지사)" : "기초단체장(구·시·군의 장)";
+    return (
+      <div className="win-sum">
+        <div className="win-sum-head">
+          <b>전국 정당별 의석 — 연도별</b>
+          <div className="seg">
+            {[["metro", "광역단체장"], ["basic", "기초단체장"]].map(([v, l]) => (
+              <button key={v} className={`seg-btn ${sumLevel === v ? "active" : ""}`}
+                onClick={() => setSumLevel(v)}>{l}</button>
+            ))}
+          </div>
+        </div>
+        <div className="sum-bars">
+          {cols.map((c) => {
+            const total = data.totals[c.election_id] || 0;
+            return (
+              <div key={c.election_id} className="sum-row">
+                <span className="sum-year">{c.year}<small> {c.hoecha}회</small></span>
+                <div className="sum-bar">
+                  {parties.map((p) => {
+                    const n = p.cells[c.election_id] || 0;
+                    if (!n) return null;
+                    const pct = total ? (n / total) * 100 : 0;
+                    return (
+                      <span key={p.party} className="sum-seg" title={`${p.party} ${n}석`}
+                        style={{ width: pct + "%", background: p.color, color: textOn(p.color) }}>
+                        {pct >= 7 ? n : ""}
+                      </span>
+                    );
+                  })}
+                </div>
+                <span className="sum-total">{total}석</span>
+              </div>
+            );
+          })}
+        </div>
+        <div className="sum-legend">
+          {parties.map((p) => (
+            <span key={p.party} className="sum-leg">
+              <span className="dot" style={{ background: p.color }} /> {p.party}
+              <span className="muted"> {p.total}</span>
+            </span>
+          ))}
+        </div>
+        <p className="muted">{officeLabel} 당선인 수(낙선 제외). 막대는 회차별 합 100% 기준 정당 점유.</p>
+      </div>
+    );
+  }
+
   return (
     <div className="lookup-page winners-page">
       <h2>역대 단체장 당선인</h2>
@@ -83,6 +140,7 @@ export default function WinnersPage() {
 
       {!sido ? (
         <>
+          <Summary />
           <p className="muted">시도별 광역단체장(시·도지사) 당선인입니다. 셀 색은 당선인 정당색. 행을 클릭하면 그 시도의 기초단체장으로 들어갑니다.</p>
           <Matrix data={metro} colLabel="시도 / 연도" onRow={(r) => setSido({ code: r.region_code, name: r.region_name })} />
         </>

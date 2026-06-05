@@ -799,6 +799,36 @@ def winners(level: str = "metro", parent: str | None = None):
     return {"office": office, "columns": columns, "regions": regions}
 
 
+@api.get("/winners/summary")
+def winners_summary():
+    """전국 단체장 정당별·회차별 의석(당선인 수) 요약. 광역단체장/기초단체장."""
+    cols = {}
+    out = {}
+    for office, key in (("광역단체장", "metro"), ("기초단체장", "basic")):
+        rows = q("""SELECT e.id AS election_id, e.hoecha, e.election_date,
+                           p.name AS party, p.color_hex, COUNT(*) AS seats
+                    FROM region_election_summary s
+                    JOIN elections e    ON e.id = s.election_id
+                    LEFT JOIN parties p ON p.id = s.winner_party_id
+                    WHERE s.office = ?
+                    GROUP BY e.id, s.winner_party_id""", (office,))
+        byparty = {}
+        totals = {}
+        for r in rows:
+            cols[r["election_id"]] = {"election_id": r["election_id"], "hoecha": r["hoecha"],
+                                     "year": (r["election_date"] or "")[:4]}
+            p = byparty.setdefault(r["party"] or "무소속", {
+                "party": r["party"] or "무소속", "color": r["color_hex"] or "#bbb",
+                "cells": {}, "total": 0})
+            p["cells"][r["election_id"]] = r["seats"]
+            p["total"] += r["seats"]
+            totals[r["election_id"]] = totals.get(r["election_id"], 0) + r["seats"]
+        out[key] = {"parties": sorted(byparty.values(), key=lambda x: -x["total"]),
+                    "totals": totals}
+    columns = sorted(cols.values(), key=lambda c: c["election_id"])
+    return {"columns": columns, "metro": out["metro"], "basic": out["basic"]}
+
+
 # API는 /api 프리픽스. 빌드된 프론트(dist)가 있으면 정적 서빙(단일 서버 배포).
 app.include_router(api, prefix="/api")
 if DIST.exists():
