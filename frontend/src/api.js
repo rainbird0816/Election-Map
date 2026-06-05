@@ -51,3 +51,6 @@ export const getPrecinctLookup = (daesu, sigungu_code, mode) =>
   get("/precinct/lookup", { daesu, sigungu_code, mode });
 export const getPrecinctTrend = (sigungu, dong) =>
   get("/precinct/trend", { sigungu, dong });
+export const getByelectionList = () => get("/byelection/list");
+export const getByelectionDetail = (sgId, sgtype) =>
+  get("/byelection/detail", { sg_id: sgId, sgtype });

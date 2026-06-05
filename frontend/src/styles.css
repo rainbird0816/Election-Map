@@ -153,3 +153,33 @@ body { margin: 0; color: #1a1a1a; background: #fafafa; }
 .ov-insight { grid-column: 1 / -1; }
 .insight-list { margin: 6px 0 0; padding-left: 18px; font-size: 13.5px; line-height: 1.9; }
 .insight-list li { margin-bottom: 2px; }
+
+/* 재·보궐선거 페이지 */
+.bye-layout { display: grid; grid-template-columns: 300px 1fr; gap: 18px; align-items: start; margin-top: 12px; }
+@media (max-width: 820px) { .bye-layout { grid-template-columns: 1fr; } }
+.bye-dates { display: flex; flex-direction: column; gap: 6px; max-height: calc(100vh - 230px); overflow-y: auto; }
+.bye-date { display: grid; grid-template-columns: auto 1fr; column-gap: 8px; row-gap: 2px;
+  text-align: left; padding: 8px 10px; border: 1px solid var(--line); border-radius: 8px;
+  background: #fff; cursor: pointer; font-size: 12px; }
+.bye-date:hover { background: #f5f8ff; }
+.bye-date.active { border-color: #2563eb; background: #eef4ff; }
+.bye-date b { font-size: 13px; }
+.bye-date .bye-label { grid-column: 2; color: var(--muted); }
+.bye-date .bye-meta { grid-column: 2; color: var(--muted); font-variant-numeric: tabular-nums; }
+.bye-kind { grid-row: 1 / 3; align-self: center; font-size: 11px; font-weight: 700; color: #fff;
+  border-radius: 4px; padding: 2px 6px; height: fit-content; }
+.bye-kind.k-by { background: #b45309; }
+.bye-kind.k-sim { background: #6b7280; }
+.bye-offices { flex-wrap: wrap; }
+.bye-sub { margin: 10px 0 6px; }
+.bye-races { list-style: none; margin: 0; padding: 0; display: flex; flex-direction: column; gap: 6px; }
+.bye-race { border: 1px solid var(--line); border-radius: 8px; overflow: hidden; background: #fff; }
+.bye-race-head { width: 100%; display: grid; grid-template-columns: 1fr auto 24px; align-items: center;
+  gap: 10px; padding: 9px 12px; background: none; border: none; cursor: pointer; text-align: left; font-size: 13px; }
+.bye-race-head:hover { background: #f7f9fc; }
+.bye-region { font-weight: 600; }
+.bye-winner { display: inline-flex; align-items: center; gap: 6px; }
+.bye-party { font-size: 12px; }
+.bye-toggle { color: var(--muted); font-size: 11px; text-align: center; }
+.bye-cands { width: 100%; border-top: 1px solid var(--line); }
+.bye-cands tr.elected-row { font-weight: 700; background: #f9fafb; }

@@ -13,6 +13,7 @@ import PrecinctLookup from "./pages/PrecinctLookup.jsx";
 import SigunguDashboard from "./pages/SigunguDashboard.jsx";
 import PrDetail from "./pages/PrDetail.jsx";
 import OverviewPage from "./pages/OverviewPage.jsx";
+import ByElectionPage from "./pages/ByElectionPage.jsx";
 import MetroDashboard from "./pages/MetroDashboard.jsx";
 import BasicDashboard from "./pages/BasicDashboard.jsx";
 import CouncilSeatsPanel from "./components/CouncilSeatsPanel.jsx";
@@ -84,6 +85,7 @@ export default function App() {
   const isBasicSummary = type === "지선" && superView === "기초종합";
   const isLookup = type === "투표소";
   const isOverview = type === "개관";
+  const isByelection = type === "보궐";
   const sidoOffice = type === "총선" ? "국회의원"
     : superView === "교육감" ? "교육감" : "광역단체장";
   const districtConf = type === "총선" ? DISTRICT_GEO[electionId] : null;
@@ -187,10 +189,10 @@ export default function App() {
       <header className="topbar">
         <h1>한국 선거 지도</h1>
         <nav className="tabs">
-          {["개관", "대선", "총선", "지선", "투표소"].map((t) => (
+          {["개관", "대선", "총선", "지선", "보궐", "투표소"].map((t) => (
             <button key={t} className={`tab ${type === t ? "active" : ""}`} onClick={() => setType(t)}>
               {t === "지선" ? "지방선거" : t === "총선" ? "국회의원" : t === "대선" ? "대통령"
-                : t === "투표소" ? "투표소 조회" : "개관"}
+                : t === "보궐" ? "재보궐" : t === "투표소" ? "투표소 조회" : "개관"}
             </button>
           ))}
         </nav>
@@ -222,7 +224,7 @@ export default function App() {
             ))}
           </nav>
         )}
-        {!isLookup && !isOverview && (
+        {!isLookup && !isOverview && !isByelection && (
         <div className="selector">
           <label>{type === "지선" ? "회차" : "대수"}&nbsp;</label>
           {isPres ? (
@@ -245,7 +247,8 @@ export default function App() {
       {error && <div className="error">백엔드 연결 오류: {error}</div>}
 
       {isLookup ? <main className="layout single"><PrecinctLookup /></main>
-      : isOverview ? <main className="layout single"><OverviewPage /></main> : (
+      : isOverview ? <main className="layout single"><OverviewPage /></main>
+      : isByelection ? <main className="layout single"><ByElectionPage /></main> : (
       <>
       <div className="crumbs">
         {isPres ? (

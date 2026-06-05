@@ -703,6 +703,58 @@ def region_results(code: str, election_id: int):
     )
 
 
+# ── 보궐선거(재·보궐 + 정규선거일 동시보궐) — ingest_byelection.py 적재 ──
+@api.get("/byelection/list")
+def byelection_list():
+    """보궐선거 선거일 목록 + 선거일별 직종 요약(선거구·당선 수). 최신순."""
+    rows = q("SELECT sg_id, vote_date, label, kind, sgtype, sgtype_name, sido, sgg, elected "
+             "FROM byelection")
+    by = {}
+    for r in rows:
+        d = by.setdefault(r["sg_id"], {
+            "sg_id": r["sg_id"], "vote_date": r["vote_date"],
+            "label": r["label"], "kind": r["kind"], "offices": {}})
+        o = d["offices"].setdefault(r["sgtype"], {
+            "sgtype": r["sgtype"], "name": r["sgtype_name"], "races": set(), "seats": 0})
+        o["races"].add((r["sido"], r["sgg"]))
+        o["seats"] += r["elected"] or 0
+    out = []
+    for d in by.values():
+        offices = sorted(d["offices"].values(), key=lambda x: x["sgtype"])
+        for o in offices:
+            o["races"] = len(o["races"])
+        out.append({**d, "offices": offices,
+                    "total_races": sum(o["races"] for o in offices),
+                    "total_seats": sum(o["seats"] for o in offices)})
+    out.sort(key=lambda x: x["vote_date"], reverse=True)
+    return out
+
+
+@api.get("/byelection/detail")
+def byelection_detail(sg_id: str, sgtype: int):
+    """보궐선거 한 직종의 선거구별 후보 전원(낙선 포함). 시도→선거구 자연순."""
+    colors = _party_colors()
+    rows = q("SELECT sido, sgg, region, idx, party, name, votes, rate, elected "
+             "FROM byelection WHERE sg_id=? AND sgtype=?", (sg_id, sgtype))
+    by = {}
+    for r in rows:
+        by.setdefault((r["sido"], r["sgg"]), []).append(r)
+    out = []
+    for (sido, sgg), cs in by.items():
+        cs.sort(key=lambda x: (0 if x["elected"] else 1, -(x["votes"] or 0)))
+        for c in cs:
+            c["color_hex"] = colors.get(c["party"], "#bbb")
+        winners = [c for c in cs if c["elected"]]
+        win = winners[0] if winners else cs[0]
+        out.append({
+            "sido": sido, "sgg": sgg, "region": cs[0]["region"],
+            "winner_name": " · ".join(c["name"] for c in winners) if winners else win["name"],
+            "winner_party": win["party"], "color_hex": win["color_hex"],
+            "seats": len(winners), "candidates": cs})
+    out.sort(key=lambda x: (x["sido"], _sgg_sort_key(x["sgg"])))
+    return out
+
+
 # API는 /api 프리픽스. 빌드된 프론트(dist)가 있으면 정적 서빙(단일 서버 배포).
 app.include_router(api, prefix="/api")
 if DIST.exists():
