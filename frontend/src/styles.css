@@ -247,3 +247,7 @@ body { margin: 0; color: #1a1a1a; background: #fafafa; }
 .tl-seat { display: inline-flex; align-items: center; gap: 4px; border-left: 3px solid; padding: 1px 6px; background: #fff; border-radius: 3px; }
 .tl-race { margin: 8px 0; }
 .tl-race-name { font-size: 12px; font-weight: 600; color: #374151; margin-bottom: 2px; }
+
+/* 광역의원 지역구 당선자 명단 */
+.member-table .mt-sgg { color: #374151; white-space: nowrap; }
+.member-table .mt-name { font-weight: 600; white-space: nowrap; }

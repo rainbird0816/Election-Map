@@ -28,6 +28,8 @@ export const getCouncilDetail = (hoecha, sigungu_code) =>
   get("/council/detail", { hoecha, sigungu_code });
 export const getCouncilPr = (hoecha, sgtype, sido, sigungu) =>
   get("/council/pr", { hoecha, sgtype, ...(sido ? { sido } : {}), ...(sigungu ? { sigungu } : {}) });
+export const getCouncilMembers = (hoecha, sido, sgtype = 5) =>
+  get("/council/members", { hoecha, sido, sgtype });
 export const getCouncilSeats = (hoecha, level, sido, sigungu) =>
   get("/council/seats", { hoecha, level, ...(sido ? { sido } : {}), ...(sigungu ? { sigungu } : {}) });
 export const getMetroSggMap = (hoecha, sido) =>

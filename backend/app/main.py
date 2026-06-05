@@ -235,6 +235,20 @@ def assembly_sido(daesu: int, sido: str):
     return out
 
 
+@api.get("/council/members")
+def council_members(hoecha: int, sido: str, sgtype: int = 5):
+    """시도 단위 지역구 의원 당선자 목록(광역의원 5/기초의원 6), 선거구 가나다순.
+    sido=시도 코드(예 '11')."""
+    short = next((s for s, c in SIDO_CODE.items() if c == sido), sido)
+    colors = _party_colors()
+    rows = q("SELECT sgg, sigungu_name, party, name, votes, rate FROM council "
+             "WHERE hoecha=? AND sido=? AND sgtype=? AND elected=1", (hoecha, short, sgtype))
+    for r in rows:
+        r["color_hex"] = colors.get(r["party"], "#bbb")
+    rows.sort(key=lambda r: _sgg_sort_key(r["sgg"]))
+    return rows
+
+
 @api.get("/council/pr")
 def council_pr(hoecha: int, sgtype: int, sido: str | None = None, sigungu: str | None = None):
     """비례대표(광역 8/기초 9) 정당별 의석 + 당선자 명단. sido/sigungu=코드."""

@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
 import {
-  getRegionResults, getMetroSggDetail, getMetroSggPr, getCouncilDetail, getCouncilPr,
+  getRegionResults, getMetroSggDetail, getMetroSggPr, getCouncilDetail, getCouncilPr, getCouncilMembers,
 } from "../api";
 import CouncilSeatsPanel from "../components/CouncilSeatsPanel.jsx";
 
@@ -50,12 +50,13 @@ export default function MetroDashboard({ hoecha, sidoCode, sidoName, sggCode, sg
   const isSgg = !!sggCode;
   const [govSido, setGovSido] = useState(null);   // 시도 도지사 종합
   const [prMetro, setPrMetro] = useState(null);   // 시도 광역비례 당선자
+  const [members, setMembers] = useState(null);   // 시도 광역의원 지역구 당선자
   const [govSgg, setGovSgg] = useState(null);      // 시군구 도지사 득표
   const [council, setCouncil] = useState(null);    // 시군구 광역의원
   const [prSgg, setPrSgg] = useState(null);        // 시군구 광역비례 득표
 
   useEffect(() => {
-    setGovSido(null); setPrMetro(null); setGovSgg(null); setCouncil(null); setPrSgg(null);
+    setGovSido(null); setPrMetro(null); setGovSgg(null); setCouncil(null); setPrSgg(null); setMembers(null);
     if (!hoecha) return;
     if (isSgg) {
       getMetroSggDetail(hoecha, sggCode).then(setGovSgg).catch(() => setGovSgg([]));
@@ -64,6 +65,7 @@ export default function MetroDashboard({ hoecha, sidoCode, sidoName, sggCode, sg
     } else if (sidoCode) {
       getRegionResults(sidoCode, hoecha).then(setGovSido).catch(() => setGovSido([]));
       getCouncilPr(hoecha, 8, sidoCode).then(setPrMetro).catch(() => setPrMetro(null));
+      getCouncilMembers(hoecha, sidoCode, 5).then(setMembers).catch(() => setMembers([]));
     }
   }, [hoecha, sidoCode, sggCode, isSgg]);
 
@@ -124,6 +126,22 @@ export default function MetroDashboard({ hoecha, sidoCode, sidoName, sggCode, sg
 
       <h3 className="sec-title">광역의회 구성 <span className="muted">(광역의원+비례)</span></h3>
       <CouncilSeatsPanel hoecha={hoecha} level="metro" sido={sidoCode} heading={false} />
+
+      <h3 className="sec-title">광역의회의원 <span className="muted">(시·도의원 지역구 당선자, 선거구 가나다순)</span></h3>
+      {members?.length ? (
+        <table className="cand-table member-table">
+          <tbody>
+            {members.map((m, i) => (
+              <tr key={i}>
+                <td className="mt-sgg">{m.sgg}</td>
+                <td><span className="dot" style={{ background: m.color_hex }} /></td>
+                <td className="mt-name">{m.name}</td>
+                <td>{m.party}</td>
+              </tr>
+            ))}
+          </tbody>
+        </table>
+      ) : <p className="muted">{members ? "데이터 없음" : "불러오는 중…"}</p>}
 
       <h3 className="sec-title">광역비례의원 <span className="muted">(시·도 비례 당선자)</span></h3>
       {prMetro?.parties?.length ? (
