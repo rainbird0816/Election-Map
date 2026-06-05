@@ -14,8 +14,9 @@ import SigunguDashboard from "./pages/SigunguDashboard.jsx";
 import PrDetail from "./pages/PrDetail.jsx";
 import OverviewPage from "./pages/OverviewPage.jsx";
 import MetroDashboard from "./pages/MetroDashboard.jsx";
+import BasicDashboard from "./pages/BasicDashboard.jsx";
 import CouncilSeatsPanel from "./components/CouncilSeatsPanel.jsx";
-import { getElections, getMap, getCouncilMap, getMetroSggMap, getPresidentElections, getPresidentMap } from "./api";
+import { getElections, getMap, getCouncilMap, getMetroSggMap, getBasicSidoMap, getPresidentElections, getPresidentMap } from "./api";
 
 // 지방의원 데이터가 있는 지선 회차
 const COUNCIL_HOECHA = new Set([3, 4, 5, 6, 7, 8]);
@@ -80,6 +81,7 @@ export default function App() {
 
   const isCouncil = type === "지선" && superView === "의원";
   const isMetroSummary = type === "지선" && superView === "광역종합";
+  const isBasicSummary = type === "지선" && superView === "기초종합";
   const isLookup = type === "투표소";
   const isOverview = type === "개관";
   const sidoOffice = type === "총선" ? "국회의원"
@@ -99,10 +101,12 @@ export default function App() {
     if (!electionId) return;
     if (isCouncil) {
       getCouncilMap(electionId, councilType).then(setSidoMap).catch((e) => setError(String(e)));
+    } else if (isBasicSummary) {
+      getBasicSidoMap(electionId).then(setSidoMap).catch((e) => setError(String(e)));
     } else {
       getMap(electionId, sidoOffice).then(setSidoMap).catch((e) => setError(String(e)));
     }
-  }, [electionId, sidoOffice, isCouncil, councilType, isPres, daesu]);
+  }, [electionId, sidoOffice, isCouncil, isBasicSummary, councilType, isPres, daesu]);
 
   // 시군구 지도(기초단체장 / 지방의원 / 대선)
   useEffect(() => {
@@ -153,7 +157,7 @@ export default function App() {
     if (type === "총선") return electionId ? { kind: "assembly", election_id: electionId } : null;
     if (isCouncil) return COUNCIL_HOECHA.has(electionId) ? { kind: "council", hoecha: electionId, sgtype: councilType } : null;
     if (type === "지선" && superView === "교육감") return electionId ? { kind: "superintendent", election_id: electionId } : null;
-    if (type === "지선") return electionId ? { kind: "local", election_id: electionId, office: "광역단체장" } : null;
+    if (type === "지선") return electionId ? { kind: "local", election_id: electionId, office: superView === "기초종합" ? "기초단체장" : "광역단체장" } : null;
     return null;
   }, [isPres, daesu, type, electionId, isCouncil, councilType, superView]);
 
@@ -165,10 +169,10 @@ export default function App() {
       setSido({ code, name: nameOfSido(code) });
       setView("sigungu");
       setSelected({ code, office: "대통령" });
-    } else if (type === "지선" && (isMetroSummary || superView === "단체장" || (isCouncil && councilType !== 8))) {
+    } else if (type === "지선" && (isMetroSummary || isBasicSummary || superView === "단체장" || (isCouncil && councilType !== 8))) {
       setSido({ code, name: nameOfSido(code) });
       setView("sigungu");
-      setSelected(isCouncil || isMetroSummary ? null : { code, office: "광역단체장" });
+      setSelected(isCouncil || isMetroSummary || isBasicSummary ? null : { code, office: "광역단체장" });
     } else {
       setSelected({ code, office: sidoOffice });
       setSelectedDist(null);
@@ -192,7 +196,7 @@ export default function App() {
         </nav>
         {type === "지선" && (
           <nav className="tabs subtabs">
-            {[["광역종합", "광역 종합"], ["단체장", "단체장"], ["교육감", "교육감"], ["의원", "의원"]].map(([v, label]) => (
+            {[["광역종합", "광역 종합"], ["기초종합", "기초 종합"], ["단체장", "단체장"], ["교육감", "교육감"], ["의원", "의원"]].map(([v, label]) => (
               <button key={v} className={`tab ${superView === v ? "active" : ""}`} onClick={() => { setSuperView(v); setView("sido"); setSido(null); setSelected(null); setSigunguMap([]); }}>
                 {label}
               </button>
@@ -254,6 +258,19 @@ export default function App() {
         ) : isMetroSummary ? (
           <>
             <button className="crumb" onClick={backToNation} disabled={view === "sido"}>전국 · 광역단체장</button>
+            {view === "sigungu" && sido && (
+              <>
+                <span className="sep">›</span>
+                <button className="crumb" onClick={() => setSelected(null)} disabled={!selected?.code}>{sido.name}</button>
+                {selected?.code && (
+                  <><span className="sep">›</span><span className="crumb cur">{sigunguMap.find((d) => d.region_code === selected.code)?.region_name || "시군구"}</span></>
+                )}
+              </>
+            )}
+          </>
+        ) : isBasicSummary ? (
+          <>
+            <button className="crumb" onClick={backToNation} disabled={view === "sido"}>전국 · 기초단체장</button>
             {view === "sigungu" && sido && (
               <>
                 <span className="sep">›</span>
@@ -383,6 +400,22 @@ export default function App() {
           ) : (
             <aside className="detail">
               <SummaryPanel params={summaryParams} label="시도를 클릭하면 그 시도의 광역 종합(도지사·광역의회·광역비례)이 보입니다." />
+            </aside>
+          )
+        ) : isBasicSummary ? (
+          view === "sigungu" && sido && selected?.code && selected.code.length > 2 ? (
+            <SigunguDashboard
+              hoecha={electionId}
+              sggCode={selected.code}
+              sggName={sigunguMap.find((d) => d.region_code === selected.code)?.region_name || "시군구"}
+              sidoCode={sido.code}
+              sidoName={sido.name}
+            />
+          ) : view === "sigungu" && sido ? (
+            <BasicDashboard hoecha={electionId} sidoCode={sido.code} sidoName={sido.name} />
+          ) : (
+            <aside className="detail">
+              <SummaryPanel params={summaryParams} label="시도를 클릭하면 기초단체장 분포가, 기초를 클릭하면 그 기초의 종합이 보입니다." />
             </aside>
           )
         ) : isCouncil && councilType === 9 && view === "sigungu" && selected?.code && selected.code.length > 2 ? (

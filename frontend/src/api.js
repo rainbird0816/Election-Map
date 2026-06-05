@@ -36,6 +36,8 @@ export const getMetroSggDetail = (hoecha, sigungu) =>
   get("/metro/sgg-detail", { hoecha, sigungu });
 export const getMetroSggPr = (hoecha, sigungu) =>
   get("/metro/sgg-pr", { hoecha, sigungu });
+export const getBasicSidoMap = (hoecha) =>
+  get("/basic/sido-map", { hoecha });
 export const getPresidentElections = () => get("/president/elections");
 export const getPresidentMap = (daesu, parent) =>
   get("/president/map", { daesu, ...(parent ? { parent } : {}) });

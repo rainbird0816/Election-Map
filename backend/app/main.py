@@ -304,6 +304,24 @@ def metro_sgg_pr(hoecha: int, sigungu: str):
     return rows
 
 
+@api.get("/basic/sido-map")
+def basic_sido_map(hoecha: int):
+    """기초 종합 전국지도: 시도별 기초단체장 최다 당선 정당색."""
+    rows = q(
+        "SELECT r.parent_code AS sido, p.name AS party, p.color_hex, COUNT(*) AS seats "
+        "FROM region_election_summary s "
+        "JOIN regions r ON r.code = s.region_code "
+        "JOIN parties p ON p.id = s.winner_party_id "
+        "WHERE s.election_id = ? AND s.office = '기초단체장' "
+        "GROUP BY r.parent_code, s.winner_party_id",
+        (hoecha,))
+    name_of = {c: s for s, c in SIDO_CODE.items()}
+    for r in rows:
+        r["region_code"] = r["sido"]
+        r["region_name"] = name_of.get(r["sido"], r["sido"])
+    return _top_parties(rows, "sido")
+
+
 PRES_YEAR = {13: 1987, 14: 1992, 15: 1997, 16: 2002, 17: 2007, 18: 2012,
              19: 2017, 20: 2022, 21: 2025}
 
