@@ -38,14 +38,14 @@ export default function RegionTimeline({ code, name }) {
   return (
     <div className="region-timeline">
       <h2>{name} <span className="office-badge">연도별 선출직</span></h2>
-      <p className="muted">{data.region.sido_name} {data.region.name} 유권자가 뽑는 모든 선출직의 역대 결과. 칸을 클릭하면 후보 전원(낙선 포함)이 펼쳐집니다.</p>
+      <p className="muted">{data.region.sido_name} {data.region.name} 유권자가 뽑는 모든 선출직의 역대 결과. 정규 선거 사이의 <em className="tl-byebadge inline">보궐</em> 칸은 재·보궐선거로 당선인이 바뀐 연도입니다. 칸을 클릭하면 후보 전원(낙선 포함)이 펼쳐집니다.</p>
 
       {data.sections.map((s) => (
         <div key={s.office} className="tl-section">
           <h3 className="tl-office">{s.office}</h3>
           <div className="tl-years">
             {s.years.map((y) => {
-              const key = s.office + "|" + y.year;
+              const key = s.office + "|" + y.year + "|" + (y.byelection ? y.date : "r");
               const isOpen = open === key;
               // 대표(1위/당선/다수당) 표시
               let head, color = "#e5e7eb";
@@ -65,10 +65,10 @@ export default function RegionTimeline({ code, name }) {
               const expandable = s.kind !== "edu";
               return (
                 <div key={key} className="tl-cell-wrap">
-                  <button className={`tl-cell ${isOpen ? "open" : ""}`} disabled={!expandable}
+                  <button className={`tl-cell ${isOpen ? "open" : ""} ${y.byelection ? "tl-bye" : ""}`} disabled={!expandable}
                     style={{ background: color, color: textOn(color) }}
                     onClick={() => expandable && setOpen(isOpen ? null : key)}>
-                    <span className="tl-year">{y.year || y.label}</span>
+                    <span className="tl-year">{y.year || y.label}{y.byelection && <em className="tl-byebadge">보궐</em>}</span>
                     <span className="tl-head">{head}</span>
                     {s.kind === "edu" && y.lean && <span className="tl-sub">{y.lean}</span>}
                   </button>

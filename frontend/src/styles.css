@@ -251,3 +251,9 @@ body { margin: 0; color: #1a1a1a; background: #fafafa; }
 /* 광역의원 지역구 당선자 명단 */
 .member-table .mt-sgg { color: #374151; white-space: nowrap; }
 .member-table .mt-name { font-weight: 600; white-space: nowrap; }
+
+/* 연표 보궐 칸 */
+.tl-cell.tl-bye { outline: 2px dashed rgba(0,0,0,.35); outline-offset: -2px; }
+.tl-byebadge { font-style: normal; font-size: 9px; font-weight: 700; margin-left: 4px;
+  padding: 0 4px; border-radius: 3px; background: rgba(0,0,0,.28); }
+.tl-byebadge.inline { background: #b45309; color: #fff; margin-left: 0; }

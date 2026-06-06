@@ -949,6 +949,89 @@ def region_timeline(code: str):
     if eyears:
         sections.append({"office": "교육감", "kind": "edu", "years": eyears})
 
+    # 재·보궐선거로 당선인이 바뀐 연도 병합 (byelection 테이블, 2010~)
+    def fetch_bye(sgt, mode, token):
+        if mode == "sido":
+            return q("SELECT vote_date, sgg, party, name, votes, rate, elected FROM byelection "
+                     "WHERE sgtype=? AND sido=? ORDER BY vote_date, sgg, votes DESC", (sgt, sido_short))
+        if mode == "exact":
+            return q("SELECT vote_date, sgg, party, name, votes, rate, elected FROM byelection "
+                     "WHERE sgtype=? AND sido=? AND sgg=? ORDER BY vote_date, votes DESC", (sgt, sido_short, token))
+        return q("SELECT vote_date, sgg, party, name, votes, rate, elected FROM byelection "
+                 "WHERE sgtype=? AND sido=? AND sgg LIKE ? ORDER BY vote_date, sgg, votes DESC",
+                 (sgt, sido_short, f"%{token}%"))
+
+    def _cand(r):
+        return {"name": r["name"], "party": r["party"], "color": col(r["party"]),
+                "votes": r["votes"], "rate": r["rate"], "elected": r["elected"]}
+
+    def bye_single(rows):
+        ys = {}
+        for r in rows:
+            y = ys.setdefault(r["vote_date"], {"year": r["vote_date"][:4], "label": "보궐",
+                                              "byelection": True, "date": r["vote_date"], "candidates": []})
+            y["candidates"].append(_cand(r))
+        return list(ys.values())
+
+    def bye_races(rows):
+        ys = {}
+        for r in rows:
+            y = ys.setdefault(r["vote_date"], {"year": r["vote_date"][:4], "label": "보궐",
+                                              "byelection": True, "date": r["vote_date"], "races": {}})
+            y["races"].setdefault(r["sgg"], []).append(_cand(r))
+        return [{**{k: v for k, v in y.items() if k != "races"},
+                 "races": [{"sgg": s, "candidates": cs} for s, cs in y["races"].items()]} for y in ys.values()]
+
+    def bye_council(rows):
+        ys = {}
+        for r in rows:
+            y = ys.setdefault(r["vote_date"], {"year": r["vote_date"][:4], "label": "보궐",
+                                              "byelection": True, "date": r["vote_date"], "races": {}, "_seats": {}})
+            y["races"].setdefault(r["sgg"], []).append(_cand(r))
+            if r["elected"]:
+                y["_seats"][r["party"]] = y["_seats"].get(r["party"], 0) + 1
+        out = []
+        for y in ys.values():
+            seats = sorted(({"party": p, "color": col(p), "seats": n} for p, n in y.pop("_seats").items()),
+                           key=lambda x: -x["seats"])
+            out.append({"year": y["year"], "label": y["label"], "byelection": True, "date": y["date"],
+                        "seats": seats, "races": [{"sgg": s, "candidates": cs} for s, cs in y["races"].items()]})
+        return out
+
+    def bye_edu(rows):
+        out = []
+        for r in rows:
+            if r["elected"]:
+                out.append({"year": r["vote_date"][:4], "label": "보궐", "byelection": True, "date": r["vote_date"],
+                            "name": r["name"], "lean": None,
+                            "color": col(r["party"]) if r["party"] and r["party"] != "무소속" else "#9E9E9E"})
+        return out
+
+    BYE_MAP = [
+        ("국회의원", 2, "like", reg["name"], bye_races),
+        ("시도지사", 3, "sido", None, bye_single),
+        ("시군구청장", 4, "exact", reg["name"], bye_single),
+        ("광역의원", 5, "like", reg["name"], bye_council),
+        ("기초의원", 6, "like", reg["name"], bye_council),
+        ("교육감", 11, "sido", None, bye_edu),
+    ]
+    sec_by_office = {s["office"]: s for s in sections}
+    for office, sgt, mode, token, fn in BYE_MAP:
+        rows = fetch_bye(sgt, mode, token)
+        if not rows:
+            continue
+        entries = fn(rows)
+        if not entries:
+            continue
+        sec = sec_by_office.get(office)
+        if not sec:
+            sec = {"office": office, "kind": {"국회의원": "races", "시도지사": "single", "시군구청장": "single",
+                   "광역의원": "council", "기초의원": "council", "교육감": "edu"}[office], "years": []}
+            sections.append(sec)
+            sec_by_office[office] = sec
+        sec["years"].extend(entries)
+        sec["years"].sort(key=lambda y: (int(str(y["year"] or 0)), 1 if y.get("byelection") else 0))
+
     return {"region": {"code": code, "name": reg["name"], "sido_code": sido_code, "sido_name": sido_short},
             "sections": sections}
 
