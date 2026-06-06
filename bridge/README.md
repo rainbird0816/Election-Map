@@ -20,7 +20,7 @@
 ## 2. 환경설정
 
 ```powershell
-cd "E:\Korea Election\bridge"
+cd "E:\Project\Application\Korea Election\bridge"
 Copy-Item .env.example .env
 ```
 
@@ -79,7 +79,7 @@ PC가 켜져 있는 동안 항상 봇이 돌도록 Windows 작업 스케줄러�
 > 먼저 위 1~3단계로 `.env`(토큰 + chat ID)를 채워둔 상태여야 합니다.
 
 ```powershell
-cd "E:\Korea Election\bridge"
+cd "E:\Project\Application\Korea Election\bridge"
 .\install-service.ps1            # 작업 등록 (관리자 권한 불필요)
 Start-ScheduledTask -TaskName KoreaElectionTelegramBridge   # 지금 바로 시작
 ```
@@ -102,5 +102,5 @@ Start-ScheduledTask -TaskName KoreaElectionTelegramBridge   # 지금 바로 시�
 테스트나 일회성으로는 터미널에서 직접 띄워도 됩니다:
 
 ```powershell
-cd "E:\Korea Election\bridge"; npm start
+cd "E:\Project\Application\Korea Election\bridge"; npm start
 ```

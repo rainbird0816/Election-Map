@@ -5,7 +5,7 @@
 #   - 노트북 배터리 상태와 무관하게 동작
 #
 # 사용:  관리자 권한 불필요. PowerShell 에서
-#          cd "E:\Korea Election\bridge"; .\install-service.ps1
+#          cd "E:\Project\Application\Korea Election\bridge"; .\install-service.ps1
 # 제거:  .\uninstall-service.ps1
 
 $ErrorActionPreference = 'Stop'
