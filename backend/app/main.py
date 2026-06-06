@@ -796,14 +796,40 @@ def winners(level: str = "metro", parent: str | None = None):
     by = {}
     for r in rows:
         cols[r["election_id"]] = {"election_id": r["election_id"], "hoecha": r["hoecha"],
-                                 "year": (r["election_date"] or "")[:4]}
+                                 "year": (r["election_date"] or "")[:4],
+                                 "date": r["election_date"] or "", "bye": False}
         reg = by.setdefault(r["region_code"], {
             "region_code": r["region_code"], "region_name": r["region_name"],
             "parent_code": r["parent_code"], "cells": {}})
         reg["cells"][r["election_id"]] = {
             "name": r["winner_name"], "party": r["party"],
             "color_hex": r["color_hex"] or "#bbb"}
-    columns = sorted(cols.values(), key=lambda c: c["election_id"])
+    columns = list(cols.values())
+
+    # 재·보궐선거로 단체장이 바뀐 날을 별도 '보궐' 열로 삽입(시간순). 해당 지역만 채움.
+    colors = _party_colors()
+    if level == "metro":
+        bye = q("SELECT vote_date, sido, party, name FROM byelection "
+                "WHERE sgtype=3 AND elected=1 ORDER BY vote_date", ())
+        keyfn = lambda r: SIDO_CODE.get(r["sido"])
+    else:
+        sido_short = next((s for s, c in SIDO_CODE.items() if c == parent), parent)
+        bye = q("SELECT vote_date, sgg, party, name FROM byelection "
+                "WHERE sgtype=4 AND elected=1 AND sido=? ORDER BY vote_date", (sido_short,))
+        name2code = {v["region_name"]: k for k, v in by.items()}
+        keyfn = lambda r: name2code.get(r["sgg"])
+    bcols = {}
+    for r in bye:
+        rc = keyfn(r)
+        if not rc or rc not in by:
+            continue
+        cid = "bye-" + r["vote_date"]
+        bcols[cid] = {"election_id": cid, "hoecha": None, "year": r["vote_date"][:4],
+                      "date": r["vote_date"], "bye": True}
+        by[rc]["cells"][cid] = {"name": r["name"], "party": r["party"],
+                                "color_hex": colors.get(r["party"]) or "#bbb"}
+    columns += list(bcols.values())
+    columns.sort(key=lambda c: (c["date"], 1 if c["bye"] else 0))
 
     if level == "metro":
         order = {c: i for i, c in enumerate(SIDO_CODE.values())}
@@ -1038,10 +1064,15 @@ def region_timeline(code: str):
 
 @api.get("/winners/summary")
 def winners_summary():
-    """전국 단체장 정당별·회차별 의석(당선인 수) 요약. 광역단체장/기초단체장."""
-    cols = {}
+    """전국 단체장 정당별·회차별 의석(당선인 수) 요약. 광역단체장/기초단체장.
+    정규선거 사이의 재·보궐선거 날짜마다 '그 시점의 전국 구성' 스냅숏 열을 삽입
+    (직전 당선인을 이어가되 보궐 당선인으로 교체). 열은 직종별로 다름."""
+    colors = _party_colors()
+    code_by = {(r["parent_code"], r["name"]): r["code"]
+               for r in q("SELECT code, name, parent_code FROM regions WHERE LENGTH(code) > 2")}
     out = {}
-    for office, key in (("광역단체장", "metro"), ("기초단체장", "basic")):
+    for office, key, sgt in (("광역단체장", "metro", 3), ("기초단체장", "basic", 4)):
+        # 정규선거: 회차별 정당 의석(기존 동작 유지)
         rows = q("""SELECT e.id AS election_id, e.hoecha, e.election_date,
                            p.name AS party, p.color_hex, COUNT(*) AS seats
                     FROM region_election_summary s
@@ -1051,19 +1082,82 @@ def winners_summary():
                     GROUP BY e.id, s.winner_party_id""", (office,))
         byparty = {}
         totals = {}
+        colmap = {}
+        reg_comp = {}    # election_id -> {party: seats}
         for r in rows:
-            cols[r["election_id"]] = {"election_id": r["election_id"], "hoecha": r["hoecha"],
-                                     "year": (r["election_date"] or "")[:4]}
-            p = byparty.setdefault(r["party"] or "무소속", {
-                "party": r["party"] or "무소속", "color": r["color_hex"] or "#bbb",
+            colmap[r["election_id"]] = {"election_id": r["election_id"], "hoecha": r["hoecha"],
+                                        "year": (r["election_date"] or "")[:4],
+                                        "date": r["election_date"] or "", "bye": False}
+            party = r["party"] or "무소속"
+            p = byparty.setdefault(party, {
+                "party": party, "color": r["color_hex"] or "#bbb",
                 "cells": {}, "total": 0})
             p["cells"][r["election_id"]] = r["seats"]
             p["total"] += r["seats"]
             totals[r["election_id"]] = totals.get(r["election_id"], 0) + r["seats"]
-        out[key] = {"parties": sorted(byparty.values(), key=lambda x: -x["total"]),
+            reg_comp.setdefault(r["election_id"], {})[party] = r["seats"]
+
+        # 지역별 당선인 타임라인(정규 + 보궐) → 보궐 날짜마다 구성 스냅숏.
+        # 좌석 모집단은 '직전 정규선거에서 뽑힌 지역'으로 한정(통합·폐지된 옛 지역 제외).
+        hold = {}        # region_code -> [(date, party)] (정규 + 보궐)
+        reg_parts = {}   # 정규선거 날짜 -> 그때 당선된 region_code 집합
+        for r in q("""SELECT s.region_code, e.election_date AS d, p.name AS party
+                      FROM region_election_summary s
+                      JOIN elections e    ON e.id = s.election_id
+                      LEFT JOIN parties p ON p.id = s.winner_party_id
+                      WHERE s.office = ? ORDER BY e.election_date""", (office,)):
+            hold.setdefault(r["region_code"], []).append((r["d"], r["party"] or "무소속"))
+            reg_parts.setdefault(r["d"], set()).add(r["region_code"])
+        reg_dates = sorted(reg_parts)
+        bye_dates = set()
+        for r in q("SELECT vote_date, sido, sgg, party FROM byelection "
+                   "WHERE sgtype=? AND elected=1 ORDER BY vote_date", (sgt,)):
+            rc = SIDO_CODE.get(r["sido"]) if key == "metro" else code_by.get((SIDO_CODE.get(r["sido"]), r["sgg"]))
+            if not rc:
+                continue
+            hold.setdefault(rc, []).append((r["vote_date"], r["party"] or "무소속"))
+            bye_dates.add(r["vote_date"])
+        for lst in hold.values():
+            lst.sort()
+
+        # 시간순으로 정규/보궐을 훑으며 직전 구성과 동일한 보궐 스냅숏은 생략
+        # (예: 세종 신설 보궐처럼 좌석 모집단 밖 변화 → 전국 구성 불변).
+        timeline = [(colmap[eid]["date"], 0, ("reg", eid)) for eid in colmap]
+        timeline += [(d, 1, ("bye", d)) for d in bye_dates
+                     if any(rd <= d for rd in reg_dates)]
+        timeline.sort()
+        prev_comp = None
+        for _d, _k, (kind, ref) in timeline:
+            if kind == "reg":
+                prev_comp = reg_comp.get(ref, {})
+                continue
+            latest = max(rd for rd in reg_dates if rd <= ref)
+            comp = {}
+            for rc in reg_parts[latest]:
+                cur = None
+                for dt, pty in hold.get(rc, []):
+                    if dt <= ref:
+                        cur = pty
+                    else:
+                        break
+                if cur is not None:
+                    comp[cur] = comp.get(cur, 0) + 1
+            if comp == prev_comp:
+                continue
+            prev_comp = comp
+            cid = "bye-" + ref
+            colmap[cid] = {"election_id": cid, "hoecha": None, "year": ref[:4], "date": ref, "bye": True}
+            for party, n in comp.items():
+                p = byparty.setdefault(party, {"party": party, "color": colors.get(party) or "#bbb",
+                                               "cells": {}, "total": 0})
+                p["cells"][cid] = n
+                totals[cid] = totals.get(cid, 0) + n
+
+        columns = sorted(colmap.values(), key=lambda c: (c["date"], 1 if c["bye"] else 0))
+        out[key] = {"columns": columns,
+                    "parties": sorted(byparty.values(), key=lambda x: -x["total"]),
                     "totals": totals}
-    columns = sorted(cols.values(), key=lambda c: c["election_id"])
-    return {"columns": columns, "metro": out["metro"], "basic": out["basic"]}
+    return {"columns": out["metro"]["columns"], "metro": out["metro"], "basic": out["basic"]}
 
 
 # API는 /api 프리픽스. 빌드된 프론트(dist)가 있으면 정적 서빙(단일 서버 배포).

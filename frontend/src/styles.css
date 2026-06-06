@@ -257,3 +257,12 @@ body { margin: 0; color: #1a1a1a; background: #fafafa; }
 .tl-byebadge { font-style: normal; font-size: 9px; font-weight: 700; margin-left: 4px;
   padding: 0 4px; border-radius: 3px; background: rgba(0,0,0,.28); }
 .tl-byebadge.inline { background: #b45309; color: #fff; margin-left: 0; }
+
+/* 당선인 요약표·막대 보궐 열/행 */
+.win-table th.num.bye { color: #b45309; }
+.win-table th.num.bye .num-bye { display: block; font-size: 9px; font-weight: 700; }
+.win-cell.bye { outline: 2px dashed rgba(180,83,9,.55); outline-offset: -2px; }
+.win-cell.empty.bye { outline-color: rgba(180,83,9,.3); }
+.strip-chip.bye { outline: 2px dashed rgba(180,83,9,.55); outline-offset: -2px; }
+.sum-row.bye .sum-bar { outline: 2px dashed rgba(180,83,9,.5); outline-offset: 2px; border-radius: 3px; }
+.sum-row.bye .sum-year small { color: #b45309; font-weight: 700; }

@@ -150,11 +150,11 @@ function MapMode() {
 }
 
 /* ───────────────────────── 전국 요약표(기존) ───────────────────────── */
-function Cell({ cell }) {
-  if (!cell || !cell.name) return <td className="win-cell empty">—</td>;
+function Cell({ cell, bye }) {
+  if (!cell || !cell.name) return <td className={`win-cell empty${bye ? " bye" : ""}`}>—</td>;
   const bg = cell.color_hex || "#bbb";
   return (
-    <td className="win-cell" style={{ background: bg, color: textOn(bg) }} title={cell.party}>
+    <td className={`win-cell${bye ? " bye" : ""}`} style={{ background: bg, color: textOn(bg) }} title={cell.party}>
       <span className="wc-name">{cell.name}</span>
       <span className="wc-party">{cell.party}</span>
     </td>
@@ -189,14 +189,18 @@ function TableMode() {
           <thead>
             <tr>
               <th className="win-rowhead">{colLabel}</th>
-              {data.columns.map((c) => <th key={c.election_id} className="num">{c.year}</th>)}
+              {data.columns.map((c) => (
+                <th key={c.election_id} className={`num${c.bye ? " bye" : ""}`}>
+                  {c.year}{c.bye && <span className="num-bye">보궐</span>}
+                </th>
+              ))}
             </tr>
           </thead>
           <tbody>
             {data.regions.map((r) => (
               <tr key={r.region_code} className={r.region_code === activeCode ? "active" : ""}>
                 <th className="win-rowhead clickable" onClick={() => onRow(r)}>{r.region_name} ›</th>
-                {data.columns.map((c) => <Cell key={c.election_id} cell={r.cells[c.election_id]} />)}
+                {data.columns.map((c) => <Cell key={c.election_id} cell={r.cells[c.election_id]} bye={c.bye} />)}
               </tr>
             ))}
           </tbody>
@@ -208,8 +212,8 @@ function TableMode() {
   function Summary() {
     if (!summary) return null;
     const data = summary[sumLevel];
-    const scols = summary.columns;
-    const parties = data.parties.filter((p) => p.total > 0);
+    const scols = data.columns;
+    const parties = data.parties.filter((p) => Object.values(p.cells).some((v) => v > 0));
     const officeLabel = sumLevel === "metro" ? "광역단체장(시·도지사)" : "기초단체장(구·시·군의 장)";
     return (
       <div className="win-sum">
@@ -225,8 +229,8 @@ function TableMode() {
           {scols.map((c) => {
             const total = data.totals[c.election_id] || 0;
             return (
-              <div key={c.election_id} className="sum-row">
-                <span className="sum-year">{c.year}</span>
+              <div key={c.election_id} className={`sum-row${c.bye ? " bye" : ""}`}>
+                <span className="sum-year">{c.year}{c.bye && <small> 보궐</small>}</span>
                 <div className="sum-bar">
                   {parties.map((p) => {
                     const n = p.cells[c.election_id] || 0;
@@ -242,9 +246,9 @@ function TableMode() {
           })}
         </div>
         <div className="sum-legend">
-          {parties.map((p) => <span key={p.party} className="sum-leg"><span className="dot" style={{ background: p.color }} /> {p.party}<span className="muted"> {p.total}</span></span>)}
+          {parties.map((p) => <span key={p.party} className="sum-leg"><span className="dot" style={{ background: p.color }} /> {p.party}{p.total > 0 && <span className="muted"> {p.total}</span>}</span>)}
         </div>
-        <p className="muted">{officeLabel} 당선인 수(낙선 제외). 막대는 회차별 합 100% 기준 정당 점유.</p>
+        <p className="muted">{officeLabel} 당선인 수(낙선 제외). 막대는 합 100% 기준 정당 점유. <b>보궐</b> 행은 그 재·보궐선거 직후의 전국 구성(직전 당선인 + 보궐 교체)을 나타냅니다.</p>
       </div>
     );
   }
@@ -269,21 +273,21 @@ function TableMode() {
             <div className="win-strip">
               <span className="strip-label">{sido.name} 시·도지사</span>
               {cols.map((c) => { const cell = sidoRow.cells[c.election_id]; const bg = cell?.color_hex || "#eee";
-                return <span key={c.election_id} className="strip-chip" style={{ background: bg, color: textOn(bg) }}><b>{c.year}</b> {cell?.name || "—"}<small>{cell?.party || ""}</small></span>; })}
+                return <span key={c.election_id} className={`strip-chip${c.bye ? " bye" : ""}`} style={{ background: bg, color: textOn(bg) }}><b>{c.year}{c.bye ? " 보궐" : ""}</b> {cell?.name || "—"}<small>{cell?.party || ""}</small></span>; })}
             </div>
           )}
           {sggRow && (
             <div className="win-strip detail">
               <span className="strip-label">{sgg.name} 청장</span>
               {cols.map((c) => { const cell = sggRow.cells[c.election_id]; const bg = cell?.color_hex || "#eee";
-                return <span key={c.election_id} className="strip-chip" style={{ background: bg, color: textOn(bg) }}><b>{c.year}</b> {cell?.name || "—"}<small>{cell?.party || ""}</small></span>; })}
+                return <span key={c.election_id} className={`strip-chip${c.bye ? " bye" : ""}`} style={{ background: bg, color: textOn(bg) }}><b>{c.year}{c.bye ? " 보궐" : ""}</b> {cell?.name || "—"}<small>{cell?.party || ""}</small></span>; })}
             </div>
           )}
           <p className="muted">{sido.name} 기초단체장(구·시·군의 장) 당선인. 행을 클릭하면 해당 기초자치단체 이력만 봅니다.</p>
           <Matrix data={basic} colLabel="시군구 / 연도" onRow={(r) => setSgg({ code: r.region_code, name: r.region_name })} activeCode={sgg?.code} />
         </>
       )}
-      <p className="muted">당선인만 표시(낙선 제외). 출처: 중앙선거관리위원회. 광역·기초단체장 2002~2022.</p>
+      <p className="muted">당선인만 표시(낙선 제외). 출처: 중앙선거관리위원회. 광역·기초단체장 2002~2022 정규선거 + 재·보궐선거(2010~) 당선 변화 연도. <b>보궐</b> 열은 그 날 보궐선거가 있었던 지역만 채워집니다.</p>
     </>
   );
 }
