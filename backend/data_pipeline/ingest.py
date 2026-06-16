@@ -48,6 +48,15 @@ MINOR_COLORS = {
 def resolve_party(cur, name, hoecha):
     """정당명 -> party_id. 미등록 군소정당은 lineage 7로 자동 생성."""
     if name == "민주당":
+        if hoecha in (1, 2):  # 1995 민주당(통합민주당) — 2006/2010 민주당과 별개
+            row = cur.execute(
+                "SELECT id FROM parties WHERE name='민주당' AND era_start='1991'").fetchone()
+            if row:
+                return row[0]
+            cur.execute(
+                "INSERT INTO parties(name,lineage_id,color_hex,era_start,era_end) "
+                "VALUES ('민주당',1,'#73C03B','1991','1995')")
+            return cur.lastrowid
         return 10 if hoecha == 4 else 15  # 4회=2006 민주당(10), 5회=2010 민주당(15)
     if name in SEEDED:
         return SEEDED[name]
