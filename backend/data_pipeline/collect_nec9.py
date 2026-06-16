@@ -223,6 +223,130 @@ def collect_winners(cli, ec, sidos):
     print(f"electionCode {ec} 당선인: {len(wins)} (무투표 {nu}) → {out.name}")
 
 
+def fetch_pr_sgg(cli, city):
+    """광역비례(ec8) 시군구별 정당 득표. townCode=-1로 시도 전체 시군구 일괄. statementId=VCCP09_#8."""
+    data = {
+        "electionId": EID, "requestURI": REQ_URI, "topMenuId": "VC",
+        "secondMenuId": MENU, "menuId": MENU, "statementId": f"{MENU}_#8",
+        "electionCode": "8", "cityCode": city, "sggCityCode": "0",
+        "townCode": "-1", "sggTownCode": "0",
+    }
+    return cli.post(f"{BASE}/electioninfo/electionInfo_report.xhtml", data=data).text
+
+
+# 통합 광주(2900) 결과 분리용 — 광주 5개 자치구(나머지는 전남)
+GWANGJU_GU = {"동구", "서구", "남구", "북구", "광산구"}
+
+
+def parse_pr_sgg(html):
+    """광역비례 시군구별 정당 득표 파싱 → [{sigungu, party, votes, rate}].
+    구조: 정당명 행(col3~ '계' 전) + 시군구마다 득표수행/득표율행 2행. '합계' 행 제외."""
+    try:
+        df = pd.read_html(io.StringIO(html))[0]
+    except (ValueError, IndexError):
+        return []
+    df.columns = range(len(df.columns))
+    rows = df.values.tolist()
+    prow = next((r for r in rows if any(isinstance(x, str) and "더불어민주당" in x for x in r)), None)
+    if not prow:
+        return []
+    parties = {j: prow[j].strip() for j in range(len(prow))
+               if isinstance(prow[j], str) and prow[j].strip() and prow[j].strip() != "계"}
+    out = []
+    for idx, r in enumerate(rows):
+        sgu = r[0]
+        if not (isinstance(sgu, str) and sgu.strip()) or sgu.strip() in ("합계", "계"):
+            continue
+        if pd.isna(r[1]):  # 선거인수 없는 행(정당명/율행)
+            continue
+        rr = rows[idx + 1] if idx + 1 < len(rows) else None
+        for j, party in parties.items():
+            out.append({"sigungu": sgu.strip(), "party": party,
+                        "votes": _num(r[j], int),
+                        "rate": _num(rr[j] if rr else None, float)})
+    return out
+
+
+def fetch_gov_sgg(cli, city):
+    """광역단체장(ec3) 시군구별 후보 득표. townCode=-1 시도 전체. statementId=VCCP09_#3."""
+    data = {
+        "electionId": EID, "requestURI": REQ_URI, "topMenuId": "VC",
+        "secondMenuId": MENU, "menuId": MENU, "statementId": f"{MENU}_#3",
+        "electionCode": "3", "cityCode": city, "sggCityCode": "0",
+        "townCode": "-1", "sggTownCode": "0",
+    }
+    return cli.post(f"{BASE}/electioninfo/electionInfo_report.xhtml", data=data).text
+
+
+def parse_gov_sgg(html):
+    """광역단체장 시군구별 후보 득표 → [{sigungu, party, name, votes, rate}].
+    후보 행(col3~)은 '정당 이름' 형식. 시군구마다 득표수행/득표율행 2행. '합계' 제외."""
+    try:
+        df = pd.read_html(io.StringIO(html))[0]
+    except (ValueError, IndexError):
+        return []
+    df.columns = range(len(df.columns))
+    rows = df.values.tolist()
+    crow = next((r for r in rows if any(isinstance(x, str) and (" " in x and any(
+        p in x for p in ("더불어민주당", "국민의힘", "무소속"))) for x in r)), None)
+    if not crow:
+        return []
+    cols = {j: crow[j].strip() for j in range(len(crow))
+            if isinstance(crow[j], str) and crow[j].strip() and crow[j].strip() != "계"}
+    out = []
+    for idx, r in enumerate(rows):
+        sgu = r[0]
+        if not (isinstance(sgu, str) and sgu.strip()) or sgu.strip() in ("합계", "계"):
+            continue
+        if pd.isna(r[1]):
+            continue
+        rr = rows[idx + 1] if idx + 1 < len(rows) else None
+        for j, label in cols.items():
+            parts = label.rsplit(" ", 1)
+            party, name = (parts[0], parts[1]) if len(parts) == 2 else (label, None)
+            out.append({"sigungu": sgu.strip(), "party": party, "name": name,
+                        "votes": _num(r[j], int), "rate": _num(rr[j] if rr else None, float)})
+    return out
+
+
+def collect_gov_sgg(cli, sidos):
+    """광역단체장 시군구별 후보 득표 전국 수집 → nec9_ec3_sgg.json."""
+    rows = []
+    for city, cname in sidos:
+        std0 = SIDO_NEC2STD.get(city)
+        for d in parse_gov_sgg(fetch_gov_sgg(cli, city)):
+            std = ("29" if d["sigungu"] in GWANGJU_GU else "46") if city == "2900" else std0
+            rows.append({"sido_std": std, **d})
+        time.sleep(0.12)
+        print(f"  {cname}: 누적 {len(rows)}")
+    out = OUT / "nec9_ec3_sgg.json"
+    out.write_text(json.dumps({"electionId": EID, "hoecha": 9,
+                               "source": "info.nec.go.kr 개표진행상황 광역단체장 시군구별(잠정).", "rows": rows},
+                              ensure_ascii=False, indent=1), encoding="utf-8")
+    print(f"광역단체장 시군구별 득표: {len(rows)}행 → {out.name}")
+
+
+def collect_pr_sgg(cli, sidos):
+    """광역비례 시군구별 정당 득표 전국 수집 → nec9_ec8_sgg.json."""
+    rows = []
+    for city, cname in sidos:
+        std0 = SIDO_NEC2STD.get(city)
+        for d in parse_pr_sgg(fetch_pr_sgg(cli, city)):
+            # 통합 광주(2900): 광주 5구→29, 나머지→전남46
+            if city == "2900":
+                std = "29" if d["sigungu"] in GWANGJU_GU else "46"
+            else:
+                std = std0
+            rows.append({"sido_std": std, **d})
+        time.sleep(0.12)
+        print(f"  {cname}: {sum(1 for r in rows if r['sido_std'] in (std0, '29', '46'))}")
+    out = OUT / "nec9_ec8_sgg.json"
+    out.write_text(json.dumps({"electionId": EID, "hoecha": 9,
+                               "source": "info.nec.go.kr 개표진행상황 광역비례 시군구별(잠정).", "rows": rows},
+                              ensure_ascii=False, indent=1), encoding="utf-8")
+    print(f"광역비례 시군구별 득표: {len(rows)}행 → {out.name}")
+
+
 def main():
     ec = sys.argv[1] if len(sys.argv) > 1 else "5"
     mode = sys.argv[2] if len(sys.argv) > 2 else "tally"
@@ -237,6 +361,12 @@ def main():
 
     if mode == "win":
         collect_winners(cli, ec, sidos)
+        return
+    if mode == "sggpr":
+        collect_pr_sgg(cli, sidos)
+        return
+    if mode == "sggov":
+        collect_gov_sgg(cli, sidos)
         return
 
     all_rows, all_unc = [], []

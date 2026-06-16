@@ -169,7 +169,8 @@ export default function App() {
   }, [isPres, daesu, type, electionId, isCouncil, councilType, superView]);
 
   function nameOfSido(code) {
-    return sidoMap.find((d) => d.region_code === code)?.region_name || code;
+    // 9회 통합 채색 시 sidoMap엔 49(통합시)만 있어 광주(29)·전남(46)은 미발견 → SIDO_SHORT fallback
+    return sidoMap.find((d) => d.region_code === code)?.region_name || SIDO_SHORT[code] || code;
   }
   function onSidoClick(code) {
     if (isPres) {
