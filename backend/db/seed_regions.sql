@@ -18,4 +18,7 @@ INSERT OR IGNORE INTO regions(code,name,level,parent_code,valid_from,valid_to) V
   ('46','전라남도',        '시도',NULL,NULL,NULL),
   ('47','경상북도',        '시도',NULL,NULL,NULL),
   ('48','경상남도',        '시도',NULL,NULL,NULL),
-  ('50','제주특별자치도',  '시도',NULL,NULL,NULL);
+  ('50','제주특별자치도',  '시도',NULL,NULL,NULL),
+  -- 광주(29)+전남(46) 통합. 2026-07-01 출범 예정 → 9회(2026)부터 등장.
+  -- 행정표준코드 미확정이라 임시 '49'(현재 미사용 시도코드) 사용. 지도 경계는 29+46 합성.
+  ('49','전남광주통합특별시','시도',NULL,'2026-07-01',NULL);

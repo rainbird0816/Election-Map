@@ -1,0 +1,1040 @@
+{
+ "electionId": "0020260603",
+ "electionCode": "8",
+ "hoecha": 9,
+ "source": "info.nec.go.kr 당선인 명부(잠정).",
+ "winners": [
+  {
+   "sido_std": "11",
+   "town_nec": "1100",
+   "sido_name": "서울특별시",
+   "party": "더불어민주당",
+   "name": "이인애",
+   "uncontested": false
+  },
+  {
+   "sido_std": "11",
+   "town_nec": "1100",
+   "sido_name": "서울특별시",
+   "party": "더불어민주당",
+   "name": "함대건",
+   "uncontested": false
+  },
+  {
+   "sido_std": "11",
+   "town_nec": "1100",
+   "sido_name": "서울특별시",
+   "party": "더불어민주당",
+   "name": "송윤정",
+   "uncontested": false
+  },
+  {
+   "sido_std": "11",
+   "town_nec": "1100",
+   "sido_name": "서울특별시",
+   "party": "더불어민주당",
+   "name": "유주동",
+   "uncontested": false
+  },
+  {
+   "sido_std": "11",
+   "town_nec": "1100",
+   "sido_name": "서울특별시",
+   "party": "더불어민주당",
+   "name": "허윤정",
+   "uncontested": false
+  },
+  {
+   "sido_std": "11",
+   "town_nec": "1100",
+   "sido_name": "서울특별시",
+   "party": "더불어민주당",
+   "name": "장세훈",
+   "uncontested": false
+  },
+  {
+   "sido_std": "11",
+   "town_nec": "1100",
+   "sido_name": "서울특별시",
+   "party": "더불어민주당",
+   "name": "최정은",
+   "uncontested": false
+  },
+  {
+   "sido_std": "11",
+   "town_nec": "1100",
+   "sido_name": "서울특별시",
+   "party": "국민의힘",
+   "name": "주수현",
+   "uncontested": false
+  },
+  {
+   "sido_std": "11",
+   "town_nec": "1100",
+   "sido_name": "서울특별시",
+   "party": "국민의힘",
+   "name": "최종부",
+   "uncontested": false
+  },
+  {
+   "sido_std": "11",
+   "town_nec": "1100",
+   "sido_name": "서울특별시",
+   "party": "국민의힘",
+   "name": "최원선",
+   "uncontested": false
+  },
+  {
+   "sido_std": "11",
+   "town_nec": "1100",
+   "sido_name": "서울특별시",
+   "party": "국민의힘",
+   "name": "이문재",
+   "uncontested": false
+  },
+  {
+   "sido_std": "11",
+   "town_nec": "1100",
+   "sido_name": "서울특별시",
+   "party": "국민의힘",
+   "name": "오현주",
+   "uncontested": false
+  },
+  {
+   "sido_std": "11",
+   "town_nec": "1100",
+   "sido_name": "서울특별시",
+   "party": "국민의힘",
+   "name": "이종민",
+   "uncontested": false
+  },
+  {
+   "sido_std": "11",
+   "town_nec": "1100",
+   "sido_name": "서울특별시",
+   "party": "국민의힘",
+   "name": "손정화",
+   "uncontested": false
+  },
+  {
+   "sido_std": "11",
+   "town_nec": "1100",
+   "sido_name": "서울특별시",
+   "party": "국민의힘",
+   "name": "위성찬",
+   "uncontested": false
+  },
+  {
+   "sido_std": "26",
+   "town_nec": "2600",
+   "sido_name": "부산광역시",
+   "party": "더불어민주당",
+   "name": "김정원",
+   "uncontested": false
+  },
+  {
+   "sido_std": "26",
+   "town_nec": "2600",
+   "sido_name": "부산광역시",
+   "party": "더불어민주당",
+   "name": "조용우",
+   "uncontested": false
+  },
+  {
+   "sido_std": "26",
+   "town_nec": "2600",
+   "sido_name": "부산광역시",
+   "party": "더불어민주당",
+   "name": "남명숙",
+   "uncontested": false
+  },
+  {
+   "sido_std": "26",
+   "town_nec": "2600",
+   "sido_name": "부산광역시",
+   "party": "국민의힘",
+   "name": "유도희",
+   "uncontested": false
+  },
+  {
+   "sido_std": "26",
+   "town_nec": "2600",
+   "sido_name": "부산광역시",
+   "party": "국민의힘",
+   "name": "배관구",
+   "uncontested": false
+  },
+  {
+   "sido_std": "26",
+   "town_nec": "2600",
+   "sido_name": "부산광역시",
+   "party": "국민의힘",
+   "name": "견미령",
+   "uncontested": false
+  },
+  {
+   "sido_std": "27",
+   "town_nec": "2700",
+   "sido_name": "대구광역시",
+   "party": "더불어민주당",
+   "name": "박정희",
+   "uncontested": false
+  },
+  {
+   "sido_std": "27",
+   "town_nec": "2700",
+   "sido_name": "대구광역시",
+   "party": "더불어민주당",
+   "name": "최완식",
+   "uncontested": false
+  },
+  {
+   "sido_std": "27",
+   "town_nec": "2700",
+   "sido_name": "대구광역시",
+   "party": "국민의힘",
+   "name": "남궁현숙",
+   "uncontested": false
+  },
+  {
+   "sido_std": "27",
+   "town_nec": "2700",
+   "sido_name": "대구광역시",
+   "party": "국민의힘",
+   "name": "주호동",
+   "uncontested": false
+  },
+  {
+   "sido_std": "27",
+   "town_nec": "2700",
+   "sido_name": "대구광역시",
+   "party": "국민의힘",
+   "name": "임효신",
+   "uncontested": false
+  },
+  {
+   "sido_std": "28",
+   "town_nec": "2800",
+   "sido_name": "인천광역시",
+   "party": "더불어민주당",
+   "name": "방지현",
+   "uncontested": false
+  },
+  {
+   "sido_std": "28",
+   "town_nec": "2800",
+   "sido_name": "인천광역시",
+   "party": "더불어민주당",
+   "name": "오현식",
+   "uncontested": false
+  },
+  {
+   "sido_std": "28",
+   "town_nec": "2800",
+   "sido_name": "인천광역시",
+   "party": "더불어민주당",
+   "name": "정선영",
+   "uncontested": false
+  },
+  {
+   "sido_std": "28",
+   "town_nec": "2800",
+   "sido_name": "인천광역시",
+   "party": "국민의힘",
+   "name": "안수경",
+   "uncontested": false
+  },
+  {
+   "sido_std": "28",
+   "town_nec": "2800",
+   "sido_name": "인천광역시",
+   "party": "국민의힘",
+   "name": "이범석",
+   "uncontested": false
+  },
+  {
+   "sido_std": "28",
+   "town_nec": "2800",
+   "sido_name": "인천광역시",
+   "party": "국민의힘",
+   "name": "이미옥",
+   "uncontested": false
+  },
+  {
+   "sido_std": "49",
+   "town_nec": "2900",
+   "sido_name": "전남광주통합특별시",
+   "party": "더불어민주당",
+   "name": "이순화",
+   "uncontested": false
+  },
+  {
+   "sido_std": "49",
+   "town_nec": "2900",
+   "sido_name": "전남광주통합특별시",
+   "party": "더불어민주당",
+   "name": "박민영",
+   "uncontested": false
+  },
+  {
+   "sido_std": "49",
+   "town_nec": "2900",
+   "sido_name": "전남광주통합특별시",
+   "party": "더불어민주당",
+   "name": "박은정",
+   "uncontested": false
+  },
+  {
+   "sido_std": "49",
+   "town_nec": "2900",
+   "sido_name": "전남광주통합특별시",
+   "party": "더불어민주당",
+   "name": "박진한",
+   "uncontested": false
+  },
+  {
+   "sido_std": "49",
+   "town_nec": "2900",
+   "sido_name": "전남광주통합특별시",
+   "party": "더불어민주당",
+   "name": "이은정",
+   "uncontested": false
+  },
+  {
+   "sido_std": "49",
+   "town_nec": "2900",
+   "sido_name": "전남광주통합특별시",
+   "party": "더불어민주당",
+   "name": "박정선",
+   "uncontested": false
+  },
+  {
+   "sido_std": "49",
+   "town_nec": "2900",
+   "sido_name": "전남광주통합특별시",
+   "party": "더불어민주당",
+   "name": "문애준",
+   "uncontested": false
+  },
+  {
+   "sido_std": "49",
+   "town_nec": "2900",
+   "sido_name": "전남광주통합특별시",
+   "party": "더불어민주당",
+   "name": "박만",
+   "uncontested": false
+  },
+  {
+   "sido_std": "49",
+   "town_nec": "2900",
+   "sido_name": "전남광주통합특별시",
+   "party": "국민의힘",
+   "name": "이오숙",
+   "uncontested": false
+  },
+  {
+   "sido_std": "49",
+   "town_nec": "2900",
+   "sido_name": "전남광주통합특별시",
+   "party": "조국혁신당",
+   "name": "서영미",
+   "uncontested": false
+  },
+  {
+   "sido_std": "49",
+   "town_nec": "2900",
+   "sido_name": "전남광주통합특별시",
+   "party": "조국혁신당",
+   "name": "장성해",
+   "uncontested": false
+  },
+  {
+   "sido_std": "49",
+   "town_nec": "2900",
+   "sido_name": "전남광주통합특별시",
+   "party": "진보당",
+   "name": "신연순",
+   "uncontested": false
+  },
+  {
+   "sido_std": "30",
+   "town_nec": "3000",
+   "sido_name": "대전광역시",
+   "party": "더불어민주당",
+   "name": "민향기",
+   "uncontested": false
+  },
+  {
+   "sido_std": "30",
+   "town_nec": "3000",
+   "sido_name": "대전광역시",
+   "party": "더불어민주당",
+   "name": "장형순",
+   "uncontested": false
+  },
+  {
+   "sido_std": "30",
+   "town_nec": "3000",
+   "sido_name": "대전광역시",
+   "party": "국민의힘",
+   "name": "조재철",
+   "uncontested": false
+  },
+  {
+   "sido_std": "31",
+   "town_nec": "3100",
+   "sido_name": "울산광역시",
+   "party": "더불어민주당",
+   "name": "허희정",
+   "uncontested": false
+  },
+  {
+   "sido_std": "31",
+   "town_nec": "3100",
+   "sido_name": "울산광역시",
+   "party": "국민의힘",
+   "name": "권영애",
+   "uncontested": false
+  },
+  {
+   "sido_std": "31",
+   "town_nec": "3100",
+   "sido_name": "울산광역시",
+   "party": "국민의힘",
+   "name": "정나윤",
+   "uncontested": false
+  },
+  {
+   "sido_std": "36",
+   "town_nec": "5100",
+   "sido_name": "세종특별자치시",
+   "party": "더불어민주당",
+   "name": "김명숙",
+   "uncontested": false
+  },
+  {
+   "sido_std": "36",
+   "town_nec": "5100",
+   "sido_name": "세종특별자치시",
+   "party": "더불어민주당",
+   "name": "강해정",
+   "uncontested": false
+  },
+  {
+   "sido_std": "36",
+   "town_nec": "5100",
+   "sido_name": "세종특별자치시",
+   "party": "국민의힘",
+   "name": "곽효정",
+   "uncontested": false
+  },
+  {
+   "sido_std": "41",
+   "town_nec": "4100",
+   "sido_name": "경기도",
+   "party": "더불어민주당",
+   "name": "서인하",
+   "uncontested": false
+  },
+  {
+   "sido_std": "41",
+   "town_nec": "4100",
+   "sido_name": "경기도",
+   "party": "더불어민주당",
+   "name": "김현덕",
+   "uncontested": false
+  },
+  {
+   "sido_std": "41",
+   "town_nec": "4100",
+   "sido_name": "경기도",
+   "party": "더불어민주당",
+   "name": "서혜진",
+   "uncontested": false
+  },
+  {
+   "sido_std": "41",
+   "town_nec": "4100",
+   "sido_name": "경기도",
+   "party": "더불어민주당",
+   "name": "최혜경",
+   "uncontested": false
+  },
+  {
+   "sido_std": "41",
+   "town_nec": "4100",
+   "sido_name": "경기도",
+   "party": "더불어민주당",
+   "name": "지영일",
+   "uncontested": false
+  },
+  {
+   "sido_std": "41",
+   "town_nec": "4100",
+   "sido_name": "경기도",
+   "party": "더불어민주당",
+   "name": "박정균",
+   "uncontested": false
+  },
+  {
+   "sido_std": "41",
+   "town_nec": "4100",
+   "sido_name": "경기도",
+   "party": "더불어민주당",
+   "name": "최순자",
+   "uncontested": false
+  },
+  {
+   "sido_std": "41",
+   "town_nec": "4100",
+   "sido_name": "경기도",
+   "party": "더불어민주당",
+   "name": "송연섭",
+   "uncontested": false
+  },
+  {
+   "sido_std": "41",
+   "town_nec": "4100",
+   "sido_name": "경기도",
+   "party": "더불어민주당",
+   "name": "이미정",
+   "uncontested": false
+  },
+  {
+   "sido_std": "41",
+   "town_nec": "4100",
+   "sido_name": "경기도",
+   "party": "더불어민주당",
+   "name": "김성기",
+   "uncontested": false
+  },
+  {
+   "sido_std": "41",
+   "town_nec": "4100",
+   "sido_name": "경기도",
+   "party": "더불어민주당",
+   "name": "장경임",
+   "uncontested": false
+  },
+  {
+   "sido_std": "41",
+   "town_nec": "4100",
+   "sido_name": "경기도",
+   "party": "국민의힘",
+   "name": "이지혜",
+   "uncontested": false
+  },
+  {
+   "sido_std": "41",
+   "town_nec": "4100",
+   "sido_name": "경기도",
+   "party": "국민의힘",
+   "name": "오남석",
+   "uncontested": false
+  },
+  {
+   "sido_std": "41",
+   "town_nec": "4100",
+   "sido_name": "경기도",
+   "party": "국민의힘",
+   "name": "최미금",
+   "uncontested": false
+  },
+  {
+   "sido_std": "41",
+   "town_nec": "4100",
+   "sido_name": "경기도",
+   "party": "국민의힘",
+   "name": "김한슬",
+   "uncontested": false
+  },
+  {
+   "sido_std": "41",
+   "town_nec": "4100",
+   "sido_name": "경기도",
+   "party": "국민의힘",
+   "name": "최지원",
+   "uncontested": false
+  },
+  {
+   "sido_std": "41",
+   "town_nec": "4100",
+   "sido_name": "경기도",
+   "party": "국민의힘",
+   "name": "권태익",
+   "uncontested": false
+  },
+  {
+   "sido_std": "41",
+   "town_nec": "4100",
+   "sido_name": "경기도",
+   "party": "국민의힘",
+   "name": "금종례",
+   "uncontested": false
+  },
+  {
+   "sido_std": "41",
+   "town_nec": "4100",
+   "sido_name": "경기도",
+   "party": "국민의힘",
+   "name": "김진후",
+   "uncontested": false
+  },
+  {
+   "sido_std": "41",
+   "town_nec": "4100",
+   "sido_name": "경기도",
+   "party": "국민의힘",
+   "name": "국은주",
+   "uncontested": false
+  },
+  {
+   "sido_std": "41",
+   "town_nec": "4100",
+   "sido_name": "경기도",
+   "party": "조국혁신당",
+   "name": "차유미",
+   "uncontested": false
+  },
+  {
+   "sido_std": "42",
+   "town_nec": "5200",
+   "sido_name": "강원특별자치도",
+   "party": "더불어민주당",
+   "name": "박영림",
+   "uncontested": false
+  },
+  {
+   "sido_std": "42",
+   "town_nec": "5200",
+   "sido_name": "강원특별자치도",
+   "party": "더불어민주당",
+   "name": "백소련",
+   "uncontested": false
+  },
+  {
+   "sido_std": "42",
+   "town_nec": "5200",
+   "sido_name": "강원특별자치도",
+   "party": "더불어민주당",
+   "name": "조수현",
+   "uncontested": false
+  },
+  {
+   "sido_std": "42",
+   "town_nec": "5200",
+   "sido_name": "강원특별자치도",
+   "party": "국민의힘",
+   "name": "윤미경",
+   "uncontested": false
+  },
+  {
+   "sido_std": "42",
+   "town_nec": "5200",
+   "sido_name": "강원특별자치도",
+   "party": "국민의힘",
+   "name": "서영일",
+   "uncontested": false
+  },
+  {
+   "sido_std": "42",
+   "town_nec": "5200",
+   "sido_name": "강원특별자치도",
+   "party": "국민의힘",
+   "name": "이은희",
+   "uncontested": false
+  },
+  {
+   "sido_std": "42",
+   "town_nec": "5200",
+   "sido_name": "강원특별자치도",
+   "party": "국민의힘",
+   "name": "이상미",
+   "uncontested": false
+  },
+  {
+   "sido_std": "43",
+   "town_nec": "4300",
+   "sido_name": "충청북도",
+   "party": "더불어민주당",
+   "name": "박희남",
+   "uncontested": false
+  },
+  {
+   "sido_std": "43",
+   "town_nec": "4300",
+   "sido_name": "충청북도",
+   "party": "더불어민주당",
+   "name": "엄문섭",
+   "uncontested": false
+  },
+  {
+   "sido_std": "43",
+   "town_nec": "4300",
+   "sido_name": "충청북도",
+   "party": "더불어민주당",
+   "name": "허영옥",
+   "uncontested": false
+  },
+  {
+   "sido_std": "43",
+   "town_nec": "4300",
+   "sido_name": "충청북도",
+   "party": "국민의힘",
+   "name": "이재화",
+   "uncontested": false
+  },
+  {
+   "sido_std": "43",
+   "town_nec": "4300",
+   "sido_name": "충청북도",
+   "party": "국민의힘",
+   "name": "김성규",
+   "uncontested": false
+  },
+  {
+   "sido_std": "44",
+   "town_nec": "4400",
+   "sido_name": "충청남도",
+   "party": "더불어민주당",
+   "name": "이선",
+   "uncontested": false
+  },
+  {
+   "sido_std": "44",
+   "town_nec": "4400",
+   "sido_name": "충청남도",
+   "party": "더불어민주당",
+   "name": "전형준",
+   "uncontested": false
+  },
+  {
+   "sido_std": "44",
+   "town_nec": "4400",
+   "sido_name": "충청남도",
+   "party": "더불어민주당",
+   "name": "박유경",
+   "uncontested": false
+  },
+  {
+   "sido_std": "44",
+   "town_nec": "4400",
+   "sido_name": "충청남도",
+   "party": "더불어민주당",
+   "name": "설미경",
+   "uncontested": false
+  },
+  {
+   "sido_std": "44",
+   "town_nec": "4400",
+   "sido_name": "충청남도",
+   "party": "국민의힘",
+   "name": "박상선",
+   "uncontested": false
+  },
+  {
+   "sido_std": "44",
+   "town_nec": "4400",
+   "sido_name": "충청남도",
+   "party": "국민의힘",
+   "name": "이병훈",
+   "uncontested": false
+  },
+  {
+   "sido_std": "44",
+   "town_nec": "4400",
+   "sido_name": "충청남도",
+   "party": "국민의힘",
+   "name": "김현이",
+   "uncontested": false
+  },
+  {
+   "sido_std": "45",
+   "town_nec": "5300",
+   "sido_name": "전북특별자치도",
+   "party": "더불어민주당",
+   "name": "윤해아",
+   "uncontested": false
+  },
+  {
+   "sido_std": "45",
+   "town_nec": "5300",
+   "sido_name": "전북특별자치도",
+   "party": "더불어민주당",
+   "name": "박수형",
+   "uncontested": false
+  },
+  {
+   "sido_std": "45",
+   "town_nec": "5300",
+   "sido_name": "전북특별자치도",
+   "party": "더불어민주당",
+   "name": "강정희",
+   "uncontested": false
+  },
+  {
+   "sido_std": "45",
+   "town_nec": "5300",
+   "sido_name": "전북특별자치도",
+   "party": "더불어민주당",
+   "name": "박병철",
+   "uncontested": false
+  },
+  {
+   "sido_std": "45",
+   "town_nec": "5300",
+   "sido_name": "전북특별자치도",
+   "party": "국민의힘",
+   "name": "이인숙",
+   "uncontested": false
+  },
+  {
+   "sido_std": "45",
+   "town_nec": "5300",
+   "sido_name": "전북특별자치도",
+   "party": "조국혁신당",
+   "name": "김나영",
+   "uncontested": false
+  },
+  {
+   "sido_std": "47",
+   "town_nec": "4700",
+   "sido_name": "경상북도",
+   "party": "더불어민주당",
+   "name": "정숙경",
+   "uncontested": false
+  },
+  {
+   "sido_std": "47",
+   "town_nec": "4700",
+   "sido_name": "경상북도",
+   "party": "더불어민주당",
+   "name": "정용채",
+   "uncontested": false
+  },
+  {
+   "sido_std": "47",
+   "town_nec": "4700",
+   "sido_name": "경상북도",
+   "party": "더불어민주당",
+   "name": "장은주",
+   "uncontested": false
+  },
+  {
+   "sido_std": "47",
+   "town_nec": "4700",
+   "sido_name": "경상북도",
+   "party": "국민의힘",
+   "name": "마정연",
+   "uncontested": false
+  },
+  {
+   "sido_std": "47",
+   "town_nec": "4700",
+   "sido_name": "경상북도",
+   "party": "국민의힘",
+   "name": "허지훈",
+   "uncontested": false
+  },
+  {
+   "sido_std": "47",
+   "town_nec": "4700",
+   "sido_name": "경상북도",
+   "party": "국민의힘",
+   "name": "김예영",
+   "uncontested": false
+  },
+  {
+   "sido_std": "47",
+   "town_nec": "4700",
+   "sido_name": "경상북도",
+   "party": "국민의힘",
+   "name": "양유혁",
+   "uncontested": false
+  },
+  {
+   "sido_std": "47",
+   "town_nec": "4700",
+   "sido_name": "경상북도",
+   "party": "국민의힘",
+   "name": "공승희",
+   "uncontested": false
+  },
+  {
+   "sido_std": "48",
+   "town_nec": "4800",
+   "sido_name": "경상남도",
+   "party": "더불어민주당",
+   "name": "박현주",
+   "uncontested": false
+  },
+  {
+   "sido_std": "48",
+   "town_nec": "4800",
+   "sido_name": "경상남도",
+   "party": "더불어민주당",
+   "name": "장원혁",
+   "uncontested": false
+  },
+  {
+   "sido_std": "48",
+   "town_nec": "4800",
+   "sido_name": "경상남도",
+   "party": "더불어민주당",
+   "name": "백정원",
+   "uncontested": false
+  },
+  {
+   "sido_std": "48",
+   "town_nec": "4800",
+   "sido_name": "경상남도",
+   "party": "더불어민주당",
+   "name": "민호영",
+   "uncontested": false
+  },
+  {
+   "sido_std": "48",
+   "town_nec": "4800",
+   "sido_name": "경상남도",
+   "party": "국민의힘",
+   "name": "구명순",
+   "uncontested": false
+  },
+  {
+   "sido_std": "48",
+   "town_nec": "4800",
+   "sido_name": "경상남도",
+   "party": "국민의힘",
+   "name": "김영록",
+   "uncontested": false
+  },
+  {
+   "sido_std": "48",
+   "town_nec": "4800",
+   "sido_name": "경상남도",
+   "party": "국민의힘",
+   "name": "서미숙",
+   "uncontested": false
+  },
+  {
+   "sido_std": "48",
+   "town_nec": "4800",
+   "sido_name": "경상남도",
+   "party": "국민의힘",
+   "name": "백승흥",
+   "uncontested": false
+  },
+  {
+   "sido_std": "48",
+   "town_nec": "4800",
+   "sido_name": "경상남도",
+   "party": "국민의힘",
+   "name": "주외숙",
+   "uncontested": false
+  },
+  {
+   "sido_std": "50",
+   "town_nec": "4900",
+   "sido_name": "제주특별자치도",
+   "party": "더불어민주당",
+   "name": "박지은",
+   "uncontested": false
+  },
+  {
+   "sido_std": "50",
+   "town_nec": "4900",
+   "sido_name": "제주특별자치도",
+   "party": "더불어민주당",
+   "name": "임혜주",
+   "uncontested": false
+  },
+  {
+   "sido_std": "50",
+   "town_nec": "4900",
+   "sido_name": "제주특별자치도",
+   "party": "더불어민주당",
+   "name": "정다운",
+   "uncontested": false
+  },
+  {
+   "sido_std": "50",
+   "town_nec": "4900",
+   "sido_name": "제주특별자치도",
+   "party": "더불어민주당",
+   "name": "고석준",
+   "uncontested": false
+  },
+  {
+   "sido_std": "50",
+   "town_nec": "4900",
+   "sido_name": "제주특별자치도",
+   "party": "더불어민주당",
+   "name": "장희순",
+   "uncontested": false
+  },
+  {
+   "sido_std": "50",
+   "town_nec": "4900",
+   "sido_name": "제주특별자치도",
+   "party": "더불어민주당",
+   "name": "오경남",
+   "uncontested": false
+  },
+  {
+   "sido_std": "50",
+   "town_nec": "4900",
+   "sido_name": "제주특별자치도",
+   "party": "더불어민주당",
+   "name": "강영아",
+   "uncontested": false
+  },
+  {
+   "sido_std": "50",
+   "town_nec": "4900",
+   "sido_name": "제주특별자치도",
+   "party": "국민의힘",
+   "name": "김효",
+   "uncontested": false
+  },
+  {
+   "sido_std": "50",
+   "town_nec": "4900",
+   "sido_name": "제주특별자치도",
+   "party": "국민의힘",
+   "name": "김태현",
+   "uncontested": false
+  },
+  {
+   "sido_std": "50",
+   "town_nec": "4900",
+   "sido_name": "제주특별자치도",
+   "party": "국민의힘",
+   "name": "이정한",
+   "uncontested": false
+  },
+  {
+   "sido_std": "50",
+   "town_nec": "4900",
+   "sido_name": "제주특별자치도",
+   "party": "국민의힘",
+   "name": "박왕철",
+   "uncontested": false
+  },
+  {
+   "sido_std": "50",
+   "town_nec": "4900",
+   "sido_name": "제주특별자치도",
+   "party": "국민의힘",
+   "name": "김경애",
+   "uncontested": false
+  },
+  {
+   "sido_std": "50",
+   "town_nec": "4900",
+   "sido_name": "제주특별자치도",
+   "party": "조국혁신당",
+   "name": "김혜지",
+   "uncontested": false
+  }
+ ]
+}
