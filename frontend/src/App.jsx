@@ -138,7 +138,10 @@ export default function App() {
   }, [districtConf?.win]);
 
   const sidoColor = useMemo(() => {
-    const m = {}; for (const d of sidoMap) m[d.region_code] = d.color_hex; return m;
+    const m = {}; for (const d of sidoMap) m[d.region_code] = d.color_hex;
+    // 9회 전남광주통합특별시(49): 통합 경계 대신 광주(29)·전남(46) 양쪽을 통합시 당선색으로 채색
+    if (m["49"]) { m["29"] = m["49"]; m["46"] = m["49"]; }
+    return m;
   }, [sidoMap]);
   const sigunguColor = useMemo(() => {
     const m = {}; for (const d of sigunguMap) m[d.region_code] = d.color_hex; return m;
