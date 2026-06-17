@@ -66,6 +66,16 @@ export default function App() {
   const isPres = type === "대선";
   const byType = useMemo(() => elections.filter((e) => e.type === type), [elections, type]);
 
+  // 선택 선거의 연도 → 2023.7 군위군 대구 편입 이후면 지도에 편입 반영
+  const electionYear = useMemo(() => {
+    if (isPres) return presList.find((e) => e.daesu === daesu)?.year ?? null;
+    const y = byType.find((e) => e.id === electionId)?.election_date?.slice(0, 4);
+    return y ? Number(y) : null;
+  }, [isPres, presList, daesu, byType, electionId]);
+  const mergeGunwi = electionYear != null && electionYear >= 2023;
+  // 인천 2026-07-01 자치구 개편(검단/영종/제물포 신설) — 9회 지선(2026)부터 신 경계
+  const incheon2026 = electionYear != null && electionYear >= 2026;
+
   useEffect(() => {
     setView("sido");
     setSido(null);
@@ -349,7 +359,7 @@ export default function App() {
             </>
           ) : view === "sido" ? (
             <>
-              <MapKorea colorByCode={sidoColor} selectedCode={selected?.code} onSelect={onSidoClick} />
+              <MapKorea colorByCode={sidoColor} selectedCode={selected?.code} onSelect={onSidoClick} mergeGunwi={mergeGunwi} />
               <Legend mapData={sidoMap} />
             </>
           ) : (
@@ -359,6 +369,8 @@ export default function App() {
                 electionId={isPres ? null : electionId}
                 colorByCode={sigunguColor}
                 selectedCode={selected?.code}
+                mergeGunwi={mergeGunwi}
+                incheon2026={incheon2026}
                 onSelect={(code) => setSelected({ code, office: isPres ? "대통령" : isCouncil ? "지방의원" : isMetroSummary ? "광역단체장" : "기초단체장" })}
               />
               <Legend mapData={sigunguMap} />

@@ -1,6 +1,6 @@
 import { useEffect, useMemo, useState } from "react";
-import { ComposableMap, Geographies, Geography } from "react-simple-maps";
-import { geoMercator } from "d3-geo";
+import { ComposableMap, Geographies, Geography, Marker } from "react-simple-maps";
+import { geoMercator, geoCentroid } from "d3-geo";
 import { feature } from "topojson-client";
 
 const GEO_URL = "/geo/korea-sigungu.topo.json";
@@ -42,25 +42,43 @@ async function loadFeatures() {
   return _cache;
 }
 
-export default function MapSigungu({ sidoCode, electionId, colorByCode, selectedCode, onSelect }) {
+// 인천 2026-07-01 개편 자치구(검단구·영종구·제물포구 등) 합성 경계 — 9회+ 인천 드릴다운용
+const INCHEON_URL = "/geo/incheon-2026.geo.json";
+let _incCache = null;
+async function loadIncheon() {
+  if (_incCache) return _incCache;
+  _incCache = (await fetch(INCHEON_URL).then((r) => r.json())).features;
+  return _incCache;
+}
+
+export default function MapSigungu({ sidoCode, electionId, colorByCode, selectedCode, onSelect, mergeGunwi, incheon2026 }) {
   const [all, setAll] = useState(null);
+  const [inc, setInc] = useState(null);
   useEffect(() => { loadFeatures().then(setAll); }, []);
+  // 인천(28) + 개편 이후 회차면 합성 경계 로드
+  const useInc = incheon2026 && sidoCode === "28";
+  useEffect(() => { if (useInc) loadIncheon().then(setInc); }, [useInc]);
 
   // 회차별 ANNEX 반영: 폴리곤의 (소속 시도, 기초단체 코드) 해석
   const annex = ANNEX[electionId] || {};
-  const sidoOf = (geo) => annex[geo.properties.code]?.sido
-    ?? GEO2STD[String(geo.properties.code).slice(0, 2)];
+  // 2023.7 군위군(37310) 대구 편입: 해당 회차엔 군위를 대구(27) 소속으로 해석
+  const sidoOf = (geo) => {
+    if (mergeGunwi && String(geo.properties.code) === "37310") return "27";
+    return annex[geo.properties.code]?.sido
+      ?? GEO2STD[String(geo.properties.code).slice(0, 2)];
+  };
   const codeOf = (geo) => annex[geo.properties.code]?.code
     ?? basicCode(geo.properties.code, geo.properties.name);
 
   const { fc, projection } = useMemo(() => {
     if (!all) return {};
-    const feats = all.filter((f) => sidoOf(f) === sidoCode);
-    if (!feats.length) return {};
+    // 인천 개편 회차: 옛 중·동·서구 대신 합성 경계(검단/영종/제물포 포함) 사용
+    const feats = useInc ? inc : all.filter((f) => sidoOf(f) === sidoCode);
+    if (!feats || !feats.length) return {};
     const fcol = { type: "FeatureCollection", features: feats };
     const proj = geoMercator().fitExtent([[12, 12], [508, 608]], fcol);
     return { fc: fcol, projection: proj };
-  }, [all, sidoCode, electionId]);
+  }, [all, inc, useInc, sidoCode, electionId, mergeGunwi]);
 
   if (!fc) return <div className="map-loading">지도 불러오는 중…</div>;
 
@@ -89,6 +107,16 @@ export default function MapSigungu({ sidoCode, electionId, colorByCode, selected
           })
         }
       </Geographies>
+      {/* 시군구 이름 라벨 (PC 전용 — CSS 미디어쿼리로 모바일 숨김) */}
+      <g className="sgg-labels">
+        {fc.features.map((geo) => (
+          <Marker key={"lbl-" + geo.properties.code} coordinates={geoCentroid(geo)}>
+            <text className="sgg-label" textAnchor="middle" dy="0.32em">
+              {geo.properties.name}
+            </text>
+          </Marker>
+        ))}
+      </g>
     </ComposableMap>
   );
 }

@@ -2,6 +2,8 @@ import { ComposableMap, Geographies, Geography } from "react-simple-maps";
 
 // 시도 TopoJSON은 런타임 로드 (컨텍스트에 올리지 않음)
 const GEO_URL = "/geo/korea-sido.topo.json";
+// 군위군 단독 폴리곤(경북 37310) — 2023.7 대구 편입 반영 오버레이용
+const GUNWI_URL = "/geo/gunwi.geo.json";
 const NO_DATA = "#E5E5E5";
 
 // 지오파일(통계청/KOSTAT 코드) -> DB(행정표준코드) 변환
@@ -12,7 +14,7 @@ const GEO2STD = {
   "38": "48", "39": "50",
 };
 
-export default function MapKorea({ colorByCode, selectedCode, onSelect }) {
+export default function MapKorea({ colorByCode, selectedCode, onSelect, mergeGunwi }) {
   return (
     <ComposableMap
       projection="geoMercator"
@@ -45,6 +47,31 @@ export default function MapKorea({ colorByCode, selectedCode, onSelect }) {
           })
         }
       </Geographies>
+      {/* 2023.7 군위군 대구 편입: 경북 위에 군위 폴리곤을 대구(27) 색으로 덮어 편입을 반영 */}
+      {mergeGunwi && (
+        <Geographies geography={GUNWI_URL}>
+          {({ geographies }) =>
+            geographies.map((geo) => {
+              const isSel = selectedCode === "27";
+              return (
+                <Geography
+                  key="gunwi"
+                  geography={geo}
+                  fill={colorByCode["27"] || NO_DATA}
+                  stroke={isSel ? "#111" : "#fff"}
+                  strokeWidth={isSel ? 1.4 : 0.6}
+                  onClick={() => onSelect("27")}
+                  style={{
+                    default: { outline: "none" },
+                    hover: { opacity: 0.8, cursor: "pointer", outline: "none" },
+                    pressed: { outline: "none" },
+                  }}
+                />
+              );
+            })
+          }
+        </Geographies>
+      )}
     </ComposableMap>
   );
 }

@@ -105,6 +105,12 @@ def build_region_list(con):
         sido = next((s for s, c in SIDO_CODE.items() if parent == c), None)
         if sido:
             idx.setdefault(sido, []).append((name, code))
+    # 2023.7 군위군(37310, regions상 경북 소속) 대구 편입. 편입 이후 자료(9회 등)는
+    # 군위를 '대구' 키로 보내므로 '대구' 버킷에도 등록(코드는 37310 유지, 경북 버킷도 유지
+    # → 8회 이전 경북 자료 매칭엔 영향 없음).
+    gunwi = next(((n, c) for n, c in idx.get("경북", []) if c == "37310"), None)
+    if gunwi and gunwi not in idx.get("대구", []):
+        idx.setdefault("대구", []).append(gunwi)
     for s in idx:
         idx[s].sort(key=lambda x: -len(x[0]))
     return idx

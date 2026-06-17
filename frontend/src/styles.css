@@ -35,6 +35,14 @@ body { margin: 0; color: #1a1a1a; background: #fafafa; }
 .layout { display: grid; grid-template-columns: minmax(360px, 1fr) 420px; gap: 8px; }
 .map-pane { padding: 12px 20px; }
 
+/* 시군구 이름 라벨 (PC 전용). 흰 외곽선으로 채색 위에서도 가독 확보. */
+.sgg-labels { pointer-events: none; }
+.sgg-label {
+  font-size: 8.5px; font-weight: 600; fill: #1f2937;
+  paint-order: stroke; stroke: #fff; stroke-width: 2px; stroke-linejoin: round;
+}
+@media (max-width: 768px) { .sgg-labels { display: none; } }
+
 .legend { display: flex; flex-wrap: wrap; gap: 12px; margin-top: 8px; font-size: 13px; }
 .legend-item { display: inline-flex; align-items: center; gap: 5px; }
 .swatch { width: 13px; height: 13px; border-radius: 3px; display: inline-block; border: 1px solid rgba(0,0,0,.15); }
