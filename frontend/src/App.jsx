@@ -13,6 +13,7 @@ import PrecinctLookup from "./pages/PrecinctLookup.jsx";
 import SigunguDashboard from "./pages/SigunguDashboard.jsx";
 import PrDetail from "./pages/PrDetail.jsx";
 import OverviewPage from "./pages/OverviewPage.jsx";
+import PoliticianPage from "./pages/PoliticianPage.jsx";
 import ByElectionPage from "./pages/ByElectionPage.jsx";
 import WinnersPage from "./pages/WinnersPage.jsx";
 import MetroDashboard from "./pages/MetroDashboard.jsx";
@@ -75,6 +76,10 @@ export default function App() {
   const mergeGunwi = electionYear != null && electionYear >= 2023;
   // 인천 2026-07-01 자치구 개편(검단/영종/제물포 신설) — 9회 지선(2026)부터 신 경계
   const incheon2026 = electionYear != null && electionYear >= 2026;
+  // 세종시 출범(2012-07-01) 이전 → 그 지역은 충남 연기군. 지도·라벨을 연기군으로 표기
+  const mergeSejong = electionYear != null && electionYear < 2012;
+  // 계룡시 출범(2003-09-19) 이전 → 그 지역은 논산. 1·2·3회는 계룡 폴리곤을 논산에 귀속
+  const mergeGyeryong = electionYear != null && electionYear < 2003;
 
   useEffect(() => {
     setView("sido");
@@ -98,6 +103,7 @@ export default function App() {
   const isOverview = type === "개관";
   const isByelection = type === "보궐";
   const isWinners = type === "당선인";
+  const isPolitician = type === "정치인";
   const sidoOffice = type === "총선" ? "국회의원"
     : superView === "교육감" ? "교육감" : "광역단체장";
   const districtConf = type === "총선" ? DISTRICT_GEO[electionId] : null;
@@ -116,7 +122,8 @@ export default function App() {
     if (isCouncil) {
       getCouncilMap(electionId, councilType).then(setSidoMap).catch((e) => setError(String(e)));
     } else if (isBasicSummary) {
-      getBasicSidoMap(electionId).then(setSidoMap).catch((e) => setError(String(e)));
+      // 기초 종합 전국지도는 그 회차 광역단체장(시도지사) 당선 정당색으로 채색
+      getMap(electionId, "광역단체장").then(setSidoMap).catch((e) => setError(String(e)));
     } else {
       getMap(electionId, sidoOffice).then(setSidoMap).catch((e) => setError(String(e)));
     }
@@ -205,10 +212,11 @@ export default function App() {
       <header className="topbar">
         <h1>한국 선거 지도</h1>
         <nav className="tabs">
-          {["개관", "대선", "총선", "지선", "보궐", "당선인", "투표소"].map((t) => (
+          {["개관", "대선", "총선", "지선", "보궐", "당선인", "투표소", "정치인"].map((t) => (
             <button key={t} className={`tab ${type === t ? "active" : ""}`} onClick={() => setType(t)}>
               {t === "지선" ? "지방선거" : t === "총선" ? "국회의원" : t === "대선" ? "대통령"
-                : t === "보궐" ? "재보궐" : t === "당선인" ? "당선인" : t === "투표소" ? "투표소 조회" : "개관"}
+                : t === "보궐" ? "재보궐" : t === "당선인" ? "당선인" : t === "투표소" ? "투표소 조회"
+                : t === "정치인" ? "정치인" : "개관"}
             </button>
           ))}
         </nav>
@@ -240,7 +248,7 @@ export default function App() {
             ))}
           </nav>
         )}
-        {!isLookup && !isOverview && !isByelection && !isWinners && (
+        {!isLookup && !isOverview && !isByelection && !isWinners && !isPolitician && (
         <div className="selector">
           <label>{type === "지선" ? "회차" : "대수"}&nbsp;</label>
           {isPres ? (
@@ -265,7 +273,8 @@ export default function App() {
       {isLookup ? <main className="layout single"><PrecinctLookup /></main>
       : isOverview ? <main className="layout single"><OverviewPage /></main>
       : isByelection ? <main className="layout single"><ByElectionPage /></main>
-      : isWinners ? <main className="layout single"><WinnersPage /></main> : (
+      : isWinners ? <main className="layout single"><WinnersPage /></main>
+      : isPolitician ? <main className="layout single"><PoliticianPage /></main> : (
       <>
       <div className="crumbs">
         {isPres ? (
@@ -359,7 +368,7 @@ export default function App() {
             </>
           ) : view === "sido" ? (
             <>
-              <MapKorea colorByCode={sidoColor} selectedCode={selected?.code} onSelect={onSidoClick} mergeGunwi={mergeGunwi} />
+              <MapKorea colorByCode={sidoColor} selectedCode={selected?.code} onSelect={onSidoClick} mergeGunwi={mergeGunwi} mergeSejong={mergeSejong} />
               <Legend mapData={sidoMap} />
             </>
           ) : (
@@ -367,9 +376,12 @@ export default function App() {
               <MapSigungu
                 sidoCode={sido.code}
                 electionId={isPres ? null : electionId}
+                electionYear={electionYear}
                 colorByCode={sigunguColor}
                 selectedCode={selected?.code}
                 mergeGunwi={mergeGunwi}
+                mergeSejong={mergeSejong}
+                mergeGyeryong={mergeGyeryong}
                 incheon2026={incheon2026}
                 onSelect={(code) => setSelected({ code, office: isPres ? "대통령" : isCouncil ? "지방의원" : isMetroSummary ? "광역단체장" : "기초단체장" })}
               />

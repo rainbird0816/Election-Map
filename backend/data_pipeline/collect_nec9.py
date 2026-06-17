@@ -191,10 +191,100 @@ PR_SIDO2STD = {
 }
 
 
+# ── 기초단체장(ec4)·기초비례(ec9): 구시군 단위라 시도(town=0)로 일괄 조회 ──
+def parse_local_gov_winners(html):
+    """기초단체장 당선인. 컬럼 구시군|정당|사진|성명(한자)|성별|…|득표수(율).
+    구시군마다 1명. 반환 [{sigungu, party, name, votes, rate, uncontested}]."""
+    import re
+    try:
+        df = pd.read_html(io.StringIO(html))[0]
+    except (ValueError, IndexError):
+        return []
+    df.columns = range(len(df.columns))
+    out = []
+    for _, r in df.iterrows():
+        sgu = r[0]
+        if not (isinstance(sgu, str) and sgu.strip()) or "결과가 없" in sgu:
+            continue
+        name = re.sub(r"\s*\(.*?\)\s*$", "", str(r[3])).strip()
+        last = str(r[len(df.columns) - 1])
+        unc = "무투표" in last
+        votes = rate = None
+        if not unc:
+            m = re.search(r"([\d,]+)\s*\(([\d.]+)\)", last)
+            if m:
+                votes, rate = int(m.group(1).replace(",", "")), float(m.group(2))
+        out.append({"sigungu": sgu.strip(), "party": str(r[1]).strip(),
+                    "name": name, "votes": votes, "rate": rate, "uncontested": unc})
+    return out
+
+
+def parse_basic_pr_winners(html):
+    """기초의원 비례 당선인. 컬럼 구시군|정당|순번|사진|성명(한자)|…. 득표 없음.
+    반환 [{sigungu, party, name}]."""
+    import re
+    try:
+        df = pd.read_html(io.StringIO(html))[0]
+    except (ValueError, IndexError):
+        return []
+    df.columns = range(len(df.columns))
+    out = []
+    for _, r in df.iterrows():
+        sgu = r[0]
+        if not (isinstance(sgu, str) and sgu.strip()) or "결과가 없" in sgu:
+            continue
+        name = re.sub(r"\s*\(.*?\)\s*$", "", str(r[4])).strip()
+        out.append({"sigungu": sgu.strip(), "party": str(r[1]).strip(), "name": name})
+    return out
+
+
+def collect_local_gov(cli, sidos):
+    """기초단체장(ec4) 전국 당선인 → nec9_ec4_win.json. 시도(town=0)로 일괄."""
+    wins = []
+    for city, cname in sidos:
+        std0 = SIDO_NEC2STD.get(city)
+        n = 0
+        for w in parse_local_gov_winners(fetch_winners(cli, "4", city, "0")):
+            std = ("29" if w["sigungu"] in GWANGJU_GU else "46") if city == "2900" else std0
+            wins.append({"sido_std": std, "town_nec": city, **w})
+            n += 1
+        time.sleep(0.12)
+        print(f"  {cname}: 기초단체장 {n}")
+    out = OUT / "nec9_ec4_win.json"
+    out.write_text(json.dumps({"electionId": EID, "electionCode": "4", "hoecha": 9,
+                               "source": "info.nec.go.kr 당선인 명부(잠정).", "winners": wins},
+                              ensure_ascii=False, indent=1), encoding="utf-8")
+    print(f"기초단체장 당선인: {len(wins)} (무투표 {sum(1 for w in wins if w['uncontested'])}) → {out.name}")
+
+
+def collect_basic_pr(cli, sidos):
+    """기초비례(ec9) 전국 당선인 → nec9_ec9_win.json. 시도(town=0)로 일괄(구시군별)."""
+    wins = []
+    for city, cname in sidos:
+        std0 = SIDO_NEC2STD.get(city)
+        n = 0
+        for w in parse_basic_pr_winners(fetch_winners(cli, "9", city, "0")):
+            std = ("29" if w["sigungu"] in GWANGJU_GU else "46") if city == "2900" else std0
+            wins.append({"sido_std": std, "town_nec": city, **w, "uncontested": False})
+            n += 1
+        time.sleep(0.12)
+        print(f"  {cname}: 기초비례 당선 {n}")
+    out = OUT / "nec9_ec9_win.json"
+    out.write_text(json.dumps({"electionId": EID, "electionCode": "9", "hoecha": 9,
+                               "source": "info.nec.go.kr 당선인 명부(잠정).", "winners": wins},
+                              ensure_ascii=False, indent=1), encoding="utf-8")
+    print(f"기초비례 당선인: {len(wins)} → {out.name}")
+
+
 def collect_winners(cli, ec, sidos):
     """당선인 명부(무투표 포함) 전국 수집 -> nec9_ec{ec}_win.json.
-    지역구(5/6)는 시도→구시군 순회, 비례(8/9)는 시도 단위."""
-    is_pr = ec in ("8", "9")
+    지역구(5/6)는 시도→구시군 순회, 광역비례(8)는 시도 단위,
+    기초단체장(4)·기초비례(9)는 시도(town=0) 일괄(구시군별)."""
+    if ec == "4":
+        return collect_local_gov(cli, sidos)
+    if ec == "9":
+        return collect_basic_pr(cli, sidos)
+    is_pr = ec == "8"
     wins = []
     for city, cname in sidos:
         std = SIDO_NEC2STD.get(city)
@@ -347,6 +437,41 @@ def collect_pr_sgg(cli, sidos):
     print(f"광역비례 시군구별 득표: {len(rows)}행 → {out.name}")
 
 
+# ── 기초단체장(ec4) 개표 tally(후보 전원): 시도(town=-1)로 일괄, parse_districts 재사용 ──
+def fetch_local_gov_tally(cli, city):
+    """기초단체장 시도 전체 개표결과. townCode=-1, statementId VCCP09_#4.
+    구시군마다 1개 race(parse_districts의 '선거구'로 파싱). 통합 없이 시도별 분리."""
+    data = {
+        "electionId": EID, "requestURI": REQ_URI, "topMenuId": "VC",
+        "secondMenuId": MENU, "menuId": MENU, "statementId": f"{MENU}_#4",
+        "electionCode": "4", "cityCode": city, "sggCityCode": "0",
+        "townCode": "-1", "sggTownCode": "0",
+    }
+    return cli.post(f"{BASE}/electioninfo/electionInfo_report.xhtml", data=data).text
+
+
+def collect_gov_tally(cli, sidos):
+    """기초단체장 후보 전원(낙선 포함) 전국 수집 → nec9_ec4.json.
+    cityCode 드롭다운에 광주(2900)·전남(4600)이 분리돼 있어 시도별 town=-1 로 일괄."""
+    rows, unc = [], []
+    for city, cname in sidos:
+        std = SIDO_NEC2STD.get(city)
+        ct, uc = parse_districts(fetch_local_gov_tally(cli, city))
+        for d in ct:
+            rows.append({"sido_std": std, "town_nec": city, **d})
+        for u in uc:
+            unc.append({"sido_std": std, "town_nec": city, **u})
+        time.sleep(0.12)
+        print(f"  {cname}: 경합 {len(ct)} / 무투표 {len(uc)}")
+    out = OUT / "nec9_ec4.json"
+    out.write_text(json.dumps({"electionId": EID, "electionCode": "4", "hoecha": 9,
+                               "source": "info.nec.go.kr 개표진행상황 기초단체장(잠정).",
+                               "rows": rows, "uncontested": unc}, ensure_ascii=False, indent=1),
+                   encoding="utf-8")
+    tot = sum(len(r["cands"]) for r in rows)
+    print(f"기초단체장 개표: 경합 {len(rows)}(후보 {tot}) / 무투표 {len(unc)} → {out.name}")
+
+
 def main():
     ec = sys.argv[1] if len(sys.argv) > 1 else "5"
     mode = sys.argv[2] if len(sys.argv) > 2 else "tally"
@@ -367,6 +492,9 @@ def main():
         return
     if mode == "sggov":
         collect_gov_sgg(cli, sidos)
+        return
+    if ec == "4":  # 기초단체장 개표 tally는 시도(town=-1) 일괄 전용
+        collect_gov_tally(cli, sidos)
         return
 
     all_rows, all_unc = [], []

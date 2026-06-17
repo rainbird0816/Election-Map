@@ -1,0 +1,6223 @@
+{
+ "electionId": "0020260603",
+ "electionCode": "4",
+ "hoecha": 9,
+ "source": "info.nec.go.kr 개표진행상황 기초단체장(잠정).",
+ "rows": [
+  {
+   "sido_std": "11",
+   "town_nec": "1100",
+   "sigungu": "종로구",
+   "sgname": "종로구",
+   "cands": [
+    {
+     "party": "더불어민주당",
+     "name": "유찬종",
+     "votes": 41208,
+     "rate": 52.52
+    },
+    {
+     "party": "국민의힘",
+     "name": "정문헌",
+     "votes": 37249,
+     "rate": 47.47
+    }
+   ]
+  },
+  {
+   "sido_std": "11",
+   "town_nec": "1100",
+   "sigungu": "중구",
+   "sgname": "중구",
+   "cands": [
+    {
+     "party": "더불어민주당",
+     "name": "이동현",
+     "votes": 31423,
+     "rate": 45.38
+    },
+    {
+     "party": "국민의힘",
+     "name": "김길성",
+     "votes": 35610,
+     "rate": 51.42
+    },
+    {
+     "party": "개혁신당",
+     "name": "길기영",
+     "votes": 2207,
+     "rate": 3.18
+    }
+   ]
+  },
+  {
+   "sido_std": "11",
+   "town_nec": "1100",
+   "sigungu": "용산구",
+   "sgname": "용산구",
+   "cands": [
+    {
+     "party": "더불어민주당",
+     "name": "강태웅",
+     "votes": 52126,
+     "rate": 45.98
+    },
+    {
+     "party": "국민의힘",
+     "name": "김경대",
+     "votes": 59298,
+     "rate": 52.31
+    },
+    {
+     "party": "개혁신당",
+     "name": "김윤재",
+     "votes": 1923,
+     "rate": 1.69
+    }
+   ]
+  },
+  {
+   "sido_std": "11",
+   "town_nec": "1100",
+   "sigungu": "성동구",
+   "sgname": "성동구",
+   "cands": [
+    {
+     "party": "더불어민주당",
+     "name": "유보화",
+     "votes": 86103,
+     "rate": 53.48
+    },
+    {
+     "party": "국민의힘",
+     "name": "고재현",
+     "votes": 71325,
+     "rate": 44.3
+    },
+    {
+     "party": "개혁신당",
+     "name": "정찬옥",
+     "votes": 3571,
+     "rate": 2.21
+    }
+   ]
+  },
+  {
+   "sido_std": "11",
+   "town_nec": "1100",
+   "sigungu": "광진구",
+   "sgname": "광진구",
+   "cands": [
+    {
+     "party": "더불어민주당",
+     "name": "문종철",
+     "votes": 89452,
+     "rate": 47.55
+    },
+    {
+     "party": "국민의힘",
+     "name": "김경호",
+     "votes": 98640,
+     "rate": 52.44
+    }
+   ]
+  },
+  {
+   "sido_std": "11",
+   "town_nec": "1100",
+   "sigungu": "동대문구",
+   "sgname": "동대문구",
+   "cands": [
+    {
+     "party": "더불어민주당",
+     "name": "최동민",
+     "votes": 105231,
+     "rate": 52.67
+    },
+    {
+     "party": "국민의힘",
+     "name": "이필형",
+     "votes": 94534,
+     "rate": 47.32
+    }
+   ]
+  },
+  {
+   "sido_std": "11",
+   "town_nec": "1100",
+   "sigungu": "중랑구",
+   "sgname": "중랑구",
+   "cands": [
+    {
+     "party": "더불어민주당",
+     "name": "류경기",
+     "votes": 129348,
+     "rate": 62.57
+    },
+    {
+     "party": "국민의힘",
+     "name": "황종석",
+     "votes": 77364,
+     "rate": 37.42
+    }
+   ]
+  },
+  {
+   "sido_std": "11",
+   "town_nec": "1100",
+   "sigungu": "성북구",
+   "sgname": "성북구",
+   "cands": [
+    {
+     "party": "더불어민주당",
+     "name": "이승로",
+     "votes": 139093,
+     "rate": 58.68
+    },
+    {
+     "party": "국민의힘",
+     "name": "민병웅",
+     "votes": 92041,
+     "rate": 38.83
+    },
+    {
+     "party": "진보당",
+     "name": "홍희진",
+     "votes": 5870,
+     "rate": 2.47
+    }
+   ]
+  },
+  {
+   "sido_std": "11",
+   "town_nec": "1100",
+   "sigungu": "강북구",
+   "sgname": "강북구",
+   "cands": [
+    {
+     "party": "더불어민주당",
+     "name": "정창수",
+     "votes": 84924,
+     "rate": 56.6
+    },
+    {
+     "party": "국민의힘",
+     "name": "장지호",
+     "votes": 60713,
+     "rate": 40.46
+    },
+    {
+     "party": "노동당",
+     "name": "윤정현",
+     "votes": 2435,
+     "rate": 1.62
+    },
+    {
+     "party": "무소속",
+     "name": "한덕희",
+     "votes": 1962,
+     "rate": 1.3
+    }
+   ]
+  },
+  {
+   "sido_std": "11",
+   "town_nec": "1100",
+   "sigungu": "도봉구",
+   "sgname": "도봉구",
+   "cands": [
+    {
+     "party": "더불어민주당",
+     "name": "김동욱",
+     "votes": 89126,
+     "rate": 52.14
+    },
+    {
+     "party": "국민의힘",
+     "name": "오언석",
+     "votes": 81809,
+     "rate": 47.85
+    }
+   ]
+  },
+  {
+   "sido_std": "11",
+   "town_nec": "1100",
+   "sigungu": "노원구",
+   "sgname": "노원구",
+   "cands": [
+    {
+     "party": "더불어민주당",
+     "name": "서준오",
+     "votes": 164941,
+     "rate": 59.99
+    },
+    {
+     "party": "국민의힘",
+     "name": "김광수",
+     "votes": 109992,
+     "rate": 40.0
+    }
+   ]
+  },
+  {
+   "sido_std": "11",
+   "town_nec": "1100",
+   "sigungu": "은평구",
+   "sgname": "은평구",
+   "cands": [
+    {
+     "party": "더불어민주당",
+     "name": "김미경",
+     "votes": 153576,
+     "rate": 61.16
+    },
+    {
+     "party": "국민의힘",
+     "name": "남기정",
+     "votes": 97498,
+     "rate": 38.83
+    }
+   ]
+  },
+  {
+   "sido_std": "11",
+   "town_nec": "1100",
+   "sigungu": "서대문구",
+   "sgname": "서대문구",
+   "cands": [
+    {
+     "party": "더불어민주당",
+     "name": "박운기",
+     "votes": 89765,
+     "rate": 51.87
+    },
+    {
+     "party": "국민의힘",
+     "name": "이성헌",
+     "votes": 83271,
+     "rate": 48.12
+    }
+   ]
+  },
+  {
+   "sido_std": "11",
+   "town_nec": "1100",
+   "sigungu": "마포구",
+   "sgname": "마포구",
+   "cands": [
+    {
+     "party": "더불어민주당",
+     "name": "유동균",
+     "votes": 110240,
+     "rate": 53.97
+    },
+    {
+     "party": "국민의힘",
+     "name": "박강수",
+     "votes": 94003,
+     "rate": 46.02
+    }
+   ]
+  },
+  {
+   "sido_std": "11",
+   "town_nec": "1100",
+   "sigungu": "양천구",
+   "sgname": "양천구",
+   "cands": [
+    {
+     "party": "더불어민주당",
+     "name": "우형찬",
+     "votes": 112190,
+     "rate": 47.12
+    },
+    {
+     "party": "국민의힘",
+     "name": "이기재",
+     "votes": 125861,
+     "rate": 52.87
+    }
+   ]
+  },
+  {
+   "sido_std": "11",
+   "town_nec": "1100",
+   "sigungu": "강서구",
+   "sgname": "강서구",
+   "cands": [
+    {
+     "party": "더불어민주당",
+     "name": "진교훈",
+     "votes": 169357,
+     "rate": 56.21
+    },
+    {
+     "party": "국민의힘",
+     "name": "김진선",
+     "votes": 121725,
+     "rate": 40.4
+    },
+    {
+     "party": "진보당",
+     "name": "이미선",
+     "votes": 5222,
+     "rate": 1.73
+    },
+    {
+     "party": "무소속",
+     "name": "백철",
+     "votes": 4974,
+     "rate": 1.65
+    }
+   ]
+  },
+  {
+   "sido_std": "11",
+   "town_nec": "1100",
+   "sigungu": "구로구",
+   "sgname": "구로구",
+   "cands": [
+    {
+     "party": "더불어민주당",
+     "name": "장인홍",
+     "votes": 126741,
+     "rate": 58.75
+    },
+    {
+     "party": "국민의힘",
+     "name": "홍덕희",
+     "votes": 88980,
+     "rate": 41.24
+    }
+   ]
+  },
+  {
+   "sido_std": "11",
+   "town_nec": "1100",
+   "sigungu": "금천구",
+   "sgname": "금천구",
+   "cands": [
+    {
+     "party": "더불어민주당",
+     "name": "최기찬",
+     "votes": 71114,
+     "rate": 58.87
+    },
+    {
+     "party": "국민의힘",
+     "name": "이희권",
+     "votes": 49676,
+     "rate": 41.12
+    }
+   ]
+  },
+  {
+   "sido_std": "11",
+   "town_nec": "1100",
+   "sigungu": "영등포구",
+   "sgname": "영등포구",
+   "cands": [
+    {
+     "party": "더불어민주당",
+     "name": "조유진",
+     "votes": 111135,
+     "rate": 52.03
+    },
+    {
+     "party": "국민의힘",
+     "name": "최웅식",
+     "votes": 102450,
+     "rate": 47.96
+    }
+   ]
+  },
+  {
+   "sido_std": "11",
+   "town_nec": "1100",
+   "sigungu": "동작구",
+   "sgname": "동작구",
+   "cands": [
+    {
+     "party": "더불어민주당",
+     "name": "류삼영",
+     "votes": 98913,
+     "rate": 45.76
+    },
+    {
+     "party": "국민의힘",
+     "name": "김정태",
+     "votes": 75323,
+     "rate": 34.84
+    },
+    {
+     "party": "개혁신당",
+     "name": "박일하",
+     "votes": 41918,
+     "rate": 19.39
+    }
+   ]
+  },
+  {
+   "sido_std": "11",
+   "town_nec": "1100",
+   "sigungu": "관악구",
+   "sgname": "관악구",
+   "cands": [
+    {
+     "party": "더불어민주당",
+     "name": "박준희",
+     "votes": 151814,
+     "rate": 58.45
+    },
+    {
+     "party": "국민의힘",
+     "name": "이남형",
+     "votes": 94791,
+     "rate": 36.5
+    },
+    {
+     "party": "개혁신당",
+     "name": "이혜숙",
+     "votes": 13089,
+     "rate": 5.04
+    }
+   ]
+  },
+  {
+   "sido_std": "11",
+   "town_nec": "1100",
+   "sigungu": "서초구",
+   "sgname": "서초구",
+   "cands": [
+    {
+     "party": "더불어민주당",
+     "name": "황인식",
+     "votes": 77616,
+     "rate": 33.6
+    },
+    {
+     "party": "국민의힘",
+     "name": "전성수",
+     "votes": 153384,
+     "rate": 66.4
+    }
+   ]
+  },
+  {
+   "sido_std": "11",
+   "town_nec": "1100",
+   "sigungu": "강남구",
+   "sgname": "강남구",
+   "cands": [
+    {
+     "party": "더불어민주당",
+     "name": "김형곤",
+     "votes": 99377,
+     "rate": 34.1
+    },
+    {
+     "party": "국민의힘",
+     "name": "김현기",
+     "votes": 192046,
+     "rate": 65.89
+    }
+   ]
+  },
+  {
+   "sido_std": "11",
+   "town_nec": "1100",
+   "sigungu": "송파구",
+   "sgname": "송파구",
+   "cands": [
+    {
+     "party": "더불어민주당",
+     "name": "조재희",
+     "votes": 166803,
+     "rate": 45.31
+    },
+    {
+     "party": "국민의힘",
+     "name": "서강석",
+     "votes": 201265,
+     "rate": 54.68
+    }
+   ]
+  },
+  {
+   "sido_std": "11",
+   "town_nec": "1100",
+   "sigungu": "강동구",
+   "sgname": "강동구",
+   "cands": [
+    {
+     "party": "더불어민주당",
+     "name": "김종무",
+     "votes": 130044,
+     "rate": 46.13
+    },
+    {
+     "party": "국민의힘",
+     "name": "이수희",
+     "votes": 146737,
+     "rate": 52.05
+    },
+    {
+     "party": "개혁신당",
+     "name": "이용우",
+     "votes": 5099,
+     "rate": 1.8
+    }
+   ]
+  },
+  {
+   "sido_std": "26",
+   "town_nec": "2600",
+   "sigungu": "중구",
+   "sgname": "중구",
+   "cands": [
+    {
+     "party": "더불어민주당",
+     "name": "강희은",
+     "votes": 8456,
+     "rate": 42.13
+    },
+    {
+     "party": "국민의힘",
+     "name": "최진봉",
+     "votes": 11612,
+     "rate": 57.86
+    }
+   ]
+  },
+  {
+   "sido_std": "26",
+   "town_nec": "2600",
+   "sigungu": "서구",
+   "sgname": "서구",
+   "cands": [
+    {
+     "party": "더불어민주당",
+     "name": "황정재",
+     "votes": 23988,
+     "rate": 43.27
+    },
+    {
+     "party": "국민의힘",
+     "name": "공한수",
+     "votes": 31447,
+     "rate": 56.72
+    }
+   ]
+  },
+  {
+   "sido_std": "26",
+   "town_nec": "2600",
+   "sigungu": "동구",
+   "sgname": "동구",
+   "cands": [
+    {
+     "party": "더불어민주당",
+     "name": "김종우",
+     "votes": 22508,
+     "rate": 48.98
+    },
+    {
+     "party": "국민의힘",
+     "name": "강철호",
+     "votes": 23444,
+     "rate": 51.01
+    }
+   ]
+  },
+  {
+   "sido_std": "26",
+   "town_nec": "2600",
+   "sigungu": "영도구",
+   "sgname": "영도구",
+   "cands": [
+    {
+     "party": "더불어민주당",
+     "name": "김철훈",
+     "votes": 28007,
+     "rate": 51.24
+    },
+    {
+     "party": "국민의힘",
+     "name": "안성민",
+     "votes": 21013,
+     "rate": 38.45
+    },
+    {
+     "party": "무소속",
+     "name": "김기재",
+     "votes": 5628,
+     "rate": 10.29
+    }
+   ]
+  },
+  {
+   "sido_std": "26",
+   "town_nec": "2600",
+   "sigungu": "부산진구",
+   "sgname": "부산진구",
+   "cands": [
+    {
+     "party": "더불어민주당",
+     "name": "서은숙",
+     "votes": 94276,
+     "rate": 48.88
+    },
+    {
+     "party": "국민의힘",
+     "name": "김영욱",
+     "votes": 98571,
+     "rate": 51.11
+    }
+   ]
+  },
+  {
+   "sido_std": "26",
+   "town_nec": "2600",
+   "sigungu": "동래구",
+   "sgname": "동래구",
+   "cands": [
+    {
+     "party": "더불어민주당",
+     "name": "탁영일",
+     "votes": 63485,
+     "rate": 43.38
+    },
+    {
+     "party": "국민의힘",
+     "name": "장준용",
+     "votes": 82854,
+     "rate": 56.61
+    }
+   ]
+  },
+  {
+   "sido_std": "26",
+   "town_nec": "2600",
+   "sigungu": "남구",
+   "sgname": "남구",
+   "cands": [
+    {
+     "party": "더불어민주당",
+     "name": "박재범",
+     "votes": 70186,
+     "rate": 50.43
+    },
+    {
+     "party": "국민의힘",
+     "name": "김광명",
+     "votes": 68970,
+     "rate": 49.56
+    }
+   ]
+  },
+  {
+   "sido_std": "26",
+   "town_nec": "2600",
+   "sigungu": "북구",
+   "sgname": "북구",
+   "cands": [
+    {
+     "party": "더불어민주당",
+     "name": "정명희",
+     "votes": 82396,
+     "rate": 52.19
+    },
+    {
+     "party": "국민의힘",
+     "name": "오태원",
+     "votes": 75452,
+     "rate": 47.8
+    }
+   ]
+  },
+  {
+   "sido_std": "26",
+   "town_nec": "2600",
+   "sigungu": "해운대구",
+   "sgname": "해운대구",
+   "cands": [
+    {
+     "party": "더불어민주당",
+     "name": "홍순헌",
+     "votes": 95871,
+     "rate": 48.97
+    },
+    {
+     "party": "국민의힘",
+     "name": "김성수",
+     "votes": 99873,
+     "rate": 51.02
+    }
+   ]
+  },
+  {
+   "sido_std": "26",
+   "town_nec": "2600",
+   "sigungu": "사하구",
+   "sgname": "사하구",
+   "cands": [
+    {
+     "party": "더불어민주당",
+     "name": "김태석",
+     "votes": 74996,
+     "rate": 50.65
+    },
+    {
+     "party": "국민의힘",
+     "name": "김척수",
+     "votes": 73060,
+     "rate": 49.34
+    }
+   ]
+  },
+  {
+   "sido_std": "26",
+   "town_nec": "2600",
+   "sigungu": "금정구",
+   "sgname": "금정구",
+   "cands": [
+    {
+     "party": "더불어민주당",
+     "name": "김경지",
+     "votes": 48014,
+     "rate": 41.75
+    },
+    {
+     "party": "국민의힘",
+     "name": "윤일현",
+     "votes": 62916,
+     "rate": 54.71
+    },
+    {
+     "party": "조국혁신당",
+     "name": "박용찬",
+     "votes": 1575,
+     "rate": 1.36
+    },
+    {
+     "party": "개혁신당",
+     "name": "최봉환",
+     "votes": 2490,
+     "rate": 2.16
+    }
+   ]
+  },
+  {
+   "sido_std": "26",
+   "town_nec": "2600",
+   "sigungu": "강서구",
+   "sgname": "강서구",
+   "cands": [
+    {
+     "party": "더불어민주당",
+     "name": "박상준",
+     "votes": 38933,
+     "rate": 52.66
+    },
+    {
+     "party": "국민의힘",
+     "name": "김형찬",
+     "votes": 34998,
+     "rate": 47.33
+    }
+   ]
+  },
+  {
+   "sido_std": "26",
+   "town_nec": "2600",
+   "sigungu": "연제구",
+   "sgname": "연제구",
+   "cands": [
+    {
+     "party": "국민의힘",
+     "name": "주석수",
+     "votes": 61078,
+     "rate": 56.37
+    },
+    {
+     "party": "진보당",
+     "name": "노정현",
+     "votes": 47269,
+     "rate": 43.62
+    }
+   ]
+  },
+  {
+   "sido_std": "26",
+   "town_nec": "2600",
+   "sigungu": "수영구",
+   "sgname": "수영구",
+   "cands": [
+    {
+     "party": "더불어민주당",
+     "name": "김진",
+     "votes": 34548,
+     "rate": 38.29
+    },
+    {
+     "party": "국민의힘",
+     "name": "강성태",
+     "votes": 51424,
+     "rate": 57.0
+    },
+    {
+     "party": "무소속",
+     "name": "황진수",
+     "votes": 4242,
+     "rate": 4.7
+    }
+   ]
+  },
+  {
+   "sido_std": "26",
+   "town_nec": "2600",
+   "sigungu": "사상구",
+   "sgname": "사상구",
+   "cands": [
+    {
+     "party": "더불어민주당",
+     "name": "서태경",
+     "votes": 49886,
+     "rate": 47.58
+    },
+    {
+     "party": "국민의힘",
+     "name": "이대훈",
+     "votes": 45381,
+     "rate": 43.28
+    },
+    {
+     "party": "무소속",
+     "name": "조병길",
+     "votes": 9571,
+     "rate": 9.12
+    }
+   ]
+  },
+  {
+   "sido_std": "26",
+   "town_nec": "2600",
+   "sigungu": "기장군",
+   "sgname": "기장군",
+   "cands": [
+    {
+     "party": "더불어민주당",
+     "name": "우성빈",
+     "votes": 38718,
+     "rate": 45.03
+    },
+    {
+     "party": "국민의힘",
+     "name": "정명시",
+     "votes": 35873,
+     "rate": 41.72
+    },
+    {
+     "party": "조국혁신당",
+     "name": "정진백",
+     "votes": 1559,
+     "rate": 1.81
+    },
+    {
+     "party": "무소속",
+     "name": "김쌍우",
+     "votes": 9827,
+     "rate": 11.42
+    }
+   ]
+  },
+  {
+   "sido_std": "27",
+   "town_nec": "2700",
+   "sigungu": "중구",
+   "sgname": "중구",
+   "cands": [
+    {
+     "party": "더불어민주당",
+     "name": "오영준",
+     "votes": 19991,
+     "rate": 36.44
+    },
+    {
+     "party": "국민의힘",
+     "name": "류규하",
+     "votes": 34861,
+     "rate": 63.55
+    }
+   ]
+  },
+  {
+   "sido_std": "27",
+   "town_nec": "2700",
+   "sigungu": "동구",
+   "sgname": "동구",
+   "cands": [
+    {
+     "party": "더불어민주당",
+     "name": "신효철",
+     "votes": 65203,
+     "rate": 34.84
+    },
+    {
+     "party": "국민의힘",
+     "name": "우성진",
+     "votes": 116847,
+     "rate": 62.44
+    },
+    {
+     "party": "정의당",
+     "name": "양희",
+     "votes": 5081,
+     "rate": 2.71
+    }
+   ]
+  },
+  {
+   "sido_std": "27",
+   "town_nec": "2700",
+   "sigungu": "서구",
+   "sgname": "서구",
+   "cands": [
+    {
+     "party": "더불어민주당",
+     "name": "최규식",
+     "votes": 27448,
+     "rate": 30.26
+    },
+    {
+     "party": "국민의힘",
+     "name": "권오상",
+     "votes": 63244,
+     "rate": 69.73
+    }
+   ]
+  },
+  {
+   "sido_std": "27",
+   "town_nec": "2700",
+   "sigungu": "남구",
+   "sgname": "남구",
+   "cands": [
+    {
+     "party": "더불어민주당",
+     "name": "정연우",
+     "votes": 23682,
+     "rate": 31.04
+    },
+    {
+     "party": "국민의힘",
+     "name": "조재구",
+     "votes": 52601,
+     "rate": 68.95
+    }
+   ]
+  },
+  {
+   "sido_std": "27",
+   "town_nec": "2700",
+   "sigungu": "북구",
+   "sgname": "북구",
+   "cands": [
+    {
+     "party": "더불어민주당",
+     "name": "최우영",
+     "votes": 83596,
+     "rate": 37.65
+    },
+    {
+     "party": "국민의힘",
+     "name": "이근수",
+     "votes": 138435,
+     "rate": 62.34
+    }
+   ]
+  },
+  {
+   "sido_std": "27",
+   "town_nec": "2700",
+   "sigungu": "수성구",
+   "sgname": "수성구",
+   "cands": [
+    {
+     "party": "더불어민주당",
+     "name": "박정권",
+     "votes": 81052,
+     "rate": 35.67
+    },
+    {
+     "party": "국민의힘",
+     "name": "김대권",
+     "votes": 146128,
+     "rate": 64.32
+    }
+   ]
+  },
+  {
+   "sido_std": "27",
+   "town_nec": "2700",
+   "sigungu": "달서구",
+   "sgname": "달서구",
+   "cands": [
+    {
+     "party": "더불어민주당",
+     "name": "김성태",
+     "votes": 100443,
+     "rate": 35.67
+    },
+    {
+     "party": "국민의힘",
+     "name": "김용판",
+     "votes": 171796,
+     "rate": 61.01
+    },
+    {
+     "party": "무소속",
+     "name": "김재흥",
+     "votes": 9302,
+     "rate": 3.3
+    }
+   ]
+  },
+  {
+   "sido_std": "27",
+   "town_nec": "2700",
+   "sigungu": "달성군",
+   "sgname": "달성군",
+   "cands": [
+    {
+     "party": "더불어민주당",
+     "name": "김보경",
+     "votes": 45309,
+     "rate": 34.0
+    },
+    {
+     "party": "국민의힘",
+     "name": "최재훈",
+     "votes": 87928,
+     "rate": 65.99
+    }
+   ]
+  },
+  {
+   "sido_std": "27",
+   "town_nec": "2700",
+   "sigungu": "군위군",
+   "sgname": "군위군",
+   "cands": [
+    {
+     "party": "더불어민주당",
+     "name": "이기만",
+     "votes": 3784,
+     "rate": 22.6
+    },
+    {
+     "party": "국민의힘",
+     "name": "김진열",
+     "votes": 12957,
+     "rate": 77.39
+    }
+   ]
+  },
+  {
+   "sido_std": "28",
+   "town_nec": "2800",
+   "sigungu": "강화군",
+   "sgname": "강화군",
+   "cands": [
+    {
+     "party": "더불어민주당",
+     "name": "한연희",
+     "votes": 18906,
+     "rate": 44.56
+    },
+    {
+     "party": "국민의힘",
+     "name": "박용철",
+     "votes": 23519,
+     "rate": 55.43
+    }
+   ]
+  },
+  {
+   "sido_std": "28",
+   "town_nec": "2800",
+   "sigungu": "옹진군",
+   "sgname": "옹진군",
+   "cands": [
+    {
+     "party": "더불어민주당",
+     "name": "장정민",
+     "votes": 6333,
+     "rate": 51.16
+    },
+    {
+     "party": "국민의힘",
+     "name": "문경복",
+     "votes": 6044,
+     "rate": 48.83
+    }
+   ]
+  },
+  {
+   "sido_std": "28",
+   "town_nec": "2800",
+   "sigungu": "제물포구",
+   "sgname": "제물포구",
+   "cands": [
+    {
+     "party": "더불어민주당",
+     "name": "남궁형",
+     "votes": 26904,
+     "rate": 49.78
+    },
+    {
+     "party": "국민의힘",
+     "name": "김찬진",
+     "votes": 27131,
+     "rate": 50.21
+    }
+   ]
+  },
+  {
+   "sido_std": "28",
+   "town_nec": "2800",
+   "sigungu": "영종구",
+   "sgname": "영종구",
+   "cands": [
+    {
+     "party": "더불어민주당",
+     "name": "손화정",
+     "votes": 29579,
+     "rate": 47.5
+    },
+    {
+     "party": "국민의힘",
+     "name": "김정헌",
+     "votes": 29231,
+     "rate": 46.95
+    },
+    {
+     "party": "조국혁신당",
+     "name": "안광호",
+     "votes": 3449,
+     "rate": 5.53
+    }
+   ]
+  },
+  {
+   "sido_std": "28",
+   "town_nec": "2800",
+   "sigungu": "미추홀구",
+   "sgname": "미추홀구",
+   "cands": [
+    {
+     "party": "더불어민주당",
+     "name": "김정식",
+     "votes": 107130,
+     "rate": 53.45
+    },
+    {
+     "party": "국민의힘",
+     "name": "이영훈",
+     "votes": 93274,
+     "rate": 46.54
+    }
+   ]
+  },
+  {
+   "sido_std": "28",
+   "town_nec": "2800",
+   "sigungu": "연수구",
+   "sgname": "연수구",
+   "cands": [
+    {
+     "party": "더불어민주당",
+     "name": "정지열",
+     "votes": 100117,
+     "rate": 47.51
+    },
+    {
+     "party": "국민의힘",
+     "name": "이재호",
+     "votes": 110567,
+     "rate": 52.48
+    }
+   ]
+  },
+  {
+   "sido_std": "28",
+   "town_nec": "2800",
+   "sigungu": "남동구",
+   "sgname": "남동구",
+   "cands": [
+    {
+     "party": "더불어민주당",
+     "name": "이병래",
+     "votes": 137082,
+     "rate": 56.52
+    },
+    {
+     "party": "국민의힘",
+     "name": "박종효",
+     "votes": 105424,
+     "rate": 43.47
+    }
+   ]
+  },
+  {
+   "sido_std": "28",
+   "town_nec": "2800",
+   "sigungu": "부평구",
+   "sgname": "부평구",
+   "cands": [
+    {
+     "party": "더불어민주당",
+     "name": "차준택",
+     "votes": 152585,
+     "rate": 62.03
+    },
+    {
+     "party": "국민의힘",
+     "name": "이단비",
+     "votes": 93388,
+     "rate": 37.96
+    }
+   ]
+  },
+  {
+   "sido_std": "28",
+   "town_nec": "2800",
+   "sigungu": "계양구",
+   "sgname": "계양구",
+   "cands": [
+    {
+     "party": "더불어민주당",
+     "name": "박형우",
+     "votes": 90243,
+     "rate": 62.93
+    },
+    {
+     "party": "국민의힘",
+     "name": "이병택",
+     "votes": 53154,
+     "rate": 37.06
+    }
+   ]
+  },
+  {
+   "sido_std": "28",
+   "town_nec": "2800",
+   "sigungu": "서구",
+   "sgname": "서구",
+   "cands": [
+    {
+     "party": "더불어민주당",
+     "name": "구재용",
+     "votes": 98056,
+     "rate": 52.2
+    },
+    {
+     "party": "국민의힘",
+     "name": "강범석",
+     "votes": 83436,
+     "rate": 44.42
+    },
+    {
+     "party": "무소속",
+     "name": "김용섭",
+     "votes": 6341,
+     "rate": 3.37
+    }
+   ]
+  },
+  {
+   "sido_std": "28",
+   "town_nec": "2800",
+   "sigungu": "검단구",
+   "sgname": "검단구",
+   "cands": [
+    {
+     "party": "더불어민주당",
+     "name": "김진규",
+     "votes": 79111,
+     "rate": 64.88
+    },
+    {
+     "party": "국민의힘",
+     "name": "박세훈",
+     "votes": 42820,
+     "rate": 35.11
+    }
+   ]
+  },
+  {
+   "sido_std": "29",
+   "town_nec": "2900",
+   "sigungu": "동구",
+   "sgname": "동구",
+   "cands": [
+    {
+     "party": "더불어민주당",
+     "name": "임택",
+     "votes": 28586,
+     "rate": 54.42
+    },
+    {
+     "party": "조국혁신당",
+     "name": "김성환",
+     "votes": 23934,
+     "rate": 45.57
+    }
+   ]
+  },
+  {
+   "sido_std": "29",
+   "town_nec": "2900",
+   "sigungu": "북구",
+   "sgname": "북구",
+   "cands": [
+    {
+     "party": "더불어민주당",
+     "name": "신수정",
+     "votes": 148312,
+     "rate": 77.82
+    },
+    {
+     "party": "진보당",
+     "name": "김주업",
+     "votes": 24932,
+     "rate": 13.08
+    },
+    {
+     "party": "무소속",
+     "name": "김성현",
+     "votes": 7650,
+     "rate": 4.01
+    },
+    {
+     "party": "무소속",
+     "name": "노남수",
+     "votes": 9669,
+     "rate": 5.07
+    }
+   ]
+  },
+  {
+   "sido_std": "29",
+   "town_nec": "2900",
+   "sigungu": "광산구",
+   "sgname": "광산구",
+   "cands": [
+    {
+     "party": "더불어민주당",
+     "name": "박병규",
+     "votes": 133709,
+     "rate": 80.94
+    },
+    {
+     "party": "진보당",
+     "name": "정희성",
+     "votes": 31483,
+     "rate": 19.05
+    }
+   ]
+  },
+  {
+   "sido_std": "30",
+   "town_nec": "3000",
+   "sigungu": "동구",
+   "sgname": "동구",
+   "cands": [
+    {
+     "party": "더불어민주당",
+     "name": "황인호",
+     "votes": 56639,
+     "rate": 51.27
+    },
+    {
+     "party": "국민의힘",
+     "name": "박희조",
+     "votes": 49478,
+     "rate": 44.79
+    },
+    {
+     "party": "무소속",
+     "name": "한현택",
+     "votes": 4338,
+     "rate": 3.92
+    }
+   ]
+  },
+  {
+   "sido_std": "30",
+   "town_nec": "3000",
+   "sigungu": "중구",
+   "sgname": "중구",
+   "cands": [
+    {
+     "party": "더불어민주당",
+     "name": "김제선",
+     "votes": 64888,
+     "rate": 55.74
+    },
+    {
+     "party": "국민의힘",
+     "name": "김선광",
+     "votes": 51504,
+     "rate": 44.25
+    }
+   ]
+  },
+  {
+   "sido_std": "30",
+   "town_nec": "3000",
+   "sigungu": "서구",
+   "sgname": "서구",
+   "cands": [
+    {
+     "party": "더불어민주당",
+     "name": "전문학",
+     "votes": 117994,
+     "rate": 52.31
+    },
+    {
+     "party": "국민의힘",
+     "name": "서철모",
+     "votes": 107537,
+     "rate": 47.68
+    }
+   ]
+  },
+  {
+   "sido_std": "30",
+   "town_nec": "3000",
+   "sigungu": "유성구",
+   "sgname": "유성구",
+   "cands": [
+    {
+     "party": "더불어민주당",
+     "name": "정용래",
+     "votes": 113515,
+     "rate": 59.77
+    },
+    {
+     "party": "국민의힘",
+     "name": "조원휘",
+     "votes": 76380,
+     "rate": 40.22
+    }
+   ]
+  },
+  {
+   "sido_std": "30",
+   "town_nec": "3000",
+   "sigungu": "대덕구",
+   "sgname": "대덕구",
+   "cands": [
+    {
+     "party": "더불어민주당",
+     "name": "김찬술",
+     "votes": 44342,
+     "rate": 51.46
+    },
+    {
+     "party": "국민의힘",
+     "name": "최충규",
+     "votes": 41819,
+     "rate": 48.53
+    }
+   ]
+  },
+  {
+   "sido_std": "31",
+   "town_nec": "3100",
+   "sigungu": "중구",
+   "sgname": "중구",
+   "cands": [
+    {
+     "party": "더불어민주당",
+     "name": "박태완",
+     "votes": 52277,
+     "rate": 45.62
+    },
+    {
+     "party": "국민의힘",
+     "name": "김영길",
+     "votes": 58085,
+     "rate": 50.68
+    },
+    {
+     "party": "무소속",
+     "name": "고호근",
+     "votes": 4227,
+     "rate": 3.68
+    }
+   ]
+  },
+  {
+   "sido_std": "31",
+   "town_nec": "3100",
+   "sigungu": "남구",
+   "sgname": "남구",
+   "cands": [
+    {
+     "party": "더불어민주당",
+     "name": "최덕종",
+     "votes": 71950,
+     "rate": 44.23
+    },
+    {
+     "party": "국민의힘",
+     "name": "임현철",
+     "votes": 82625,
+     "rate": 50.79
+    },
+    {
+     "party": "개혁신당",
+     "name": "방인섭",
+     "votes": 8077,
+     "rate": 4.96
+    }
+   ]
+  },
+  {
+   "sido_std": "31",
+   "town_nec": "3100",
+   "sigungu": "동구",
+   "sgname": "동구",
+   "cands": [
+    {
+     "party": "국민의힘",
+     "name": "천기옥",
+     "votes": 34734,
+     "rate": 44.07
+    },
+    {
+     "party": "진보당",
+     "name": "박문옥",
+     "votes": 32995,
+     "rate": 41.87
+    },
+    {
+     "party": "노동당",
+     "name": "이장우",
+     "votes": 11072,
+     "rate": 14.05
+    }
+   ]
+  },
+  {
+   "sido_std": "31",
+   "town_nec": "3100",
+   "sigungu": "북구",
+   "sgname": "북구",
+   "cands": [
+    {
+     "party": "더불어민주당",
+     "name": "이동권",
+     "votes": 62587,
+     "rate": 56.56
+    },
+    {
+     "party": "국민의힘",
+     "name": "박천동",
+     "votes": 48062,
+     "rate": 43.43
+    }
+   ]
+  },
+  {
+   "sido_std": "31",
+   "town_nec": "3100",
+   "sigungu": "울주군",
+   "sgname": "울주군",
+   "cands": [
+    {
+     "party": "더불어민주당",
+     "name": "김시욱",
+     "votes": 54873,
+     "rate": 45.32
+    },
+    {
+     "party": "국민의힘",
+     "name": "이순걸",
+     "votes": 66190,
+     "rate": 54.67
+    }
+   ]
+  },
+  {
+   "sido_std": "41",
+   "town_nec": "4100",
+   "sigungu": "수원시",
+   "sgname": "소계",
+   "cands": [
+    {
+     "party": "더불어민주당",
+     "name": "이재준",
+     "votes": 355800,
+     "rate": 59.51
+    },
+    {
+     "party": "국민의힘",
+     "name": "안교재",
+     "votes": 224053,
+     "rate": 37.47
+    },
+    {
+     "party": "개혁신당",
+     "name": "정희윤",
+     "votes": 18025,
+     "rate": 3.01
+    }
+   ]
+  },
+  {
+   "sido_std": "41",
+   "town_nec": "4100",
+   "sigungu": "수원시",
+   "sgname": "수원시장안구",
+   "cands": [
+    {
+     "party": "무소속",
+     "name": "59.51",
+     "votes": 72715,
+     "rate": 60.19
+    },
+    {
+     "party": "무소속",
+     "name": "37.47",
+     "votes": 44787,
+     "rate": 37.07
+    },
+    {
+     "party": "무소속",
+     "name": "3.01",
+     "votes": 3295,
+     "rate": 2.72
+    }
+   ]
+  },
+  {
+   "sido_std": "41",
+   "town_nec": "4100",
+   "sigungu": "수원시",
+   "sgname": "수원시권선구",
+   "cands": [
+    {
+     "party": "무소속",
+     "name": "60.19",
+     "votes": 115740,
+     "rate": 60.65
+    },
+    {
+     "party": "무소속",
+     "name": "37.07",
+     "votes": 69652,
+     "rate": 36.5
+    },
+    {
+     "party": "무소속",
+     "name": "2.72",
+     "votes": 5434,
+     "rate": 2.84
+    }
+   ]
+  },
+  {
+   "sido_std": "41",
+   "town_nec": "4100",
+   "sigungu": "수원시",
+   "sgname": "수원시팔달구",
+   "cands": [
+    {
+     "party": "무소속",
+     "name": "60.65",
+     "votes": 58508,
+     "rate": 57.81
+    },
+    {
+     "party": "무소속",
+     "name": "36.50",
+     "votes": 39744,
+     "rate": 39.27
+    },
+    {
+     "party": "무소속",
+     "name": "2.84",
+     "votes": 2953,
+     "rate": 2.91
+    }
+   ]
+  },
+  {
+   "sido_std": "41",
+   "town_nec": "4100",
+   "sigungu": "수원시",
+   "sgname": "수원시영통구",
+   "cands": [
+    {
+     "party": "무소속",
+     "name": "57.81",
+     "votes": 108837,
+     "rate": 58.81
+    },
+    {
+     "party": "무소속",
+     "name": "39.27",
+     "votes": 69870,
+     "rate": 37.75
+    },
+    {
+     "party": "무소속",
+     "name": "2.91",
+     "votes": 6343,
+     "rate": 3.42
+    }
+   ]
+  },
+  {
+   "sido_std": "41",
+   "town_nec": "4100",
+   "sigungu": "용인시",
+   "sgname": "소계",
+   "cands": [
+    {
+     "party": "더불어민주당",
+     "name": "현근택",
+     "votes": 270715,
+     "rate": 47.76
+    },
+    {
+     "party": "국민의힘",
+     "name": "이상일",
+     "votes": 287832,
+     "rate": 50.78
+    },
+    {
+     "party": "개혁신당",
+     "name": "송창훈",
+     "votes": 8267,
+     "rate": 1.45
+    }
+   ]
+  },
+  {
+   "sido_std": "41",
+   "town_nec": "4100",
+   "sigungu": "용인시",
+   "sgname": "용인시처인구",
+   "cands": [
+    {
+     "party": "무소속",
+     "name": "47.76",
+     "votes": 63178,
+     "rate": 45.62
+    },
+    {
+     "party": "무소속",
+     "name": "50.78",
+     "votes": 73593,
+     "rate": 53.14
+    },
+    {
+     "party": "무소속",
+     "name": "1.45",
+     "votes": 1699,
+     "rate": 1.22
+    }
+   ]
+  },
+  {
+   "sido_std": "41",
+   "town_nec": "4100",
+   "sigungu": "용인시",
+   "sgname": "용인시수지구",
+   "cands": [
+    {
+     "party": "무소속",
+     "name": "45.62",
+     "votes": 66257,
+     "rate": 46.6
+    },
+    {
+     "party": "무소속",
+     "name": "53.14",
+     "votes": 73746,
+     "rate": 51.87
+    },
+    {
+     "party": "무소속",
+     "name": "1.22",
+     "votes": 2164,
+     "rate": 1.52
+    }
+   ]
+  },
+  {
+   "sido_std": "41",
+   "town_nec": "4100",
+   "sigungu": "용인시",
+   "sgname": "용인시기흥구",
+   "cands": [
+    {
+     "party": "무소속",
+     "name": "46.60",
+     "votes": 141280,
+     "rate": 49.36
+    },
+    {
+     "party": "무소속",
+     "name": "51.87",
+     "votes": 140493,
+     "rate": 49.09
+    },
+    {
+     "party": "무소속",
+     "name": "1.52",
+     "votes": 4404,
+     "rate": 1.53
+    }
+   ]
+  },
+  {
+   "sido_std": "41",
+   "town_nec": "4100",
+   "sigungu": "고양시",
+   "sgname": "소계",
+   "cands": [
+    {
+     "party": "더불어민주당",
+     "name": "민경선",
+     "votes": 327366,
+     "rate": 60.64
+    },
+    {
+     "party": "국민의힘",
+     "name": "이동환",
+     "votes": 195116,
+     "rate": 36.14
+    },
+    {
+     "party": "개혁신당",
+     "name": "신현철",
+     "votes": 10382,
+     "rate": 1.92
+    },
+    {
+     "party": "진보당",
+     "name": "송영주",
+     "votes": 6933,
+     "rate": 1.28
+    }
+   ]
+  },
+  {
+   "sido_std": "41",
+   "town_nec": "4100",
+   "sigungu": "고양시",
+   "sgname": "고양시덕양구",
+   "cands": [
+    {
+     "party": "무소속",
+     "name": "60.64",
+     "votes": 167543,
+     "rate": 62.26
+    },
+    {
+     "party": "무소속",
+     "name": "36.14",
+     "votes": 92385,
+     "rate": 34.33
+    },
+    {
+     "party": "무소속",
+     "name": "1.92",
+     "votes": 4991,
+     "rate": 1.85
+    },
+    {
+     "party": "무소속",
+     "name": "1.28",
+     "votes": 4148,
+     "rate": 1.54
+    }
+   ]
+  },
+  {
+   "sido_std": "41",
+   "town_nec": "4100",
+   "sigungu": "고양시",
+   "sgname": "고양시일산동구",
+   "cands": [
+    {
+     "party": "무소속",
+     "name": "62.26",
+     "votes": 80715,
+     "rate": 58.37
+    },
+    {
+     "party": "무소속",
+     "name": "34.33",
+     "votes": 53315,
+     "rate": 38.55
+    },
+    {
+     "party": "무소속",
+     "name": "1.85",
+     "votes": 2744,
+     "rate": 1.98
+    },
+    {
+     "party": "무소속",
+     "name": "1.54",
+     "votes": 1497,
+     "rate": 1.08
+    }
+   ]
+  },
+  {
+   "sido_std": "41",
+   "town_nec": "4100",
+   "sigungu": "고양시",
+   "sgname": "고양시일산서구",
+   "cands": [
+    {
+     "party": "무소속",
+     "name": "58.37",
+     "votes": 79108,
+     "rate": 59.72
+    },
+    {
+     "party": "무소속",
+     "name": "38.55",
+     "votes": 49416,
+     "rate": 37.3
+    },
+    {
+     "party": "무소속",
+     "name": "1.98",
+     "votes": 2647,
+     "rate": 1.99
+    },
+    {
+     "party": "무소속",
+     "name": "1.08",
+     "votes": 1288,
+     "rate": 0.97
+    }
+   ]
+  },
+  {
+   "sido_std": "41",
+   "town_nec": "4100",
+   "sigungu": "화성시",
+   "sgname": "소계",
+   "cands": [
+    {
+     "party": "더불어민주당",
+     "name": "정명근",
+     "votes": 269160,
+     "rate": 59.42
+    },
+    {
+     "party": "국민의힘",
+     "name": "박태경",
+     "votes": 151196,
+     "rate": 33.37
+    },
+    {
+     "party": "개혁신당",
+     "name": "전성균",
+     "votes": 32602,
+     "rate": 7.19
+    }
+   ]
+  },
+  {
+   "sido_std": "41",
+   "town_nec": "4100",
+   "sigungu": "화성시",
+   "sgname": "화성시만세구",
+   "cands": [
+    {
+     "party": "무소속",
+     "name": "59.42",
+     "votes": 69675,
+     "rate": 57.88
+    },
+    {
+     "party": "무소속",
+     "name": "33.37",
+     "votes": 46820,
+     "rate": 38.89
+    },
+    {
+     "party": "무소속",
+     "name": "7.19",
+     "votes": 3882,
+     "rate": 3.22
+    }
+   ]
+  },
+  {
+   "sido_std": "41",
+   "town_nec": "4100",
+   "sigungu": "화성시",
+   "sgname": "화성시효행구",
+   "cands": [
+    {
+     "party": "무소속",
+     "name": "57.88",
+     "votes": 35764,
+     "rate": 63.57
+    },
+    {
+     "party": "무소속",
+     "name": "38.89",
+     "votes": 18505,
+     "rate": 32.89
+    },
+    {
+     "party": "무소속",
+     "name": "3.22",
+     "votes": 1983,
+     "rate": 3.52
+    }
+   ]
+  },
+  {
+   "sido_std": "41",
+   "town_nec": "4100",
+   "sigungu": "화성시",
+   "sgname": "화성시병점구",
+   "cands": [
+    {
+     "party": "무소속",
+     "name": "63.57",
+     "votes": 60770,
+     "rate": 61.65
+    },
+    {
+     "party": "무소속",
+     "name": "32.89",
+     "votes": 33236,
+     "rate": 33.72
+    },
+    {
+     "party": "무소속",
+     "name": "3.52",
+     "votes": 4554,
+     "rate": 4.62
+    }
+   ]
+  },
+  {
+   "sido_std": "41",
+   "town_nec": "4100",
+   "sigungu": "화성시",
+   "sgname": "화성시동탄구",
+   "cands": [
+    {
+     "party": "무소속",
+     "name": "61.65",
+     "votes": 102951,
+     "rate": 57.91
+    },
+    {
+     "party": "무소속",
+     "name": "33.72",
+     "votes": 52635,
+     "rate": 29.6
+    },
+    {
+     "party": "무소속",
+     "name": "4.62",
+     "votes": 22183,
+     "rate": 12.47
+    }
+   ]
+  },
+  {
+   "sido_std": "41",
+   "town_nec": "4100",
+   "sigungu": "성남시",
+   "sgname": "소계",
+   "cands": [
+    {
+     "party": "더불어민주당",
+     "name": "김병욱",
+     "votes": 241586,
+     "rate": 48.68
+    },
+    {
+     "party": "국민의힘",
+     "name": "신상진",
+     "votes": 249634,
+     "rate": 50.3
+    },
+    {
+     "party": "진보당",
+     "name": "장지화",
+     "votes": 5000,
+     "rate": 1.0
+    }
+   ]
+  },
+  {
+   "sido_std": "41",
+   "town_nec": "4100",
+   "sigungu": "성남시",
+   "sgname": "성남시수정구",
+   "cands": [
+    {
+     "party": "무소속",
+     "name": "48.68",
+     "votes": 65788,
+     "rate": 52.65
+    },
+    {
+     "party": "무소속",
+     "name": "50.30",
+     "votes": 57630,
+     "rate": 46.12
+    },
+    {
+     "party": "무소속",
+     "name": "1.00",
+     "votes": 1528,
+     "rate": 1.22
+    }
+   ]
+  },
+  {
+   "sido_std": "41",
+   "town_nec": "4100",
+   "sigungu": "성남시",
+   "sgname": "성남시중원구",
+   "cands": [
+    {
+     "party": "무소속",
+     "name": "52.65",
+     "votes": 57378,
+     "rate": 52.79
+    },
+    {
+     "party": "무소속",
+     "name": "46.12",
+     "votes": 49830,
+     "rate": 45.85
+    },
+    {
+     "party": "무소속",
+     "name": "1.22",
+     "votes": 1466,
+     "rate": 1.34
+    }
+   ]
+  },
+  {
+   "sido_std": "41",
+   "town_nec": "4100",
+   "sigungu": "성남시",
+   "sgname": "성남시분당구",
+   "cands": [
+    {
+     "party": "무소속",
+     "name": "52.79",
+     "votes": 118420,
+     "rate": 45.09
+    },
+    {
+     "party": "무소속",
+     "name": "45.85",
+     "votes": 142174,
+     "rate": 54.14
+    },
+    {
+     "party": "무소속",
+     "name": "1.34",
+     "votes": 2006,
+     "rate": 0.76
+    }
+   ]
+  },
+  {
+   "sido_std": "41",
+   "town_nec": "4100",
+   "sigungu": "부천시",
+   "sgname": "소계",
+   "cands": [
+    {
+     "party": "더불어민주당",
+     "name": "조용익",
+     "votes": 238829,
+     "rate": 62.65
+    },
+    {
+     "party": "국민의힘",
+     "name": "곽내경",
+     "votes": 142336,
+     "rate": 37.34
+    }
+   ]
+  },
+  {
+   "sido_std": "41",
+   "town_nec": "4100",
+   "sigungu": "부천시",
+   "sgname": "부천시원미구",
+   "cands": [
+    {
+     "party": "무소속",
+     "name": "62.65",
+     "votes": 108118,
+     "rate": 62.02
+    },
+    {
+     "party": "무소속",
+     "name": "37.34",
+     "votes": 66206,
+     "rate": 37.97
+    }
+   ]
+  },
+  {
+   "sido_std": "41",
+   "town_nec": "4100",
+   "sigungu": "부천시",
+   "sgname": "부천시소사구",
+   "cands": [
+    {
+     "party": "무소속",
+     "name": "62.02",
+     "votes": 85011,
+     "rate": 62.86
+    },
+    {
+     "party": "무소속",
+     "name": "37.97",
+     "votes": 50210,
+     "rate": 37.13
+    }
+   ]
+  },
+  {
+   "sido_std": "41",
+   "town_nec": "4100",
+   "sigungu": "부천시",
+   "sgname": "부천시오정구",
+   "cands": [
+    {
+     "party": "무소속",
+     "name": "62.86",
+     "votes": 45700,
+     "rate": 63.8
+    },
+    {
+     "party": "무소속",
+     "name": "37.13",
+     "votes": 25920,
+     "rate": 36.19
+    }
+   ]
+  },
+  {
+   "sido_std": "41",
+   "town_nec": "4100",
+   "sigungu": "남양주시",
+   "sgname": "남양주시",
+   "cands": [
+    {
+     "party": "더불어민주당",
+     "name": "최현덕",
+     "votes": 197802,
+     "rate": 56.25
+    },
+    {
+     "party": "국민의힘",
+     "name": "주광덕",
+     "votes": 153820,
+     "rate": 43.74
+    }
+   ]
+  },
+  {
+   "sido_std": "41",
+   "town_nec": "4100",
+   "sigungu": "안산시",
+   "sgname": "소계",
+   "cands": [
+    {
+     "party": "더불어민주당",
+     "name": "천영미",
+     "votes": 147762,
+     "rate": 49.55
+    },
+    {
+     "party": "국민의힘",
+     "name": "이민근",
+     "votes": 150393,
+     "rate": 50.44
+    }
+   ]
+  },
+  {
+   "sido_std": "41",
+   "town_nec": "4100",
+   "sigungu": "안산시",
+   "sgname": "안산시상록구",
+   "cands": [
+    {
+     "party": "무소속",
+     "name": "49.55",
+     "votes": 78665,
+     "rate": 50.41
+    },
+    {
+     "party": "무소속",
+     "name": "50.44",
+     "votes": 77379,
+     "rate": 49.58
+    }
+   ]
+  },
+  {
+   "sido_std": "41",
+   "town_nec": "4100",
+   "sigungu": "안산시",
+   "sgname": "안산시단원구",
+   "cands": [
+    {
+     "party": "무소속",
+     "name": "50.41",
+     "votes": 69097,
+     "rate": 48.62
+    },
+    {
+     "party": "무소속",
+     "name": "49.58",
+     "votes": 73014,
+     "rate": 51.37
+    }
+   ]
+  },
+  {
+   "sido_std": "41",
+   "town_nec": "4100",
+   "sigungu": "평택시",
+   "sgname": "평택시",
+   "cands": [
+    {
+     "party": "더불어민주당",
+     "name": "최원용",
+     "votes": 162631,
+     "rate": 59.76
+    },
+    {
+     "party": "국민의힘",
+     "name": "차화열",
+     "votes": 109508,
+     "rate": 40.23
+    }
+   ]
+  },
+  {
+   "sido_std": "41",
+   "town_nec": "4100",
+   "sigungu": "안양시",
+   "sgname": "소계",
+   "cands": [
+    {
+     "party": "더불어민주당",
+     "name": "최대호",
+     "votes": 171909,
+     "rate": 56.15
+    },
+    {
+     "party": "국민의힘",
+     "name": "김대영",
+     "votes": 134208,
+     "rate": 43.84
+    }
+   ]
+  },
+  {
+   "sido_std": "41",
+   "town_nec": "4100",
+   "sigungu": "안양시",
+   "sgname": "안양시만안구",
+   "cands": [
+    {
+     "party": "무소속",
+     "name": "56.15",
+     "votes": 70226,
+     "rate": 56.21
+    },
+    {
+     "party": "무소속",
+     "name": "43.84",
+     "votes": 54688,
+     "rate": 43.78
+    }
+   ]
+  },
+  {
+   "sido_std": "41",
+   "town_nec": "4100",
+   "sigungu": "안양시",
+   "sgname": "안양시동안구",
+   "cands": [
+    {
+     "party": "무소속",
+     "name": "56.21",
+     "votes": 101683,
+     "rate": 56.11
+    },
+    {
+     "party": "무소속",
+     "name": "43.78",
+     "votes": 79520,
+     "rate": 43.88
+    }
+   ]
+  },
+  {
+   "sido_std": "41",
+   "town_nec": "4100",
+   "sigungu": "파주시",
+   "sgname": "파주시",
+   "cands": [
+    {
+     "party": "더불어민주당",
+     "name": "손배찬",
+     "votes": 143178,
+     "rate": 59.62
+    },
+    {
+     "party": "국민의힘",
+     "name": "박용호",
+     "votes": 96935,
+     "rate": 40.37
+    }
+   ]
+  },
+  {
+   "sido_std": "41",
+   "town_nec": "4100",
+   "sigungu": "김포시",
+   "sgname": "김포시",
+   "cands": [
+    {
+     "party": "더불어민주당",
+     "name": "이기형",
+     "votes": 128346,
+     "rate": 56.08
+    },
+    {
+     "party": "국민의힘",
+     "name": "김병수",
+     "votes": 100486,
+     "rate": 43.91
+    }
+   ]
+  },
+  {
+   "sido_std": "41",
+   "town_nec": "4100",
+   "sigungu": "의정부시",
+   "sgname": "의정부시",
+   "cands": [
+    {
+     "party": "더불어민주당",
+     "name": "김원기",
+     "votes": 113910,
+     "rate": 50.8
+    },
+    {
+     "party": "국민의힘",
+     "name": "김동근",
+     "votes": 110300,
+     "rate": 49.19
+    }
+   ]
+  },
+  {
+   "sido_std": "41",
+   "town_nec": "4100",
+   "sigungu": "광주시",
+   "sgname": "광주시",
+   "cands": [
+    {
+     "party": "더불어민주당",
+     "name": "박관열",
+     "votes": 105926,
+     "rate": 56.18
+    },
+    {
+     "party": "국민의힘",
+     "name": "방세환",
+     "votes": 82611,
+     "rate": 43.81
+    }
+   ]
+  },
+  {
+   "sido_std": "41",
+   "town_nec": "4100",
+   "sigungu": "하남시",
+   "sgname": "하남시",
+   "cands": [
+    {
+     "party": "더불어민주당",
+     "name": "강병덕",
+     "votes": 82305,
+     "rate": 48.04
+    },
+    {
+     "party": "국민의힘",
+     "name": "이현재",
+     "votes": 88988,
+     "rate": 51.95
+    }
+   ]
+  },
+  {
+   "sido_std": "41",
+   "town_nec": "4100",
+   "sigungu": "양주시",
+   "sgname": "양주시",
+   "cands": [
+    {
+     "party": "더불어민주당",
+     "name": "정덕영",
+     "votes": 77762,
+     "rate": 56.71
+    },
+    {
+     "party": "국민의힘",
+     "name": "강수현",
+     "votes": 59340,
+     "rate": 43.28
+    }
+   ]
+  },
+  {
+   "sido_std": "41",
+   "town_nec": "4100",
+   "sigungu": "광명시",
+   "sgname": "광명시",
+   "cands": [
+    {
+     "party": "더불어민주당",
+     "name": "박승원",
+     "votes": 101762,
+     "rate": 60.7
+    },
+    {
+     "party": "국민의힘",
+     "name": "김정호",
+     "votes": 65870,
+     "rate": 39.29
+    }
+   ]
+  },
+  {
+   "sido_std": "41",
+   "town_nec": "4100",
+   "sigungu": "군포시",
+   "sgname": "군포시",
+   "cands": [
+    {
+     "party": "더불어민주당",
+     "name": "한대희",
+     "votes": 79088,
+     "rate": 57.38
+    },
+    {
+     "party": "국민의힘",
+     "name": "하은호",
+     "votes": 58726,
+     "rate": 42.61
+    }
+   ]
+  },
+  {
+   "sido_std": "41",
+   "town_nec": "4100",
+   "sigungu": "오산시",
+   "sgname": "오산시",
+   "cands": [
+    {
+     "party": "더불어민주당",
+     "name": "조용호",
+     "votes": 58290,
+     "rate": 50.21
+    },
+    {
+     "party": "국민의힘",
+     "name": "이권재",
+     "votes": 55101,
+     "rate": 47.46
+    },
+    {
+     "party": "개혁신당",
+     "name": "송진영",
+     "votes": 2694,
+     "rate": 2.32
+    }
+   ]
+  },
+  {
+   "sido_std": "41",
+   "town_nec": "4100",
+   "sigungu": "이천시",
+   "sgname": "이천시",
+   "cands": [
+    {
+     "party": "더불어민주당",
+     "name": "성수석",
+     "votes": 54931,
+     "rate": 51.32
+    },
+    {
+     "party": "국민의힘",
+     "name": "김경희",
+     "votes": 52102,
+     "rate": 48.67
+    }
+   ]
+  },
+  {
+   "sido_std": "41",
+   "town_nec": "4100",
+   "sigungu": "안성시",
+   "sgname": "안성시",
+   "cands": [
+    {
+     "party": "더불어민주당",
+     "name": "김보라",
+     "votes": 52192,
+     "rate": 54.85
+    },
+    {
+     "party": "국민의힘",
+     "name": "김장연",
+     "votes": 39903,
+     "rate": 41.93
+    },
+    {
+     "party": "무소속",
+     "name": "신원주",
+     "votes": 3049,
+     "rate": 3.2
+    }
+   ]
+  },
+  {
+   "sido_std": "41",
+   "town_nec": "4100",
+   "sigungu": "구리시",
+   "sgname": "구리시",
+   "cands": [
+    {
+     "party": "더불어민주당",
+     "name": "신동화",
+     "votes": 53227,
+     "rate": 53.25
+    },
+    {
+     "party": "국민의힘",
+     "name": "백경현",
+     "votes": 46717,
+     "rate": 46.74
+    }
+   ]
+  },
+  {
+   "sido_std": "41",
+   "town_nec": "4100",
+   "sigungu": "포천시",
+   "sgname": "포천시",
+   "cands": [
+    {
+     "party": "더불어민주당",
+     "name": "박윤국",
+     "votes": 33745,
+     "rate": 45.25
+    },
+    {
+     "party": "국민의힘",
+     "name": "백영현",
+     "votes": 39769,
+     "rate": 53.32
+    },
+    {
+     "party": "무소속",
+     "name": "이재수",
+     "votes": 1058,
+     "rate": 1.41
+    }
+   ]
+  },
+  {
+   "sido_std": "41",
+   "town_nec": "4100",
+   "sigungu": "의왕시",
+   "sgname": "의왕시",
+   "cands": [
+    {
+     "party": "더불어민주당",
+     "name": "정순욱",
+     "votes": 44019,
+     "rate": 46.67
+    },
+    {
+     "party": "국민의힘",
+     "name": "김성제",
+     "votes": 50285,
+     "rate": 53.32
+    }
+   ]
+  },
+  {
+   "sido_std": "41",
+   "town_nec": "4100",
+   "sigungu": "양평군",
+   "sgname": "양평군",
+   "cands": [
+    {
+     "party": "더불어민주당",
+     "name": "박은미",
+     "votes": 33946,
+     "rate": 47.99
+    },
+    {
+     "party": "국민의힘",
+     "name": "전진선",
+     "votes": 36788,
+     "rate": 52.0
+    }
+   ]
+  },
+  {
+   "sido_std": "41",
+   "town_nec": "4100",
+   "sigungu": "여주시",
+   "sgname": "여주시",
+   "cands": [
+    {
+     "party": "더불어민주당",
+     "name": "박시선",
+     "votes": 26646,
+     "rate": 44.65
+    },
+    {
+     "party": "국민의힘",
+     "name": "이충우",
+     "votes": 33019,
+     "rate": 55.34
+    }
+   ]
+  },
+  {
+   "sido_std": "41",
+   "town_nec": "4100",
+   "sigungu": "동두천시",
+   "sgname": "동두천시",
+   "cands": [
+    {
+     "party": "더불어민주당",
+     "name": "이인규",
+     "votes": 20820,
+     "rate": 48.3
+    },
+    {
+     "party": "국민의힘",
+     "name": "박형덕",
+     "votes": 22283,
+     "rate": 51.69
+    }
+   ]
+  },
+  {
+   "sido_std": "41",
+   "town_nec": "4100",
+   "sigungu": "과천시",
+   "sgname": "과천시",
+   "cands": [
+    {
+     "party": "더불어민주당",
+     "name": "김종천",
+     "votes": 17608,
+     "rate": 37.49
+    },
+    {
+     "party": "국민의힘",
+     "name": "신계용",
+     "votes": 28285,
+     "rate": 60.23
+    },
+    {
+     "party": "개혁신당",
+     "name": "고금란",
+     "votes": 1068,
+     "rate": 2.27
+    }
+   ]
+  },
+  {
+   "sido_std": "41",
+   "town_nec": "4100",
+   "sigungu": "가평군",
+   "sgname": "가평군",
+   "cands": [
+    {
+     "party": "더불어민주당",
+     "name": "김경호",
+     "votes": 11874,
+     "rate": 34.43
+    },
+    {
+     "party": "국민의힘",
+     "name": "서태원",
+     "votes": 16437,
+     "rate": 47.67
+    },
+    {
+     "party": "무소속",
+     "name": "이충선",
+     "votes": 305,
+     "rate": 0.88
+    },
+    {
+     "party": "무소속",
+     "name": "이진용",
+     "votes": 4959,
+     "rate": 14.38
+    },
+    {
+     "party": "무소속",
+     "name": "신동진",
+     "votes": 904,
+     "rate": 2.62
+    }
+   ]
+  },
+  {
+   "sido_std": "41",
+   "town_nec": "4100",
+   "sigungu": "연천군",
+   "sgname": "연천군",
+   "cands": [
+    {
+     "party": "더불어민주당",
+     "name": "박충식",
+     "votes": 11078,
+     "rate": 44.71
+    },
+    {
+     "party": "국민의힘",
+     "name": "김덕현",
+     "votes": 13698,
+     "rate": 55.28
+    }
+   ]
+  },
+  {
+   "sido_std": "42",
+   "town_nec": "5200",
+   "sigungu": "춘천시",
+   "sgname": "춘천시",
+   "cands": [
+    {
+     "party": "더불어민주당",
+     "name": "육동한",
+     "votes": 86552,
+     "rate": 55.81
+    },
+    {
+     "party": "국민의힘",
+     "name": "정광열",
+     "votes": 68511,
+     "rate": 44.18
+    }
+   ]
+  },
+  {
+   "sido_std": "42",
+   "town_nec": "5200",
+   "sigungu": "원주시",
+   "sgname": "원주시",
+   "cands": [
+    {
+     "party": "더불어민주당",
+     "name": "구자열",
+     "votes": 99107,
+     "rate": 54.01
+    },
+    {
+     "party": "국민의힘",
+     "name": "원강수",
+     "votes": 84362,
+     "rate": 45.98
+    }
+   ]
+  },
+  {
+   "sido_std": "42",
+   "town_nec": "5200",
+   "sigungu": "강릉시",
+   "sgname": "강릉시",
+   "cands": [
+    {
+     "party": "더불어민주당",
+     "name": "김중남",
+     "votes": 58350,
+     "rate": 51.19
+    },
+    {
+     "party": "국민의힘",
+     "name": "김홍규",
+     "votes": 48478,
+     "rate": 42.53
+    },
+    {
+     "party": "무소속",
+     "name": "김동기",
+     "votes": 7142,
+     "rate": 6.26
+    }
+   ]
+  },
+  {
+   "sido_std": "42",
+   "town_nec": "5200",
+   "sigungu": "동해시",
+   "sgname": "동해시",
+   "cands": [
+    {
+     "party": "더불어민주당",
+     "name": "이정학",
+     "votes": 23943,
+     "rate": 51.61
+    },
+    {
+     "party": "국민의힘",
+     "name": "김기하",
+     "votes": 20826,
+     "rate": 44.89
+    },
+    {
+     "party": "개혁신당",
+     "name": "김홍수",
+     "votes": 1618,
+     "rate": 3.48
+    }
+   ]
+  },
+  {
+   "sido_std": "42",
+   "town_nec": "5200",
+   "sigungu": "태백시",
+   "sgname": "태백시",
+   "cands": [
+    {
+     "party": "더불어민주당",
+     "name": "김동구",
+     "votes": 8474,
+     "rate": 38.32
+    },
+    {
+     "party": "국민의힘",
+     "name": "이상호",
+     "votes": 13639,
+     "rate": 61.67
+    }
+   ]
+  },
+  {
+   "sido_std": "42",
+   "town_nec": "5200",
+   "sigungu": "속초시",
+   "sgname": "속초시",
+   "cands": [
+    {
+     "party": "더불어민주당",
+     "name": "김철수",
+     "votes": 19035,
+     "rate": 43.87
+    },
+    {
+     "party": "국민의힘",
+     "name": "이병선",
+     "votes": 22040,
+     "rate": 50.8
+    },
+    {
+     "party": "무소속",
+     "name": "염하나",
+     "votes": 2307,
+     "rate": 5.31
+    }
+   ]
+  },
+  {
+   "sido_std": "42",
+   "town_nec": "5200",
+   "sigungu": "삼척시",
+   "sgname": "삼척시",
+   "cands": [
+    {
+     "party": "더불어민주당",
+     "name": "이정훈",
+     "votes": 14749,
+     "rate": 40.11
+    },
+    {
+     "party": "국민의힘",
+     "name": "박상수",
+     "votes": 20390,
+     "rate": 55.45
+    },
+    {
+     "party": "개혁신당",
+     "name": "김형우",
+     "votes": 1628,
+     "rate": 4.42
+    }
+   ]
+  },
+  {
+   "sido_std": "42",
+   "town_nec": "5200",
+   "sigungu": "홍천군",
+   "sgname": "홍천군",
+   "cands": [
+    {
+     "party": "더불어민주당",
+     "name": "박승영",
+     "votes": 14897,
+     "rate": 38.23
+    },
+    {
+     "party": "국민의힘",
+     "name": "신영재",
+     "votes": 24067,
+     "rate": 61.76
+    }
+   ]
+  },
+  {
+   "sido_std": "42",
+   "town_nec": "5200",
+   "sigungu": "횡성군",
+   "sgname": "횡성군",
+   "cands": [
+    {
+     "party": "더불어민주당",
+     "name": "장신상",
+     "votes": 14285,
+     "rate": 50.0
+    },
+    {
+     "party": "국민의힘",
+     "name": "임광식",
+     "votes": 9264,
+     "rate": 32.43
+    },
+    {
+     "party": "무소속",
+     "name": "김명기",
+     "votes": 5017,
+     "rate": 17.56
+    }
+   ]
+  },
+  {
+   "sido_std": "42",
+   "town_nec": "5200",
+   "sigungu": "영월군",
+   "sgname": "영월군",
+   "cands": [
+    {
+     "party": "더불어민주당",
+     "name": "박선규",
+     "votes": 9078,
+     "rate": 39.75
+    },
+    {
+     "party": "국민의힘",
+     "name": "김길수",
+     "votes": 9254,
+     "rate": 40.52
+    },
+    {
+     "party": "조국혁신당",
+     "name": "엄삼용",
+     "votes": 586,
+     "rate": 2.56
+    },
+    {
+     "party": "무소속",
+     "name": "최명서",
+     "votes": 3916,
+     "rate": 17.14
+    }
+   ]
+  },
+  {
+   "sido_std": "42",
+   "town_nec": "5200",
+   "sigungu": "평창군",
+   "sgname": "평창군",
+   "cands": [
+    {
+     "party": "더불어민주당",
+     "name": "한왕기",
+     "votes": 12391,
+     "rate": 48.35
+    },
+    {
+     "party": "국민의힘",
+     "name": "심재국",
+     "votes": 13233,
+     "rate": 51.64
+    }
+   ]
+  },
+  {
+   "sido_std": "42",
+   "town_nec": "5200",
+   "sigungu": "정선군",
+   "sgname": "정선군",
+   "cands": [
+    {
+     "party": "더불어민주당",
+     "name": "최승준",
+     "votes": 12353,
+     "rate": 53.86
+    },
+    {
+     "party": "국민의힘",
+     "name": "최철규",
+     "votes": 10579,
+     "rate": 46.13
+    }
+   ]
+  },
+  {
+   "sido_std": "42",
+   "town_nec": "5200",
+   "sigungu": "철원군",
+   "sgname": "철원군",
+   "cands": [
+    {
+     "party": "더불어민주당",
+     "name": "한금석",
+     "votes": 10848,
+     "rate": 46.33
+    },
+    {
+     "party": "국민의힘",
+     "name": "김동일",
+     "votes": 11079,
+     "rate": 47.31
+    },
+    {
+     "party": "무소속",
+     "name": "고기영",
+     "votes": 1487,
+     "rate": 6.35
+    }
+   ]
+  },
+  {
+   "sido_std": "42",
+   "town_nec": "5200",
+   "sigungu": "화천군",
+   "sgname": "화천군",
+   "cands": [
+    {
+     "party": "더불어민주당",
+     "name": "김세훈",
+     "votes": 7944,
+     "rate": 57.36
+    },
+    {
+     "party": "국민의힘",
+     "name": "최명수",
+     "votes": 5903,
+     "rate": 42.63
+    }
+   ]
+  },
+  {
+   "sido_std": "42",
+   "town_nec": "5200",
+   "sigungu": "양구군",
+   "sgname": "양구군",
+   "cands": [
+    {
+     "party": "더불어민주당",
+     "name": "김왕규",
+     "votes": 6481,
+     "rate": 51.45
+    },
+    {
+     "party": "국민의힘",
+     "name": "서흥원",
+     "votes": 6114,
+     "rate": 48.54
+    }
+   ]
+  },
+  {
+   "sido_std": "42",
+   "town_nec": "5200",
+   "sigungu": "인제군",
+   "sgname": "인제군",
+   "cands": [
+    {
+     "party": "더불어민주당",
+     "name": "최상기",
+     "votes": 9698,
+     "rate": 52.34
+    },
+    {
+     "party": "국민의힘",
+     "name": "엄윤순",
+     "votes": 8162,
+     "rate": 44.05
+    },
+    {
+     "party": "무소속",
+     "name": "한상철",
+     "votes": 666,
+     "rate": 3.59
+    }
+   ]
+  },
+  {
+   "sido_std": "42",
+   "town_nec": "5200",
+   "sigungu": "고성군",
+   "sgname": "고성군",
+   "cands": [
+    {
+     "party": "더불어민주당",
+     "name": "함명준",
+     "votes": 9242,
+     "rate": 54.67
+    },
+    {
+     "party": "국민의힘",
+     "name": "박효동",
+     "votes": 7660,
+     "rate": 45.32
+    }
+   ]
+  },
+  {
+   "sido_std": "42",
+   "town_nec": "5200",
+   "sigungu": "양양군",
+   "sgname": "양양군",
+   "cands": [
+    {
+     "party": "더불어민주당",
+     "name": "김정중",
+     "votes": 9026,
+     "rate": 50.52
+    },
+    {
+     "party": "국민의힘",
+     "name": "김호열",
+     "votes": 8262,
+     "rate": 46.24
+    },
+    {
+     "party": "무소속",
+     "name": "고제철",
+     "votes": 576,
+     "rate": 3.22
+    }
+   ]
+  },
+  {
+   "sido_std": "43",
+   "town_nec": "4300",
+   "sigungu": "청주시",
+   "sgname": "소계",
+   "cands": [
+    {
+     "party": "더불어민주당",
+     "name": "이장섭",
+     "votes": 215486,
+     "rate": 52.52
+    },
+    {
+     "party": "국민의힘",
+     "name": "이범석",
+     "votes": 186594,
+     "rate": 45.47
+    },
+    {
+     "party": "무소속",
+     "name": "한현구",
+     "votes": 8198,
+     "rate": 1.99
+    }
+   ]
+  },
+  {
+   "sido_std": "43",
+   "town_nec": "4300",
+   "sigungu": "청주시",
+   "sgname": "청주시상당구",
+   "cands": [
+    {
+     "party": "무소속",
+     "name": "52.52",
+     "votes": 49455,
+     "rate": 51.72
+    },
+    {
+     "party": "무소속",
+     "name": "45.47",
+     "votes": 44361,
+     "rate": 46.39
+    },
+    {
+     "party": "무소속",
+     "name": "1.99",
+     "votes": 1802,
+     "rate": 1.88
+    }
+   ]
+  },
+  {
+   "sido_std": "43",
+   "town_nec": "4300",
+   "sigungu": "청주시",
+   "sgname": "청주시서원구",
+   "cands": [
+    {
+     "party": "무소속",
+     "name": "51.72",
+     "votes": 49148,
+     "rate": 52.34
+    },
+    {
+     "party": "무소속",
+     "name": "46.39",
+     "votes": 42979,
+     "rate": 45.77
+    },
+    {
+     "party": "무소속",
+     "name": "1.88",
+     "votes": 1758,
+     "rate": 1.87
+    }
+   ]
+  },
+  {
+   "sido_std": "43",
+   "town_nec": "4300",
+   "sigungu": "청주시",
+   "sgname": "청주시흥덕구",
+   "cands": [
+    {
+     "party": "무소속",
+     "name": "52.34",
+     "votes": 70596,
+     "rate": 52.73
+    },
+    {
+     "party": "무소속",
+     "name": "45.77",
+     "votes": 60573,
+     "rate": 45.24
+    },
+    {
+     "party": "무소속",
+     "name": "1.87",
+     "votes": 2705,
+     "rate": 2.02
+    }
+   ]
+  },
+  {
+   "sido_std": "43",
+   "town_nec": "4300",
+   "sigungu": "청주시",
+   "sgname": "청주시청원구",
+   "cands": [
+    {
+     "party": "무소속",
+     "name": "52.73",
+     "votes": 46287,
+     "rate": 53.26
+    },
+    {
+     "party": "무소속",
+     "name": "45.24",
+     "votes": 38681,
+     "rate": 44.51
+    },
+    {
+     "party": "무소속",
+     "name": "2.02",
+     "votes": 1933,
+     "rate": 2.22
+    }
+   ]
+  },
+  {
+   "sido_std": "43",
+   "town_nec": "4300",
+   "sigungu": "충주시",
+   "sgname": "충주시",
+   "cands": [
+    {
+     "party": "더불어민주당",
+     "name": "맹정섭",
+     "votes": 52838,
+     "rate": 49.94
+    },
+    {
+     "party": "국민의힘",
+     "name": "이동석",
+     "votes": 52962,
+     "rate": 50.05
+    }
+   ]
+  },
+  {
+   "sido_std": "43",
+   "town_nec": "4300",
+   "sigungu": "제천시",
+   "sgname": "제천시",
+   "cands": [
+    {
+     "party": "더불어민주당",
+     "name": "이상천",
+     "votes": 36809,
+     "rate": 51.53
+    },
+    {
+     "party": "국민의힘",
+     "name": "김창규",
+     "votes": 31971,
+     "rate": 44.75
+    },
+    {
+     "party": "무소속",
+     "name": "송수연",
+     "votes": 2649,
+     "rate": 3.7
+    }
+   ]
+  },
+  {
+   "sido_std": "43",
+   "town_nec": "4300",
+   "sigungu": "보은군",
+   "sgname": "보은군",
+   "cands": [
+    {
+     "party": "더불어민주당",
+     "name": "하유정",
+     "votes": 8363,
+     "rate": 40.07
+    },
+    {
+     "party": "국민의힘",
+     "name": "최재형",
+     "votes": 12504,
+     "rate": 59.92
+    }
+   ]
+  },
+  {
+   "sido_std": "43",
+   "town_nec": "4300",
+   "sigungu": "옥천군",
+   "sgname": "옥천군",
+   "cands": [
+    {
+     "party": "더불어민주당",
+     "name": "황규철",
+     "votes": 17762,
+     "rate": 57.07
+    },
+    {
+     "party": "국민의힘",
+     "name": "전상인",
+     "votes": 13361,
+     "rate": 42.92
+    }
+   ]
+  },
+  {
+   "sido_std": "43",
+   "town_nec": "4300",
+   "sigungu": "영동군",
+   "sgname": "영동군",
+   "cands": [
+    {
+     "party": "더불어민주당",
+     "name": "이수동",
+     "votes": 11927,
+     "rate": 43.52
+    },
+    {
+     "party": "국민의힘",
+     "name": "정영철",
+     "votes": 15478,
+     "rate": 56.47
+    }
+   ]
+  },
+  {
+   "sido_std": "43",
+   "town_nec": "4300",
+   "sigungu": "증평군",
+   "sgname": "증평군",
+   "cands": [
+    {
+     "party": "더불어민주당",
+     "name": "이재영",
+     "votes": 10593,
+     "rate": 56.68
+    },
+    {
+     "party": "국민의힘",
+     "name": "이민표",
+     "votes": 8094,
+     "rate": 43.31
+    }
+   ]
+  },
+  {
+   "sido_std": "43",
+   "town_nec": "4300",
+   "sigungu": "진천군",
+   "sgname": "진천군",
+   "cands": [
+    {
+     "party": "더불어민주당",
+     "name": "김명식",
+     "votes": 22773,
+     "rate": 56.13
+    },
+    {
+     "party": "국민의힘",
+     "name": "이양섭",
+     "votes": 17795,
+     "rate": 43.86
+    }
+   ]
+  },
+  {
+   "sido_std": "43",
+   "town_nec": "4300",
+   "sigungu": "괴산군",
+   "sgname": "괴산군",
+   "cands": [
+    {
+     "party": "더불어민주당",
+     "name": "이차영",
+     "votes": 10821,
+     "rate": 42.55
+    },
+    {
+     "party": "국민의힘",
+     "name": "송인헌",
+     "votes": 14605,
+     "rate": 57.44
+    }
+   ]
+  },
+  {
+   "sido_std": "43",
+   "town_nec": "4300",
+   "sigungu": "음성군",
+   "sgname": "음성군",
+   "cands": [
+    {
+     "party": "더불어민주당",
+     "name": "조병옥",
+     "votes": 29034,
+     "rate": 59.97
+    },
+    {
+     "party": "국민의힘",
+     "name": "임택수",
+     "votes": 19373,
+     "rate": 40.02
+    }
+   ]
+  },
+  {
+   "sido_std": "43",
+   "town_nec": "4300",
+   "sigungu": "단양군",
+   "sgname": "단양군",
+   "cands": [
+    {
+     "party": "더불어민주당",
+     "name": "김광직",
+     "votes": 6401,
+     "rate": 37.18
+    },
+    {
+     "party": "국민의힘",
+     "name": "김문근",
+     "votes": 10812,
+     "rate": 62.81
+    }
+   ]
+  },
+  {
+   "sido_std": "44",
+   "town_nec": "4400",
+   "sigungu": "천안시",
+   "sgname": "소계",
+   "cands": [
+    {
+     "party": "더불어민주당",
+     "name": "장기수",
+     "votes": 159323,
+     "rate": 53.47
+    },
+    {
+     "party": "국민의힘",
+     "name": "박찬우",
+     "votes": 130788,
+     "rate": 43.89
+    },
+    {
+     "party": "개혁신당",
+     "name": "이성진",
+     "votes": 7821,
+     "rate": 2.62
+    }
+   ]
+  },
+  {
+   "sido_std": "44",
+   "town_nec": "4400",
+   "sigungu": "천안시",
+   "sgname": "천안시서북구",
+   "cands": [
+    {
+     "party": "무소속",
+     "name": "53.47",
+     "votes": 89233,
+     "rate": 55.67
+    },
+    {
+     "party": "무소속",
+     "name": "43.89",
+     "votes": 66538,
+     "rate": 41.51
+    },
+    {
+     "party": "무소속",
+     "name": "2.62",
+     "votes": 4505,
+     "rate": 2.81
+    }
+   ]
+  },
+  {
+   "sido_std": "44",
+   "town_nec": "4400",
+   "sigungu": "천안시",
+   "sgname": "천안시동남구",
+   "cands": [
+    {
+     "party": "무소속",
+     "name": "55.67",
+     "votes": 70090,
+     "rate": 50.91
+    },
+    {
+     "party": "무소속",
+     "name": "41.51",
+     "votes": 64250,
+     "rate": 46.67
+    },
+    {
+     "party": "무소속",
+     "name": "2.81",
+     "votes": 3316,
+     "rate": 2.4
+    }
+   ]
+  },
+  {
+   "sido_std": "44",
+   "town_nec": "4400",
+   "sigungu": "공주시",
+   "sgname": "공주시",
+   "cands": [
+    {
+     "party": "더불어민주당",
+     "name": "김정섭",
+     "votes": 27059,
+     "rate": 46.32
+    },
+    {
+     "party": "국민의힘",
+     "name": "최원철",
+     "votes": 31353,
+     "rate": 53.67
+    }
+   ]
+  },
+  {
+   "sido_std": "44",
+   "town_nec": "4400",
+   "sigungu": "보령시",
+   "sgname": "보령시",
+   "cands": [
+    {
+     "party": "더불어민주당",
+     "name": "이영우",
+     "votes": 24349,
+     "rate": 45.88
+    },
+    {
+     "party": "국민의힘",
+     "name": "엄승용",
+     "votes": 27463,
+     "rate": 51.75
+    },
+    {
+     "party": "무소속",
+     "name": "김흥식",
+     "votes": 1248,
+     "rate": 2.35
+    }
+   ]
+  },
+  {
+   "sido_std": "44",
+   "town_nec": "4400",
+   "sigungu": "아산시",
+   "sgname": "아산시",
+   "cands": [
+    {
+     "party": "더불어민주당",
+     "name": "오세현",
+     "votes": 99771,
+     "rate": 61.85
+    },
+    {
+     "party": "국민의힘",
+     "name": "맹의석",
+     "votes": 58666,
+     "rate": 36.37
+    },
+    {
+     "party": "무소속",
+     "name": "한태국",
+     "votes": 2855,
+     "rate": 1.77
+    }
+   ]
+  },
+  {
+   "sido_std": "44",
+   "town_nec": "4400",
+   "sigungu": "서산시",
+   "sgname": "서산시",
+   "cands": [
+    {
+     "party": "더불어민주당",
+     "name": "맹정호",
+     "votes": 41108,
+     "rate": 46.93
+    },
+    {
+     "party": "국민의힘",
+     "name": "이완섭",
+     "votes": 43949,
+     "rate": 50.18
+    },
+    {
+     "party": "개혁신당",
+     "name": "유관곤",
+     "votes": 2521,
+     "rate": 2.87
+    }
+   ]
+  },
+  {
+   "sido_std": "44",
+   "town_nec": "4400",
+   "sigungu": "논산시",
+   "sgname": "논산시",
+   "cands": [
+    {
+     "party": "더불어민주당",
+     "name": "오인환",
+     "votes": 27025,
+     "rate": 45.88
+    },
+    {
+     "party": "국민의힘",
+     "name": "백성현",
+     "votes": 31000,
+     "rate": 52.63
+    },
+    {
+     "party": "개혁신당",
+     "name": "이창원",
+     "votes": 870,
+     "rate": 1.47
+    }
+   ]
+  },
+  {
+   "sido_std": "44",
+   "town_nec": "4400",
+   "sigungu": "계룡시",
+   "sgname": "계룡시",
+   "cands": [
+    {
+     "party": "더불어민주당",
+     "name": "정준영",
+     "votes": 11197,
+     "rate": 45.88
+    },
+    {
+     "party": "국민의힘",
+     "name": "이응우",
+     "votes": 13204,
+     "rate": 54.11
+    }
+   ]
+  },
+  {
+   "sido_std": "44",
+   "town_nec": "4400",
+   "sigungu": "당진시",
+   "sgname": "당진시",
+   "cands": [
+    {
+     "party": "더불어민주당",
+     "name": "김기재",
+     "votes": 42507,
+     "rate": 51.47
+    },
+    {
+     "party": "국민의힘",
+     "name": "오성환",
+     "votes": 40063,
+     "rate": 48.52
+    }
+   ]
+  },
+  {
+   "sido_std": "44",
+   "town_nec": "4400",
+   "sigungu": "금산군",
+   "sgname": "금산군",
+   "cands": [
+    {
+     "party": "더불어민주당",
+     "name": "문정우",
+     "votes": 14855,
+     "rate": 50.07
+    },
+    {
+     "party": "국민의힘",
+     "name": "박범인",
+     "votes": 13888,
+     "rate": 46.81
+    },
+    {
+     "party": "조국혁신당",
+     "name": "안찬",
+     "votes": 921,
+     "rate": 3.1
+    }
+   ]
+  },
+  {
+   "sido_std": "44",
+   "town_nec": "4400",
+   "sigungu": "부여군",
+   "sgname": "부여군",
+   "cands": [
+    {
+     "party": "더불어민주당",
+     "name": "김민수",
+     "votes": 14889,
+     "rate": 40.68
+    },
+    {
+     "party": "국민의힘",
+     "name": "이용우",
+     "votes": 14968,
+     "rate": 40.89
+    },
+    {
+     "party": "무소속",
+     "name": "김기서",
+     "votes": 6743,
+     "rate": 18.42
+    }
+   ]
+  },
+  {
+   "sido_std": "44",
+   "town_nec": "4400",
+   "sigungu": "서천군",
+   "sgname": "서천군",
+   "cands": [
+    {
+     "party": "더불어민주당",
+     "name": "유승광",
+     "votes": 16258,
+     "rate": 56.41
+    },
+    {
+     "party": "국민의힘",
+     "name": "김기웅",
+     "votes": 11978,
+     "rate": 41.56
+    },
+    {
+     "party": "개혁신당",
+     "name": "조중연",
+     "votes": 584,
+     "rate": 2.02
+    }
+   ]
+  },
+  {
+   "sido_std": "44",
+   "town_nec": "4400",
+   "sigungu": "청양군",
+   "sgname": "청양군",
+   "cands": [
+    {
+     "party": "더불어민주당",
+     "name": "김돈곤",
+     "votes": 10073,
+     "rate": 49.81
+    },
+    {
+     "party": "국민의힘",
+     "name": "김홍열",
+     "votes": 10148,
+     "rate": 50.18
+    }
+   ]
+  },
+  {
+   "sido_std": "44",
+   "town_nec": "4400",
+   "sigungu": "홍성군",
+   "sgname": "홍성군",
+   "cands": [
+    {
+     "party": "더불어민주당",
+     "name": "손세희",
+     "votes": 23276,
+     "rate": 43.88
+    },
+    {
+     "party": "국민의힘",
+     "name": "박정주",
+     "votes": 29760,
+     "rate": 56.11
+    }
+   ]
+  },
+  {
+   "sido_std": "44",
+   "town_nec": "4400",
+   "sigungu": "예산군",
+   "sgname": "예산군",
+   "cands": [
+    {
+     "party": "더불어민주당",
+     "name": "조한영",
+     "votes": 15873,
+     "rate": 36.23
+    },
+    {
+     "party": "국민의힘",
+     "name": "최재구",
+     "votes": 27936,
+     "rate": 63.76
+    }
+   ]
+  },
+  {
+   "sido_std": "44",
+   "town_nec": "4400",
+   "sigungu": "태안군",
+   "sgname": "태안군",
+   "cands": [
+    {
+     "party": "더불어민주당",
+     "name": "강철민",
+     "votes": 14873,
+     "rate": 41.92
+    },
+    {
+     "party": "국민의힘",
+     "name": "윤희신",
+     "votes": 20602,
+     "rate": 58.07
+    }
+   ]
+  },
+  {
+   "sido_std": "45",
+   "town_nec": "5300",
+   "sigungu": "전주시",
+   "sgname": "소계",
+   "cands": [
+    {
+     "party": "더불어민주당",
+     "name": "조지훈",
+     "votes": 214203,
+     "rate": 70.13
+    },
+    {
+     "party": "진보당",
+     "name": "강성희",
+     "votes": 68252,
+     "rate": 22.34
+    },
+    {
+     "party": "무소속",
+     "name": "김광종",
+     "votes": 22972,
+     "rate": 7.52
+    }
+   ]
+  },
+  {
+   "sido_std": "45",
+   "town_nec": "5300",
+   "sigungu": "전주시",
+   "sgname": "전주시완산구",
+   "cands": [
+    {
+     "party": "무소속",
+     "name": "70.13",
+     "votes": 126406,
+     "rate": 68.68
+    },
+    {
+     "party": "무소속",
+     "name": "22.34",
+     "votes": 43819,
+     "rate": 23.81
+    },
+    {
+     "party": "무소속",
+     "name": "7.52",
+     "votes": 13799,
+     "rate": 7.49
+    }
+   ]
+  },
+  {
+   "sido_std": "45",
+   "town_nec": "5300",
+   "sigungu": "전주시",
+   "sgname": "전주시덕진구",
+   "cands": [
+    {
+     "party": "무소속",
+     "name": "68.68",
+     "votes": 87797,
+     "rate": 72.31
+    },
+    {
+     "party": "무소속",
+     "name": "23.81",
+     "votes": 24433,
+     "rate": 20.12
+    },
+    {
+     "party": "무소속",
+     "name": "7.49",
+     "votes": 9173,
+     "rate": 7.55
+    }
+   ]
+  },
+  {
+   "sido_std": "45",
+   "town_nec": "5300",
+   "sigungu": "군산시",
+   "sgname": "군산시",
+   "cands": [
+    {
+     "party": "더불어민주당",
+     "name": "김재준",
+     "votes": 92800,
+     "rate": 74.97
+    },
+    {
+     "party": "조국혁신당",
+     "name": "이주현",
+     "votes": 19808,
+     "rate": 16.0
+    },
+    {
+     "party": "무소속",
+     "name": "고영섭",
+     "votes": 11164,
+     "rate": 9.01
+    }
+   ]
+  },
+  {
+   "sido_std": "45",
+   "town_nec": "5300",
+   "sigungu": "익산시",
+   "sgname": "익산시",
+   "cands": [
+    {
+     "party": "더불어민주당",
+     "name": "최정호",
+     "votes": 99550,
+     "rate": 74.7
+    },
+    {
+     "party": "조국혁신당",
+     "name": "임형택",
+     "votes": 24021,
+     "rate": 18.02
+    },
+    {
+     "party": "무소속",
+     "name": "박경철",
+     "votes": 6456,
+     "rate": 4.84
+    },
+    {
+     "party": "무소속",
+     "name": "황세연",
+     "votes": 3222,
+     "rate": 2.41
+    }
+   ]
+  },
+  {
+   "sido_std": "45",
+   "town_nec": "5300",
+   "sigungu": "정읍시",
+   "sgname": "정읍시",
+   "cands": [
+    {
+     "party": "더불어민주당",
+     "name": "이학수",
+     "votes": 32780,
+     "rate": 54.22
+    },
+    {
+     "party": "조국혁신당",
+     "name": "김민영",
+     "votes": 26324,
+     "rate": 43.54
+    },
+    {
+     "party": "무소속",
+     "name": "김재선",
+     "votes": 1347,
+     "rate": 2.22
+    }
+   ]
+  },
+  {
+   "sido_std": "45",
+   "town_nec": "5300",
+   "sigungu": "남원시",
+   "sgname": "남원시",
+   "cands": [
+    {
+     "party": "더불어민주당",
+     "name": "양충모",
+     "votes": 26790,
+     "rate": 60.92
+    },
+    {
+     "party": "조국혁신당",
+     "name": "강동원",
+     "votes": 15901,
+     "rate": 36.16
+    },
+    {
+     "party": "무소속",
+     "name": "황의돈",
+     "votes": 1280,
+     "rate": 2.91
+    }
+   ]
+  },
+  {
+   "sido_std": "45",
+   "town_nec": "5300",
+   "sigungu": "김제시",
+   "sgname": "김제시",
+   "cands": [
+    {
+     "party": "더불어민주당",
+     "name": "정성주",
+     "votes": 38915,
+     "rate": 82.58
+    },
+    {
+     "party": "무소속",
+     "name": "이병철",
+     "votes": 8207,
+     "rate": 17.41
+    }
+   ]
+  },
+  {
+   "sido_std": "45",
+   "town_nec": "5300",
+   "sigungu": "완주군",
+   "sgname": "완주군",
+   "cands": [
+    {
+     "party": "더불어민주당",
+     "name": "유희태",
+     "votes": 34813,
+     "rate": 64.09
+    },
+    {
+     "party": "무소속",
+     "name": "국영석",
+     "votes": 19501,
+     "rate": 35.9
+    }
+   ]
+  },
+  {
+   "sido_std": "45",
+   "town_nec": "5300",
+   "sigungu": "진안군",
+   "sgname": "진안군",
+   "cands": [
+    {
+     "party": "더불어민주당",
+     "name": "전춘성",
+     "votes": 8191,
+     "rate": 48.33
+    },
+    {
+     "party": "무소속",
+     "name": "천춘진",
+     "votes": 6840,
+     "rate": 40.36
+    },
+    {
+     "party": "무소속",
+     "name": "고준식",
+     "votes": 1916,
+     "rate": 11.3
+    }
+   ]
+  },
+  {
+   "sido_std": "45",
+   "town_nec": "5300",
+   "sigungu": "무주군",
+   "sgname": "무주군",
+   "cands": [
+    {
+     "party": "더불어민주당",
+     "name": "황인홍",
+     "votes": 11087,
+     "rate": 73.41
+    },
+    {
+     "party": "무소속",
+     "name": "한송희",
+     "votes": 4015,
+     "rate": 26.58
+    }
+   ]
+  },
+  {
+   "sido_std": "45",
+   "town_nec": "5300",
+   "sigungu": "장수군",
+   "sgname": "장수군",
+   "cands": [
+    {
+     "party": "더불어민주당",
+     "name": "최훈식",
+     "votes": 8109,
+     "rate": 55.18
+    },
+    {
+     "party": "조국혁신당",
+     "name": "장영수",
+     "votes": 6586,
+     "rate": 44.81
+    }
+   ]
+  },
+  {
+   "sido_std": "45",
+   "town_nec": "5300",
+   "sigungu": "임실군",
+   "sgname": "임실군",
+   "cands": [
+    {
+     "party": "더불어민주당",
+     "name": "한득수",
+     "votes": 8580,
+     "rate": 49.73
+    },
+    {
+     "party": "무소속",
+     "name": "정인준",
+     "votes": 4100,
+     "rate": 23.76
+    },
+    {
+     "party": "무소속",
+     "name": "한병락",
+     "votes": 4571,
+     "rate": 26.49
+    }
+   ]
+  },
+  {
+   "sido_std": "45",
+   "town_nec": "5300",
+   "sigungu": "순창군",
+   "sgname": "순창군",
+   "cands": [
+    {
+     "party": "더불어민주당",
+     "name": "최영일",
+     "votes": 13113,
+     "rate": 67.51
+    },
+    {
+     "party": "진보당",
+     "name": "오은미",
+     "votes": 6310,
+     "rate": 32.48
+    }
+   ]
+  },
+  {
+   "sido_std": "45",
+   "town_nec": "5300",
+   "sigungu": "고창군",
+   "sgname": "고창군",
+   "cands": [
+    {
+     "party": "더불어민주당",
+     "name": "심덕섭",
+     "votes": 18175,
+     "rate": 53.32
+    },
+    {
+     "party": "조국혁신당",
+     "name": "유기상",
+     "votes": 14902,
+     "rate": 43.72
+    },
+    {
+     "party": "무소속",
+     "name": "장명식",
+     "votes": 501,
+     "rate": 1.46
+    },
+    {
+     "party": "무소속",
+     "name": "정원환",
+     "votes": 507,
+     "rate": 1.48
+    }
+   ]
+  },
+  {
+   "sido_std": "45",
+   "town_nec": "5300",
+   "sigungu": "부안군",
+   "sgname": "부안군",
+   "cands": [
+    {
+     "party": "더불어민주당",
+     "name": "권익현",
+     "votes": 11899,
+     "rate": 40.4
+    },
+    {
+     "party": "국민의힘",
+     "name": "김성태",
+     "votes": 965,
+     "rate": 3.27
+    },
+    {
+     "party": "조국혁신당",
+     "name": "김성수",
+     "votes": 9938,
+     "rate": 33.74
+    },
+    {
+     "party": "무소속",
+     "name": "김종규",
+     "votes": 6647,
+     "rate": 22.57
+    }
+   ]
+  },
+  {
+   "sido_std": "46",
+   "town_nec": "4600",
+   "sigungu": "목포시",
+   "sgname": "목포시",
+   "cands": [
+    {
+     "party": "더불어민주당",
+     "name": "강성휘",
+     "votes": 72571,
+     "rate": 75.01
+    },
+    {
+     "party": "국민의힘",
+     "name": "윤선웅",
+     "votes": 4276,
+     "rate": 4.42
+    },
+    {
+     "party": "조국혁신당",
+     "name": "박홍률",
+     "votes": 16147,
+     "rate": 16.69
+    },
+    {
+     "party": "정의당",
+     "name": "여인두",
+     "votes": 3742,
+     "rate": 3.86
+    }
+   ]
+  },
+  {
+   "sido_std": "46",
+   "town_nec": "4600",
+   "sigungu": "여수시",
+   "sgname": "여수시",
+   "cands": [
+    {
+     "party": "더불어민주당",
+     "name": "서영학",
+     "votes": 77767,
+     "rate": 59.44
+    },
+    {
+     "party": "조국혁신당",
+     "name": "명창환",
+     "votes": 47743,
+     "rate": 36.49
+    },
+    {
+     "party": "무소속",
+     "name": "원용규",
+     "votes": 5315,
+     "rate": 4.06
+    }
+   ]
+  },
+  {
+   "sido_std": "46",
+   "town_nec": "4600",
+   "sigungu": "순천시",
+   "sgname": "순천시",
+   "cands": [
+    {
+     "party": "더불어민주당",
+     "name": "손훈모",
+     "votes": 71290,
+     "rate": 46.85
+    },
+    {
+     "party": "진보당",
+     "name": "이성수",
+     "votes": 18834,
+     "rate": 12.37
+    },
+    {
+     "party": "무소속",
+     "name": "노관규",
+     "votes": 62040,
+     "rate": 40.77
+    }
+   ]
+  },
+  {
+   "sido_std": "46",
+   "town_nec": "4600",
+   "sigungu": "나주시",
+   "sgname": "나주시",
+   "cands": [
+    {
+     "party": "더불어민주당",
+     "name": "윤병태",
+     "votes": 42901,
+     "rate": 71.99
+    },
+    {
+     "party": "조국혁신당",
+     "name": "김덕수",
+     "votes": 16689,
+     "rate": 28.0
+    }
+   ]
+  },
+  {
+   "sido_std": "46",
+   "town_nec": "4600",
+   "sigungu": "광양시",
+   "sgname": "광양시",
+   "cands": [
+    {
+     "party": "더불어민주당",
+     "name": "정인화",
+     "votes": 37074,
+     "rate": 46.37
+    },
+    {
+     "party": "무소속",
+     "name": "박성현",
+     "votes": 40154,
+     "rate": 50.23
+    },
+    {
+     "party": "무소속",
+     "name": "박필순",
+     "votes": 2708,
+     "rate": 3.38
+    }
+   ]
+  },
+  {
+   "sido_std": "46",
+   "town_nec": "4600",
+   "sigungu": "담양군",
+   "sgname": "담양군",
+   "cands": [
+    {
+     "party": "더불어민주당",
+     "name": "박종원",
+     "votes": 16079,
+     "rate": 55.05
+    },
+    {
+     "party": "조국혁신당",
+     "name": "정철원",
+     "votes": 11535,
+     "rate": 39.49
+    },
+    {
+     "party": "무소속",
+     "name": "최화삼",
+     "votes": 1592,
+     "rate": 5.45
+    }
+   ]
+  },
+  {
+   "sido_std": "46",
+   "town_nec": "4600",
+   "sigungu": "곡성군",
+   "sgname": "곡성군",
+   "cands": [
+    {
+     "party": "더불어민주당",
+     "name": "조상래",
+     "votes": 12678,
+     "rate": 68.19
+    },
+    {
+     "party": "조국혁신당",
+     "name": "박웅두",
+     "votes": 5912,
+     "rate": 31.8
+    }
+   ]
+  },
+  {
+   "sido_std": "46",
+   "town_nec": "4600",
+   "sigungu": "구례군",
+   "sgname": "구례군",
+   "cands": [
+    {
+     "party": "더불어민주당",
+     "name": "장길선",
+     "votes": 6914,
+     "rate": 40.5
+    },
+    {
+     "party": "조국혁신당",
+     "name": "이창호",
+     "votes": 3087,
+     "rate": 18.08
+    },
+    {
+     "party": "무소속",
+     "name": "이현창",
+     "votes": 1193,
+     "rate": 6.98
+    },
+    {
+     "party": "무소속",
+     "name": "전경태",
+     "votes": 720,
+     "rate": 4.21
+    },
+    {
+     "party": "무소속",
+     "name": "정현택",
+     "votes": 4896,
+     "rate": 28.68
+    },
+    {
+     "party": "무소속",
+     "name": "정택균",
+     "votes": 260,
+     "rate": 1.52
+    }
+   ]
+  },
+  {
+   "sido_std": "46",
+   "town_nec": "4600",
+   "sigungu": "고흥군",
+   "sgname": "고흥군",
+   "cands": [
+    {
+     "party": "더불어민주당",
+     "name": "공영민",
+     "votes": 32224,
+     "rate": 84.34
+    },
+    {
+     "party": "무소속",
+     "name": "류봉진",
+     "votes": 4046,
+     "rate": 10.59
+    },
+    {
+     "party": "무소속",
+     "name": "최진열",
+     "votes": 1933,
+     "rate": 5.05
+    }
+   ]
+  },
+  {
+   "sido_std": "46",
+   "town_nec": "4600",
+   "sigungu": "보성군",
+   "sgname": "보성군",
+   "cands": [
+    {
+     "party": "더불어민주당",
+     "name": "김철우",
+     "votes": 15145,
+     "rate": 60.58
+    },
+    {
+     "party": "무소속",
+     "name": "윤영주",
+     "votes": 9854,
+     "rate": 39.41
+    }
+   ]
+  },
+  {
+   "sido_std": "46",
+   "town_nec": "4600",
+   "sigungu": "화순군",
+   "sgname": "화순군",
+   "cands": [
+    {
+     "party": "더불어민주당",
+     "name": "임지락",
+     "votes": 21604,
+     "rate": 63.17
+    },
+    {
+     "party": "무소속",
+     "name": "정연지",
+     "votes": 5552,
+     "rate": 16.23
+    },
+    {
+     "party": "무소속",
+     "name": "김회수",
+     "votes": 7041,
+     "rate": 20.58
+    }
+   ]
+  },
+  {
+   "sido_std": "46",
+   "town_nec": "4600",
+   "sigungu": "장흥군",
+   "sgname": "장흥군",
+   "cands": [
+    {
+     "party": "더불어민주당",
+     "name": "김성",
+     "votes": 11101,
+     "rate": 49.44
+    },
+    {
+     "party": "조국혁신당",
+     "name": "사순문",
+     "votes": 11349,
+     "rate": 50.55
+    }
+   ]
+  },
+  {
+   "sido_std": "46",
+   "town_nec": "4600",
+   "sigungu": "강진군",
+   "sgname": "강진군",
+   "cands": [
+    {
+     "party": "더불어민주당",
+     "name": "차영수",
+     "votes": 8914,
+     "rate": 41.46
+    },
+    {
+     "party": "무소속",
+     "name": "강진원",
+     "votes": 12584,
+     "rate": 58.53
+    }
+   ]
+  },
+  {
+   "sido_std": "46",
+   "town_nec": "4600",
+   "sigungu": "해남군",
+   "sgname": "해남군",
+   "cands": [
+    {
+     "party": "더불어민주당",
+     "name": "명현관",
+     "votes": 29509,
+     "rate": 82.43
+    },
+    {
+     "party": "무소속",
+     "name": "박지원",
+     "votes": 6287,
+     "rate": 17.56
+    }
+   ]
+  },
+  {
+   "sido_std": "46",
+   "town_nec": "4600",
+   "sigungu": "영암군",
+   "sgname": "영암군",
+   "cands": [
+    {
+     "party": "더불어민주당",
+     "name": "우승희",
+     "votes": 19446,
+     "rate": 68.56
+    },
+    {
+     "party": "조국혁신당",
+     "name": "최영열",
+     "votes": 8916,
+     "rate": 31.43
+    }
+   ]
+  },
+  {
+   "sido_std": "46",
+   "town_nec": "4600",
+   "sigungu": "무안군",
+   "sgname": "무안군",
+   "cands": [
+    {
+     "party": "더불어민주당",
+     "name": "김산",
+     "votes": 27383,
+     "rate": 55.88
+    },
+    {
+     "party": "무소속",
+     "name": "정영덕",
+     "votes": 21618,
+     "rate": 44.11
+    }
+   ]
+  },
+  {
+   "sido_std": "46",
+   "town_nec": "4600",
+   "sigungu": "함평군",
+   "sgname": "함평군",
+   "cands": [
+    {
+     "party": "더불어민주당",
+     "name": "이남오",
+     "votes": 10127,
+     "rate": 49.76
+    },
+    {
+     "party": "조국혁신당",
+     "name": "이윤행",
+     "votes": 9494,
+     "rate": 46.65
+    },
+    {
+     "party": "무소속",
+     "name": "이행섭",
+     "votes": 730,
+     "rate": 3.58
+    }
+   ]
+  },
+  {
+   "sido_std": "46",
+   "town_nec": "4600",
+   "sigungu": "영광군",
+   "sgname": "영광군",
+   "cands": [
+    {
+     "party": "더불어민주당",
+     "name": "장세일",
+     "votes": 16594,
+     "rate": 51.4
+    },
+    {
+     "party": "진보당",
+     "name": "이석하",
+     "votes": 8653,
+     "rate": 26.8
+    },
+    {
+     "party": "무소속",
+     "name": "오기원",
+     "votes": 1157,
+     "rate": 3.58
+    },
+    {
+     "party": "무소속",
+     "name": "김한균",
+     "votes": 5874,
+     "rate": 18.19
+    }
+   ]
+  },
+  {
+   "sido_std": "46",
+   "town_nec": "4600",
+   "sigungu": "장성군",
+   "sgname": "장성군",
+   "cands": [
+    {
+     "party": "더불어민주당",
+     "name": "김한종",
+     "votes": 17422,
+     "rate": 69.06
+    },
+    {
+     "party": "조국혁신당",
+     "name": "김왕근",
+     "votes": 7803,
+     "rate": 30.93
+    }
+   ]
+  },
+  {
+   "sido_std": "46",
+   "town_nec": "4600",
+   "sigungu": "완도군",
+   "sgname": "완도군",
+   "cands": [
+    {
+     "party": "더불어민주당",
+     "name": "우홍섭",
+     "votes": 14885,
+     "rate": 48.7
+    },
+    {
+     "party": "무소속",
+     "name": "김신",
+     "votes": 15675,
+     "rate": 51.29
+    }
+   ]
+  },
+  {
+   "sido_std": "46",
+   "town_nec": "4600",
+   "sigungu": "진도군",
+   "sgname": "진도군",
+   "cands": [
+    {
+     "party": "더불어민주당",
+     "name": "이재각",
+     "votes": 9967,
+     "rate": 50.26
+    },
+    {
+     "party": "무소속",
+     "name": "김희수",
+     "votes": 9860,
+     "rate": 49.73
+    }
+   ]
+  },
+  {
+   "sido_std": "46",
+   "town_nec": "4600",
+   "sigungu": "신안군",
+   "sgname": "신안군",
+   "cands": [
+    {
+     "party": "더불어민주당",
+     "name": "박우량",
+     "votes": 14376,
+     "rate": 48.04
+    },
+    {
+     "party": "조국혁신당",
+     "name": "김태성",
+     "votes": 15546,
+     "rate": 51.95
+    }
+   ]
+  },
+  {
+   "sido_std": "47",
+   "town_nec": "4700",
+   "sigungu": "포항시",
+   "sgname": "소계",
+   "cands": [
+    {
+     "party": "더불어민주당",
+     "name": "박희정",
+     "votes": 76005,
+     "rate": 32.48
+    },
+    {
+     "party": "국민의힘",
+     "name": "박용선",
+     "votes": 115310,
+     "rate": 49.29
+    },
+    {
+     "party": "무소속",
+     "name": "박승호",
+     "votes": 42624,
+     "rate": 18.22
+    }
+   ]
+  },
+  {
+   "sido_std": "47",
+   "town_nec": "4700",
+   "sigungu": "포항시",
+   "sgname": "포항시북구",
+   "cands": [
+    {
+     "party": "무소속",
+     "name": "32.48",
+     "votes": 42876,
+     "rate": 32.38
+    },
+    {
+     "party": "무소속",
+     "name": "49.29",
+     "votes": 64266,
+     "rate": 48.54
+    },
+    {
+     "party": "무소속",
+     "name": "18.22",
+     "votes": 25235,
+     "rate": 19.06
+    }
+   ]
+  },
+  {
+   "sido_std": "47",
+   "town_nec": "4700",
+   "sigungu": "포항시",
+   "sgname": "포항시남구",
+   "cands": [
+    {
+     "party": "무소속",
+     "name": "32.38",
+     "votes": 33129,
+     "rate": 32.61
+    },
+    {
+     "party": "무소속",
+     "name": "48.54",
+     "votes": 51044,
+     "rate": 50.25
+    },
+    {
+     "party": "무소속",
+     "name": "19.06",
+     "votes": 17389,
+     "rate": 17.12
+    }
+   ]
+  },
+  {
+   "sido_std": "47",
+   "town_nec": "4700",
+   "sigungu": "경주시",
+   "sgname": "경주시",
+   "cands": [
+    {
+     "party": "더불어민주당",
+     "name": "박근영",
+     "votes": 35479,
+     "rate": 29.32
+    },
+    {
+     "party": "국민의힘",
+     "name": "주낙영",
+     "votes": 85503,
+     "rate": 70.67
+    }
+   ]
+  },
+  {
+   "sido_std": "47",
+   "town_nec": "4700",
+   "sigungu": "김천시",
+   "sgname": "김천시",
+   "cands": [
+    {
+     "party": "더불어민주당",
+     "name": "나영민",
+     "votes": 18065,
+     "rate": 24.99
+    },
+    {
+     "party": "국민의힘",
+     "name": "배낙호",
+     "votes": 45209,
+     "rate": 62.54
+    },
+    {
+     "party": "무소속",
+     "name": "이창재",
+     "votes": 9013,
+     "rate": 12.46
+    }
+   ]
+  },
+  {
+   "sido_std": "47",
+   "town_nec": "4700",
+   "sigungu": "안동시",
+   "sgname": "안동시",
+   "cands": [
+    {
+     "party": "더불어민주당",
+     "name": "이삼걸",
+     "votes": 42646,
+     "rate": 49.07
+    },
+    {
+     "party": "국민의힘",
+     "name": "권기창",
+     "votes": 44245,
+     "rate": 50.92
+    }
+   ]
+  },
+  {
+   "sido_std": "47",
+   "town_nec": "4700",
+   "sigungu": "구미시",
+   "sgname": "구미시",
+   "cands": [
+    {
+     "party": "더불어민주당",
+     "name": "장세용",
+     "votes": 52099,
+     "rate": 28.83
+    },
+    {
+     "party": "국민의힘",
+     "name": "김장호",
+     "votes": 120658,
+     "rate": 66.78
+    },
+    {
+     "party": "개혁신당",
+     "name": "조순자",
+     "votes": 3868,
+     "rate": 2.14
+    },
+    {
+     "party": "무소속",
+     "name": "임명배",
+     "votes": 4048,
+     "rate": 2.24
+    }
+   ]
+  },
+  {
+   "sido_std": "47",
+   "town_nec": "4700",
+   "sigungu": "영주시",
+   "sgname": "영주시",
+   "cands": [
+    {
+     "party": "더불어민주당",
+     "name": "우창윤",
+     "votes": 19754,
+     "rate": 35.71
+    },
+    {
+     "party": "국민의힘",
+     "name": "황병직",
+     "votes": 32805,
+     "rate": 59.3
+    },
+    {
+     "party": "무소속",
+     "name": "황선종",
+     "votes": 2757,
+     "rate": 4.98
+    }
+   ]
+  },
+  {
+   "sido_std": "47",
+   "town_nec": "4700",
+   "sigungu": "영천시",
+   "sgname": "영천시",
+   "cands": [
+    {
+     "party": "더불어민주당",
+     "name": "이정훈",
+     "votes": 7909,
+     "rate": 14.56
+    },
+    {
+     "party": "국민의힘",
+     "name": "김병삼",
+     "votes": 26442,
+     "rate": 48.68
+    },
+    {
+     "party": "무소속",
+     "name": "최기문",
+     "votes": 19958,
+     "rate": 36.74
+    }
+   ]
+  },
+  {
+   "sido_std": "47",
+   "town_nec": "4700",
+   "sigungu": "상주시",
+   "sgname": "상주시",
+   "cands": [
+    {
+     "party": "더불어민주당",
+     "name": "정재현",
+     "votes": 12272,
+     "rate": 22.78
+    },
+    {
+     "party": "국민의힘",
+     "name": "안재민",
+     "votes": 26032,
+     "rate": 48.33
+    },
+    {
+     "party": "무소속",
+     "name": "윤위영",
+     "votes": 10440,
+     "rate": 19.38
+    },
+    {
+     "party": "무소속",
+     "name": "강경모",
+     "votes": 5108,
+     "rate": 9.48
+    }
+   ]
+  },
+  {
+   "sido_std": "47",
+   "town_nec": "4700",
+   "sigungu": "문경시",
+   "sgname": "문경시",
+   "cands": [
+    {
+     "party": "더불어민주당",
+     "name": "이윤희",
+     "votes": 4601,
+     "rate": 11.22
+    },
+    {
+     "party": "국민의힘",
+     "name": "김학홍",
+     "votes": 21355,
+     "rate": 52.1
+    },
+    {
+     "party": "무소속",
+     "name": "신현국",
+     "votes": 15026,
+     "rate": 36.66
+    }
+   ]
+  },
+  {
+   "sido_std": "47",
+   "town_nec": "4700",
+   "sigungu": "경산시",
+   "sgname": "경산시",
+   "cands": [
+    {
+     "party": "더불어민주당",
+     "name": "김기현",
+     "votes": 38581,
+     "rate": 30.95
+    },
+    {
+     "party": "국민의힘",
+     "name": "조현일",
+     "votes": 84861,
+     "rate": 68.09
+    },
+    {
+     "party": "한국독립당",
+     "name": "김두환",
+     "votes": 1181,
+     "rate": 0.94
+    }
+   ]
+  },
+  {
+   "sido_std": "47",
+   "town_nec": "4700",
+   "sigungu": "의성군",
+   "sgname": "의성군",
+   "cands": [
+    {
+     "party": "국민의힘",
+     "name": "최유철",
+     "votes": 23522,
+     "rate": 73.07
+    },
+    {
+     "party": "무소속",
+     "name": "이왕식",
+     "votes": 8668,
+     "rate": 26.92
+    }
+   ]
+  },
+  {
+   "sido_std": "47",
+   "town_nec": "4700",
+   "sigungu": "청송군",
+   "sgname": "청송군",
+   "cands": [
+    {
+     "party": "더불어민주당",
+     "name": "임기진",
+     "votes": 5144,
+     "rate": 31.7
+    },
+    {
+     "party": "국민의힘",
+     "name": "윤경희",
+     "votes": 11083,
+     "rate": 68.29
+    }
+   ]
+  },
+  {
+   "sido_std": "47",
+   "town_nec": "4700",
+   "sigungu": "영양군",
+   "sgname": "영양군",
+   "cands": [
+    {
+     "party": "더불어민주당",
+     "name": "김상훈",
+     "votes": 2754,
+     "rate": 23.69
+    },
+    {
+     "party": "국민의힘",
+     "name": "오도창",
+     "votes": 8867,
+     "rate": 76.3
+    }
+   ]
+  },
+  {
+   "sido_std": "47",
+   "town_nec": "4700",
+   "sigungu": "영덕군",
+   "sgname": "영덕군",
+   "cands": [
+    {
+     "party": "더불어민주당",
+     "name": "강부송",
+     "votes": 3539,
+     "rate": 16.9
+    },
+    {
+     "party": "국민의힘",
+     "name": "조주홍",
+     "votes": 11810,
+     "rate": 56.4
+    },
+    {
+     "party": "무소속",
+     "name": "박병일",
+     "votes": 779,
+     "rate": 3.72
+    },
+    {
+     "party": "무소속",
+     "name": "장성욱",
+     "votes": 4809,
+     "rate": 22.96
+    }
+   ]
+  },
+  {
+   "sido_std": "47",
+   "town_nec": "4700",
+   "sigungu": "청도군",
+   "sgname": "청도군",
+   "cands": [
+    {
+     "party": "국민의힘",
+     "name": "김하수",
+     "votes": 10505,
+     "rate": 39.47
+    },
+    {
+     "party": "무소속",
+     "name": "박권현",
+     "votes": 13341,
+     "rate": 50.12
+    },
+    {
+     "party": "무소속",
+     "name": "이승민",
+     "votes": 2769,
+     "rate": 10.4
+    }
+   ]
+  },
+  {
+   "sido_std": "47",
+   "town_nec": "4700",
+   "sigungu": "고령군",
+   "sgname": "고령군",
+   "cands": [
+    {
+     "party": "더불어민주당",
+     "name": "정석원",
+     "votes": 3043,
+     "rate": 16.95
+    },
+    {
+     "party": "국민의힘",
+     "name": "이남철",
+     "votes": 11637,
+     "rate": 64.83
+    },
+    {
+     "party": "무소속",
+     "name": "김명국",
+     "votes": 3269,
+     "rate": 18.21
+    }
+   ]
+  },
+  {
+   "sido_std": "47",
+   "town_nec": "4700",
+   "sigungu": "성주군",
+   "sgname": "성주군",
+   "cands": [
+    {
+     "party": "국민의힘",
+     "name": "정영길",
+     "votes": 13643,
+     "rate": 49.91
+    },
+    {
+     "party": "무소속",
+     "name": "전화식",
+     "votes": 13689,
+     "rate": 50.08
+    }
+   ]
+  },
+  {
+   "sido_std": "47",
+   "town_nec": "4700",
+   "sigungu": "칠곡군",
+   "sgname": "칠곡군",
+   "cands": [
+    {
+     "party": "더불어민주당",
+     "name": "김시환",
+     "votes": 15381,
+     "rate": 32.51
+    },
+    {
+     "party": "국민의힘",
+     "name": "김재욱",
+     "votes": 31930,
+     "rate": 67.48
+    }
+   ]
+  },
+  {
+   "sido_std": "47",
+   "town_nec": "4700",
+   "sigungu": "예천군",
+   "sgname": "예천군",
+   "cands": [
+    {
+     "party": "더불어민주당",
+     "name": "윤동춘",
+     "votes": 10941,
+     "rate": 34.71
+    },
+    {
+     "party": "국민의힘",
+     "name": "안병윤",
+     "votes": 20577,
+     "rate": 65.28
+    }
+   ]
+  },
+  {
+   "sido_std": "47",
+   "town_nec": "4700",
+   "sigungu": "봉화군",
+   "sgname": "봉화군",
+   "cands": [
+    {
+     "party": "더불어민주당",
+     "name": "이상식",
+     "votes": 2506,
+     "rate": 13.18
+    },
+    {
+     "party": "국민의힘",
+     "name": "최기영",
+     "votes": 8378,
+     "rate": 44.08
+    },
+    {
+     "party": "무소속",
+     "name": "박만우",
+     "votes": 8122,
+     "rate": 42.73
+    }
+   ]
+  },
+  {
+   "sido_std": "47",
+   "town_nec": "4700",
+   "sigungu": "울진군",
+   "sgname": "울진군",
+   "cands": [
+    {
+     "party": "국민의힘",
+     "name": "손병복",
+     "votes": 14503,
+     "rate": 48.57
+    },
+    {
+     "party": "무소속",
+     "name": "황이주",
+     "votes": 15353,
+     "rate": 51.42
+    }
+   ]
+  },
+  {
+   "sido_std": "47",
+   "town_nec": "4700",
+   "sigungu": "울릉군",
+   "sgname": "울릉군",
+   "cands": [
+    {
+     "party": "더불어민주당",
+     "name": "정성환",
+     "votes": 1235,
+     "rate": 18.34
+    },
+    {
+     "party": "국민의힘",
+     "name": "김병수",
+     "votes": 1924,
+     "rate": 28.57
+    },
+    {
+     "party": "무소속",
+     "name": "남한권",
+     "votes": 2402,
+     "rate": 35.67
+    },
+    {
+     "party": "무소속",
+     "name": "남진복",
+     "votes": 1172,
+     "rate": 17.4
+    }
+   ]
+  },
+  {
+   "sido_std": "48",
+   "town_nec": "4800",
+   "sigungu": "창원시",
+   "sgname": "소계",
+   "cands": [
+    {
+     "party": "더불어민주당",
+     "name": "송순호",
+     "votes": 253309,
+     "rate": 46.73
+    },
+    {
+     "party": "국민의힘",
+     "name": "강기윤",
+     "votes": 267359,
+     "rate": 49.32
+    },
+    {
+     "party": "개혁신당",
+     "name": "강명상",
+     "votes": 13858,
+     "rate": 2.55
+    },
+    {
+     "party": "무소속",
+     "name": "박정임",
+     "votes": 7530,
+     "rate": 1.38
+    }
+   ]
+  },
+  {
+   "sido_std": "48",
+   "town_nec": "4800",
+   "sigungu": "창원시",
+   "sgname": "창원시의창구",
+   "cands": [
+    {
+     "party": "무소속",
+     "name": "46.73",
+     "votes": 52875,
+     "rate": 46.39
+    },
+    {
+     "party": "무소속",
+     "name": "49.32",
+     "votes": 56298,
+     "rate": 49.4
+    },
+    {
+     "party": "무소속",
+     "name": "2.55",
+     "votes": 3031,
+     "rate": 2.65
+    },
+    {
+     "party": "무소속",
+     "name": "1.38",
+     "votes": 1753,
+     "rate": 1.53
+    }
+   ]
+  },
+  {
+   "sido_std": "48",
+   "town_nec": "4800",
+   "sigungu": "창원시",
+   "sgname": "창원시성산구",
+   "cands": [
+    {
+     "party": "무소속",
+     "name": "46.39",
+     "votes": 70846,
+     "rate": 50.76
+    },
+    {
+     "party": "무소속",
+     "name": "49.40",
+     "votes": 61994,
+     "rate": 44.42
+    },
+    {
+     "party": "무소속",
+     "name": "2.65",
+     "votes": 4477,
+     "rate": 3.2
+    },
+    {
+     "party": "무소속",
+     "name": "1.53",
+     "votes": 2230,
+     "rate": 1.59
+    }
+   ]
+  },
+  {
+   "sido_std": "48",
+   "town_nec": "4800",
+   "sigungu": "창원시",
+   "sgname": "창원시마산합포구",
+   "cands": [
+    {
+     "party": "무소속",
+     "name": "50.76",
+     "votes": 40713,
+     "rate": 41.87
+    },
+    {
+     "party": "무소속",
+     "name": "44.42",
+     "votes": 53193,
+     "rate": 54.7
+    },
+    {
+     "party": "무소속",
+     "name": "3.20",
+     "votes": 2091,
+     "rate": 2.15
+    },
+    {
+     "party": "무소속",
+     "name": "1.59",
+     "votes": 1231,
+     "rate": 1.26
+    }
+   ]
+  },
+  {
+   "sido_std": "48",
+   "town_nec": "4800",
+   "sigungu": "창원시",
+   "sgname": "창원시마산회원구",
+   "cands": [
+    {
+     "party": "무소속",
+     "name": "41.87",
+     "votes": 44669,
+     "rate": 44.85
+    },
+    {
+     "party": "무소속",
+     "name": "54.70",
+     "votes": 51617,
+     "rate": 51.82
+    },
+    {
+     "party": "무소속",
+     "name": "2.15",
+     "votes": 2221,
+     "rate": 2.23
+    },
+    {
+     "party": "무소속",
+     "name": "1.26",
+     "votes": 1086,
+     "rate": 1.09
+    }
+   ]
+  },
+  {
+   "sido_std": "48",
+   "town_nec": "4800",
+   "sigungu": "창원시",
+   "sgname": "창원시진해구",
+   "cands": [
+    {
+     "party": "무소속",
+     "name": "44.85",
+     "votes": 44206,
+     "rate": 48.19
+    },
+    {
+     "party": "무소속",
+     "name": "51.82",
+     "votes": 44257,
+     "rate": 48.24
+    },
+    {
+     "party": "무소속",
+     "name": "2.23",
+     "votes": 2038,
+     "rate": 2.22
+    },
+    {
+     "party": "무소속",
+     "name": "1.09",
+     "votes": 1230,
+     "rate": 1.34
+    }
+   ]
+  },
+  {
+   "sido_std": "48",
+   "town_nec": "4800",
+   "sigungu": "진주시",
+   "sgname": "진주시",
+   "cands": [
+    {
+     "party": "더불어민주당",
+     "name": "갈상돈",
+     "votes": 63078,
+     "rate": 33.35
+    },
+    {
+     "party": "국민의힘",
+     "name": "한경호",
+     "votes": 43442,
+     "rate": 22.97
+    },
+    {
+     "party": "무소속",
+     "name": "조규일",
+     "votes": 82589,
+     "rate": 43.67
+    }
+   ]
+  },
+  {
+   "sido_std": "48",
+   "town_nec": "4800",
+   "sigungu": "통영시",
+   "sgname": "통영시",
+   "cands": [
+    {
+     "party": "더불어민주당",
+     "name": "강석주",
+     "votes": 33626,
+     "rate": 48.97
+    },
+    {
+     "party": "국민의힘",
+     "name": "천영기",
+     "votes": 33582,
+     "rate": 48.9
+    },
+    {
+     "party": "무소속",
+     "name": "박청정",
+     "votes": 1455,
+     "rate": 2.11
+    }
+   ]
+  },
+  {
+   "sido_std": "48",
+   "town_nec": "4800",
+   "sigungu": "사천시",
+   "sgname": "사천시",
+   "cands": [
+    {
+     "party": "더불어민주당",
+     "name": "정국정",
+     "votes": 20086,
+     "rate": 32.94
+    },
+    {
+     "party": "국민의힘",
+     "name": "박동식",
+     "votes": 40880,
+     "rate": 67.05
+    }
+   ]
+  },
+  {
+   "sido_std": "48",
+   "town_nec": "4800",
+   "sigungu": "김해시",
+   "sgname": "김해시",
+   "cands": [
+    {
+     "party": "더불어민주당",
+     "name": "정영두",
+     "votes": 143181,
+     "rate": 53.27
+    },
+    {
+     "party": "국민의힘",
+     "name": "홍태용",
+     "votes": 125568,
+     "rate": 46.72
+    }
+   ]
+  },
+  {
+   "sido_std": "48",
+   "town_nec": "4800",
+   "sigungu": "밀양시",
+   "sgname": "밀양시",
+   "cands": [
+    {
+     "party": "더불어민주당",
+     "name": "이주옥",
+     "votes": 16702,
+     "rate": 29.35
+    },
+    {
+     "party": "국민의힘",
+     "name": "안병구",
+     "votes": 40198,
+     "rate": 70.64
+    }
+   ]
+  },
+  {
+   "sido_std": "48",
+   "town_nec": "4800",
+   "sigungu": "거제시",
+   "sgname": "거제시",
+   "cands": [
+    {
+     "party": "더불어민주당",
+     "name": "변광용",
+     "votes": 67002,
+     "rate": 59.03
+    },
+    {
+     "party": "국민의힘",
+     "name": "김선민",
+     "votes": 42951,
+     "rate": 37.84
+    },
+    {
+     "party": "무소속",
+     "name": "하준명",
+     "votes": 3545,
+     "rate": 3.12
+    }
+   ]
+  },
+  {
+   "sido_std": "48",
+   "town_nec": "4800",
+   "sigungu": "양산시",
+   "sgname": "양산시",
+   "cands": [
+    {
+     "party": "더불어민주당",
+     "name": "조문관",
+     "votes": 88887,
+     "rate": 48.95
+    },
+    {
+     "party": "국민의힘",
+     "name": "나동연",
+     "votes": 92676,
+     "rate": 51.04
+    }
+   ]
+  },
+  {
+   "sido_std": "48",
+   "town_nec": "4800",
+   "sigungu": "의령군",
+   "sgname": "의령군",
+   "cands": [
+    {
+     "party": "더불어민주당",
+     "name": "손태영",
+     "votes": 4695,
+     "rate": 27.44
+    },
+    {
+     "party": "국민의힘",
+     "name": "강원덕",
+     "votes": 4403,
+     "rate": 25.73
+    },
+    {
+     "party": "무소속",
+     "name": "오태완",
+     "votes": 8009,
+     "rate": 46.81
+    }
+   ]
+  },
+  {
+   "sido_std": "48",
+   "town_nec": "4800",
+   "sigungu": "함안군",
+   "sgname": "함안군",
+   "cands": [
+    {
+     "party": "더불어민주당",
+     "name": "정금효",
+     "votes": 14261,
+     "rate": 41.61
+    },
+    {
+     "party": "국민의힘",
+     "name": "차석호",
+     "votes": 20010,
+     "rate": 58.38
+    }
+   ]
+  },
+  {
+   "sido_std": "48",
+   "town_nec": "4800",
+   "sigungu": "창녕군",
+   "sgname": "창녕군",
+   "cands": [
+    {
+     "party": "더불어민주당",
+     "name": "주윤식",
+     "votes": 8721,
+     "rate": 26.89
+    },
+    {
+     "party": "국민의힘",
+     "name": "성낙인",
+     "votes": 23703,
+     "rate": 73.1
+    }
+   ]
+  },
+  {
+   "sido_std": "48",
+   "town_nec": "4800",
+   "sigungu": "고성군",
+   "sgname": "고성군",
+   "cands": [
+    {
+     "party": "더불어민주당",
+     "name": "백수명",
+     "votes": 12195,
+     "rate": 39.96
+    },
+    {
+     "party": "국민의힘",
+     "name": "하학열",
+     "votes": 16262,
+     "rate": 53.29
+    },
+    {
+     "party": "무소속",
+     "name": "이옥철",
+     "votes": 1043,
+     "rate": 3.41
+    },
+    {
+     "party": "무소속",
+     "name": "양정건",
+     "votes": 1013,
+     "rate": 3.31
+    }
+   ]
+  },
+  {
+   "sido_std": "48",
+   "town_nec": "4800",
+   "sigungu": "남해군",
+   "sgname": "남해군",
+   "cands": [
+    {
+     "party": "더불어민주당",
+     "name": "류경완",
+     "votes": 13924,
+     "rate": 50.23
+    },
+    {
+     "party": "국민의힘",
+     "name": "류성식",
+     "votes": 13793,
+     "rate": 49.76
+    }
+   ]
+  },
+  {
+   "sido_std": "48",
+   "town_nec": "4800",
+   "sigungu": "하동군",
+   "sgname": "하동군",
+   "cands": [
+    {
+     "party": "더불어민주당",
+     "name": "제윤경",
+     "votes": 11788,
+     "rate": 42.75
+    },
+    {
+     "party": "국민의힘",
+     "name": "김현수",
+     "votes": 14956,
+     "rate": 54.25
+    },
+    {
+     "party": "무소속",
+     "name": "남명우",
+     "votes": 824,
+     "rate": 2.98
+    }
+   ]
+  },
+  {
+   "sido_std": "48",
+   "town_nec": "4800",
+   "sigungu": "산청군",
+   "sgname": "산청군",
+   "cands": [
+    {
+     "party": "더불어민주당",
+     "name": "최호림",
+     "votes": 8183,
+     "rate": 35.88
+    },
+    {
+     "party": "국민의힘",
+     "name": "유명현",
+     "votes": 13882,
+     "rate": 60.87
+    },
+    {
+     "party": "무소속",
+     "name": "이황석",
+     "votes": 739,
+     "rate": 3.24
+    }
+   ]
+  },
+  {
+   "sido_std": "48",
+   "town_nec": "4800",
+   "sigungu": "함양군",
+   "sgname": "함양군",
+   "cands": [
+    {
+     "party": "더불어민주당",
+     "name": "서필상",
+     "votes": 4834,
+     "rate": 20.02
+    },
+    {
+     "party": "국민의힘",
+     "name": "진병영",
+     "votes": 13141,
+     "rate": 54.44
+    },
+    {
+     "party": "무소속",
+     "name": "이철우",
+     "votes": 1876,
+     "rate": 7.77
+    },
+    {
+     "party": "무소속",
+     "name": "김재웅",
+     "votes": 4285,
+     "rate": 17.75
+    }
+   ]
+  },
+  {
+   "sido_std": "48",
+   "town_nec": "4800",
+   "sigungu": "거창군",
+   "sgname": "거창군",
+   "cands": [
+    {
+     "party": "더불어민주당",
+     "name": "최창열",
+     "votes": 8858,
+     "rate": 24.03
+    },
+    {
+     "party": "무소속",
+     "name": "이홍기",
+     "votes": 14027,
+     "rate": 38.05
+    },
+    {
+     "party": "무소속",
+     "name": "김일수",
+     "votes": 1248,
+     "rate": 3.38
+    },
+    {
+     "party": "무소속",
+     "name": "구인모",
+     "votes": 12725,
+     "rate": 34.52
+    }
+   ]
+  },
+  {
+   "sido_std": "48",
+   "town_nec": "4800",
+   "sigungu": "합천군",
+   "sgname": "합천군",
+   "cands": [
+    {
+     "party": "국민의힘",
+     "name": "류순철",
+     "votes": 13165,
+     "rate": 49.52
+    },
+    {
+     "party": "무소속",
+     "name": "김윤철",
+     "votes": 13417,
+     "rate": 50.47
+    }
+   ]
+  }
+ ],
+ "uncontested": []
+}

@@ -35,11 +35,30 @@ body { margin: 0; color: #1a1a1a; background: #fafafa; }
 .layout { display: grid; grid-template-columns: minmax(360px, 1fr) 420px; gap: 8px; }
 .map-pane { padding: 12px 20px; }
 
+/* 정치인 검색/페이지 */
+.politician .poli-search { position: relative; max-width: 460px; }
+.politician .poli-search input { width: 100%; padding: 9px 12px; font-size: 15px; border: 1px solid #cbd5e1; border-radius: 8px; }
+.poli-hits { list-style: none; margin: 4px 0 0; padding: 4px; position: absolute; z-index: 20; background: #fff; width: 100%; border: 1px solid #e2e8f0; border-radius: 8px; box-shadow: 0 6px 18px rgba(0,0,0,.12); max-height: 320px; overflow: auto; }
+.poli-hit { display: block; width: 100%; text-align: left; padding: 7px 10px; border: 0; background: none; cursor: pointer; border-radius: 6px; font-size: 14px; }
+.poli-hit:hover, .poli-hit.active { background: #eef2ff; }
+.poli-result { margin-top: 14px; }
+.poli-year { margin: 10px 0; display: flex; gap: 10px; align-items: flex-start; }
+.poli-yr { width: 48px; font-weight: 800; color: #334155; flex: none; padding-top: 4px; font-variant-numeric: tabular-nums; }
+.poli-year .cand-table { flex: 1; }
+.poli-region { color: #475569; }
+.badge-sm { font-size: 11px; font-weight: 700; color: #fff; background: #64748b; border-radius: 5px; padding: 1px 6px; white-space: nowrap; }
+
 /* 시군구 이름 라벨 (PC 전용). 흰 외곽선으로 채색 위에서도 가독 확보. */
 .sgg-labels { pointer-events: none; }
 .sgg-label {
   font-size: 8.5px; font-weight: 600; fill: #1f2937;
   paint-order: stroke; stroke: #fff; stroke-width: 2px; stroke-linejoin: round;
+  transition: opacity .12s;
+}
+/* 호버한 구 라벨은 크게·진하게, 흰 외곽선 강화로 또렷하게 */
+.sgg-label.hov {
+  font-size: 12px; font-weight: 800; fill: #111;
+  stroke: #fff; stroke-width: 3px;
 }
 @media (max-width: 768px) { .sgg-labels { display: none; } }
 
@@ -73,6 +92,7 @@ body { margin: 0; color: #1a1a1a; background: #fafafa; }
 .winners-list { list-style: none; padding: 0; margin: 0; }
 .winners-list li { display: flex; align-items: center; gap: 8px; padding: 4px 0; border-bottom: 1px solid #f0f0f0; }
 .winners-list .yr { width: 42px; color: var(--muted); }
+.winners-list .yr.term { width: 84px; font-variant-numeric: tabular-nums; white-space: nowrap; }
 
 .seatbars { margin: 6px 0 4px; }
 .seatrow { display: flex; align-items: center; gap: 8px; font-size: 13px; margin: 3px 0; }
@@ -259,6 +279,13 @@ body { margin: 0; color: #1a1a1a; background: #fafafa; }
 /* 광역의원 지역구 당선자 명단 */
 .member-table .mt-sgg { color: #374151; white-space: nowrap; }
 .member-table .mt-name { font-weight: 600; white-space: nowrap; }
+.member-table .mt-exp { color: #9ca3af; width: 1em; font-size: 11px; }
+.member-table .member-row { cursor: pointer; }
+.member-table .member-row:hover { background: #f3f4f6; }
+.member-table .member-row.open { background: #eef2ff; }
+.member-table .member-row.open .mt-exp { color: #4f46e5; }
+.member-table .member-detail-row > td { padding: 2px 8px 10px 24px; background: #fafbff; }
+.member-table .member-detail-row .cand-table td { font-size: 12px; }
 
 /* 연표 보궐 칸 */
 .tl-cell.tl-bye { outline: 2px dashed rgba(0,0,0,.35); outline-offset: -2px; }

@@ -89,7 +89,7 @@ export default function SigunguDashboard({ hoecha, sggCode, sggName, sidoCode, s
         </div>
       ) : <p className="muted">데이터 없음</p>}
 
-      <h3 className="sec-title">기초단체장 <span className="muted">(구청장·시장·군수, 낙선 포함)</span></h3>
+      <h3 className="sec-title">기초단체장 <span className="muted">(구청장·시장·군수)</span></h3>
       <CandTable rows={basic} />
 
       <h3 className="sec-title">광역의원 (시·도의원)</h3>
@@ -128,7 +128,7 @@ export default function SigunguDashboard({ hoecha, sggCode, sggName, sidoCode, s
           </ul>
         </>
       )}
-      <p className="muted">중앙선관위 개표결과 · 후보 전원(낙선 포함).</p>
+      <p className="muted">중앙선관위 개표결과.</p>
     </aside>
   );
 }

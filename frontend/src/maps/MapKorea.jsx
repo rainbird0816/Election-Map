@@ -14,7 +14,7 @@ const GEO2STD = {
   "38": "48", "39": "50",
 };
 
-export default function MapKorea({ colorByCode, selectedCode, onSelect, mergeGunwi }) {
+export default function MapKorea({ colorByCode, selectedCode, onSelect, mergeGunwi, mergeSejong }) {
   return (
     <ComposableMap
       projection="geoMercator"
@@ -26,12 +26,14 @@ export default function MapKorea({ colorByCode, selectedCode, onSelect, mergeGun
       <Geographies geography={GEO_URL}>
         {({ geographies }) =>
           geographies.map((geo) => {
-            const code = GEO2STD[geo.properties.code] || geo.properties.code;
+            const raw = geo.properties.code;
+            // 세종시 출범 이전: 세종(29) 폴리곤을 충남(44)으로 병합 채색·선택
+            const code = (mergeSejong && raw === "29") ? "44" : (GEO2STD[raw] || raw);
             const fill = colorByCode[code] || NO_DATA;
             const isSel = code === selectedCode;
             return (
               <Geography
-                key={code}
+                key={raw}
                 geography={geo}
                 fill={fill}
                 stroke={isSel ? "#111" : "#fff"}

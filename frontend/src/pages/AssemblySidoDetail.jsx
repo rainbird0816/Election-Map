@@ -23,7 +23,7 @@ export default function AssemblySidoDetail({ daesu, sido, sidoName }) {
   return (
     <aside className="detail">
       <h2>{sidoName} <span className="office-badge">{daesu}대 지역구 {rows.length}석</span></h2>
-      <p className="muted">선거구를 클릭하면 후보 전원(낙선 포함)이 펼쳐집니다.</p>
+      <p className="muted">선거구를 클릭하면 후보별 득표가 펼쳐집니다.</p>
       <ul className="sgg-list">
         {rows.map((r) => (
           <li key={r.sgg}>

@@ -170,7 +170,7 @@ export default function PrecinctLookup() {
         </div>
       )}
       {mode === "대선" && <p className="muted">행(읍면동/투표구)을 클릭하면 그 지역의 역대 대선 추이가 표시됩니다.</p>}
-      <p className="muted">후보 전원(낙선 포함). 출처: 중앙선관위 개표결과. 지선은 선관위가 투표구별을 제공하지 않아 제외(지방선거 탭에서 시군구 단위 확인).</p>
+      <p className="muted">출처: 중앙선관위 개표결과. 지선은 선관위가 투표구별을 제공하지 않아 제외(지방선거 탭에서 시군구 단위 확인).</p>
     </div>
   );
 }

@@ -134,16 +134,20 @@ export default function RegionDetail({ code, electionId, office = "광역단체�
         </table>
       )}
 
-      <h3>역대 당선자</h3>
+      <h3>역대 당선자 <span className="muted">(재임 기간)</span></h3>
       <ul className="winners-list">
-        {hist.winners.map((w) => (
-          <li key={w.election_id}>
-            <span className="yr">{w.election_date?.slice(0, 4)}</span>
-            <i className="swatch sm" style={{ background: w.color_hex }} />
-            <span>{w.cand}</span>
-            <span className="party">{w.party_name}</span>
-          </li>
-        ))}
+        {hist.winners.map((w, i) => {
+          const y0 = w.election_date?.slice(0, 4);
+          const y1 = hist.winners[i + 1]?.election_date?.slice(0, 4) || "현재";
+          return (
+            <li key={w.election_id}>
+              <span className="yr term">{y0}~{y1}</span>
+              <i className="swatch sm" style={{ background: w.color_hex }} />
+              <span>{w.cand}</span>
+              <span className="party">{w.party_name}</span>
+            </li>
+          );
+        })}
         {hist.winners.length === 0 && <li className="muted">데이터 없음</li>}
       </ul>
 

@@ -241,7 +241,7 @@ def council_members(hoecha: int, sido: str, sgtype: int = 5):
     sido=시도 코드(예 '11')."""
     short = next((s for s, c in SIDO_CODE.items() if c == sido), sido)
     colors = _party_colors()
-    rows = q("SELECT sgg, sigungu_name, party, name, votes, rate FROM council "
+    rows = q("SELECT sgg, sigungu_code, sigungu_name, party, name, votes, rate FROM council "
              "WHERE hoecha=? AND sido=? AND sgtype=? AND elected=1", (hoecha, short, sgtype))
     for r in rows:
         r["color_hex"] = colors.get(r["party"], "#bbb")
@@ -1158,6 +1158,97 @@ def winners_summary():
                     "parties": sorted(byparty.values(), key=lambda x: -x["total"]),
                     "totals": totals}
     return {"columns": out["metro"]["columns"], "metro": out["metro"], "basic": out["basic"]}
+
+
+# ── 정치인: 이름으로 역대 선거 기록 통합 조회 ──
+_HOE_Y = {1: 1995, 2: 1998, 3: 2002, 4: 2006, 5: 2010, 6: 2014, 7: 2018, 8: 2022, 9: 2026}
+_DAESU_Y = {13: 1988, 14: 1992, 15: 1996, 16: 2000, 17: 2004, 18: 2008, 19: 2012,
+            20: 2016, 21: 2020, 22: 2024}
+_SGT_OFFICE = {5: "광역의원", 6: "기초의원", 8: "광역비례", 9: "기초비례"}
+
+
+@api.get("/politician/search")
+def politician_search(q: str):
+    """이름 부분일치 후보 목록 + 기록 수(검색기용)."""
+    like = f"%{q}%"
+    agg = {}
+    for sql in (
+        "SELECT name FROM candidates WHERE name LIKE ?",
+        "SELECT name FROM council WHERE name LIKE ?",
+        "SELECT name FROM assembly_sgg WHERE name LIKE ?",
+        "SELECT name FROM pres_cand WHERE name LIKE ?",
+        "SELECT name FROM byelection WHERE name LIKE ?",
+    ):
+        for r in q_(sql, (like,)):
+            n = (r["name"] or "").strip()
+            if n:
+                agg[n] = agg.get(n, 0) + 1
+    out = sorted(({"name": n, "count": c} for n, c in agg.items()), key=lambda x: (-x["count"], x["name"]))
+    return out[:40]
+
+
+def q_(sql, args=()):
+    return q(sql, args)
+
+
+@api.get("/politician")
+def politician(name: str):
+    """한 정치인의 역대 선거 기록(대선·총선·단체장·지방의원·재보궐)을 연도순으로."""
+    colors = _party_colors()
+    rows = []
+
+    def add(year, etype, office, region, party, votes, rate, elected, sub=None):
+        rows.append({"year": year, "etype": etype, "office": office, "region": region,
+                     "party": party, "color": colors.get(party, "#bbb"),
+                     "votes": votes, "rate": rate, "elected": bool(elected), "sub": sub})
+
+    # 단체장 등 candidates+results (대통령/광역단체장/기초단체장 등)
+    for r in q("""SELECT e.type etype, e.election_date, ca.office, ca.region_code,
+                         rg.name region, p.name party, rs.votes, rs.vote_rate, ca.is_elected
+                  FROM candidates ca JOIN elections e ON e.id=ca.election_id
+                  LEFT JOIN parties p ON p.id=ca.party_id
+                  LEFT JOIN regions rg ON rg.code=ca.region_code
+                  LEFT JOIN results rs ON rs.candidate_id=ca.id AND rs.election_id=ca.election_id
+                  WHERE ca.name=?""", (name,)):
+        y = (r["election_date"] or "")[:4]
+        add(int(y) if y else None, r["etype"], r["office"], r["region"],
+            r["party"], r["votes"], r["vote_rate"], r["is_elected"])
+
+    # 지방의원 council
+    for r in q("SELECT hoecha, sgtype, sido, sigungu_name, sgg, party, votes, rate, elected "
+               "FROM council WHERE name=?", (name,)):
+        region = " ".join(x for x in [r["sido"], r["sgg"] or r["sigungu_name"]] if x)
+        add(_HOE_Y.get(r["hoecha"]), "지선", _SGT_OFFICE.get(r["sgtype"], "지방의원"),
+            region, r["party"], r["votes"], r["rate"], r["elected"])
+
+    # 총선 지역구 assembly_sgg
+    for r in q("SELECT daesu, sido, sgg, party, votes, rate, elected FROM assembly_sgg WHERE name=?", (name,)):
+        add(_DAESU_Y.get(r["daesu"]), "총선", "국회의원", f"{r['sido']} {r['sgg']}",
+            r["party"], r["votes"], r["rate"], r["elected"], sub=f"{r['daesu']}대")
+
+    # 대선 후보 pres_cand (전국 득표 합산 + 당선 여부)
+    for r in q("SELECT daesu, idx, party FROM pres_cand WHERE name=?", (name,)):
+        tally = q("SELECT pc.idx, pc.name, SUM(pr.votes) v FROM pres_region pr "
+                  "JOIN pres_cand pc ON pc.daesu=pr.daesu AND pc.idx=pr.idx "
+                  "WHERE pr.daesu=? AND pr.level='시도' GROUP BY pc.idx", (r["daesu"],))
+        tot = sum(t["v"] or 0 for t in tally) or 1
+        mine = next((t for t in tally if t["idx"] == r["idx"]), None)
+        win = max(tally, key=lambda t: t["v"] or 0) if tally else None
+        v = mine["v"] if mine else None
+        add(PRES_YEAR.get(r["daesu"]), "대선", "대통령", "전국", r["party"],
+            v, round(v / tot * 100, 1) if v else None,
+            1 if (win and win["idx"] == r["idx"]) else 0, sub=f"{r['daesu']}대")
+
+    # 재·보궐
+    for r in q("SELECT vote_date, sgtype_name, sido, sgg, party, votes, rate, elected "
+               "FROM byelection WHERE name=?", (name,)):
+        y = (r["vote_date"] or "")[:4]
+        add(int(y) if y else None, "보궐", r["sgtype_name"], f"{r['sido']} {r['sgg']}",
+            r["party"], r["votes"], r["rate"], r["elected"], sub=r["vote_date"])
+
+    rows.sort(key=lambda x: (x["year"] or 0, x["office"]))
+    return {"name": name, "records": rows,
+            "wins": sum(1 for r in rows if r["elected"]), "total": len(rows)}
 
 
 # API는 /api 프리픽스. 빌드된 프론트(dist)가 있으면 정적 서빙(단일 서버 배포).

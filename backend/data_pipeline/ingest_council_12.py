@@ -34,14 +34,19 @@ def main():
     # 지역구(sgtype 5)
     nreg = nmiss = 0
     idxmap = {}
+    import re as _re
     for r in d["rows"]:
         sgcode, sgname = match_sigungu(rlist, r["sido"], r["sgname"], r.get("sigungu"))
         if not sgcode:
             nmiss += 1
         key = (r["hoecha"], r["sido_std"])
         i = idxmap.get(key, 0); idxmap[key] = i + 1
+        # 1·2회 표기 '동해시제1' → '동해시제1선거구'(선거구 접미 보정)
+        disp = r["sgname"]
+        if _re.search(r"제\d+$", disp):
+            disp += "선거구"
         cur.execute("INSERT INTO council VALUES(?,?,?,?,?,?,?,?,?,?,?,?)",
-                    (r["hoecha"], 5, r["sido"], sgcode, sgname, r["sgname"], i,
+                    (r["hoecha"], 5, r["sido"], sgcode, sgname, disp, i,
                      r["party"], r["name"], r.get("votes"), r.get("rate"), 1))
         nreg += 1
 

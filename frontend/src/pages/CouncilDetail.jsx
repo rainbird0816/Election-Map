@@ -52,7 +52,7 @@ export default function CouncilDetail({ hoecha, code, name }) {
           ))}
         </section>
       ))}
-      <p className="muted">중앙선관위 개표결과(낙선 포함). 기초의원은 중선거구제(선거구당 2~4인 선출).</p>
+      <p className="muted">중앙선관위 개표결과. 기초의원은 중선거구제(선거구당 2~4인 선출).</p>
     </>
   );
 }

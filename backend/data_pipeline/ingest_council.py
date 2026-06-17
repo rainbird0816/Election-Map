@@ -68,7 +68,8 @@ def num(v):
 
 _SUFFIX = [re.compile(r"제\d+선거구$"),
            re.compile(r"[가나다라마바사아자차카타파하]선거구$"),
-           re.compile(r"선거구$")]
+           re.compile(r"선거구$"),
+           re.compile(r"제\d+$")]  # 1·2회 표기 '화성군제1'(선거구 접미 없음)
 
 
 def parse_sigungu(sgg):

@@ -26,7 +26,7 @@ export default function AssemblyDistrictDetail({ daesu, dkey }) {
 
   return (
     <>
-      <h3 className="sec-title">후보별 득표 <span className="muted">(낙선 포함 {cands.length}명)</span></h3>
+      <h3 className="sec-title">후보별 득표 <span className="muted">({cands.length}명)</span></h3>
       <table className="cand-table">
         <thead>
           <tr><th></th><th>후보</th><th>정당</th><th className="num">득표수</th><th className="num">득표율</th></tr>
