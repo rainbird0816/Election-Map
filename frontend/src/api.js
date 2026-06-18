@@ -56,6 +56,12 @@ export const getPrecinctTrend = (sigungu, dong) =>
 export const getByelectionList = () => get("/byelection/list");
 export const getByelectionDetail = (sgId, sgtype) =>
   get("/byelection/detail", { sg_id: sgId, sgtype });
+export const getByelectionMap = (sgtype) => get("/byelection/map", { sgtype });
+export const getByelectionRegion = (sgtype, code) =>
+  get("/byelection/region", { sgtype, code });
+export const getByelectionDates = (office) => get("/byelection/dates", { office });
+export const getByelectionRoundMap = (office, date, parent) =>
+  get("/byelection/round-map", { office, date, ...(parent ? { parent } : {}) });
 export const getWinners = (level = "metro", parent) =>
   get("/winners", { level, ...(parent ? { parent } : {}) });
 export const getWinnersSummary = () => get("/winners/summary");

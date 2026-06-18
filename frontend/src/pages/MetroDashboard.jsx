@@ -3,6 +3,7 @@ import {
   getRegionResults, getMetroSggDetail, getMetroSggPr, getCouncilDetail, getCouncilPr, getCouncilMembers,
 } from "../api";
 import CouncilSeatsPanel from "../components/CouncilSeatsPanel.jsx";
+import DistrictList from "../components/DistrictList.jsx";
 
 const fmt = (n) => (n == null ? "무투표" : Number(n).toLocaleString());
 
@@ -109,6 +110,7 @@ export default function MetroDashboard({ hoecha, sidoCode, sidoName, sggCode, sg
   const [govSgg, setGovSgg] = useState(null);      // 시군구 도지사 득표
   const [council, setCouncil] = useState(null);    // 시군구 광역의원
   const [prSgg, setPrSgg] = useState(null);        // 시군구 광역비례 득표
+  const [openMembers, setOpenMembers] = useState(false); // 시도 모드 의원 명단 펼침
 
   useEffect(() => {
     setGovSido(null); setPrMetro(null); setGovSgg(null); setCouncil(null); setPrSgg(null); setMembers(null);
@@ -147,13 +149,8 @@ export default function MetroDashboard({ hoecha, sidoCode, sidoName, sggCode, sg
         )}
         <CandTable rows={govSgg} />
 
-        <h3 className="sec-title">광역의회의원 <span className="muted">(시·도의원 지역구)</span></h3>
-        {Object.keys(metroDistricts).length ? Object.entries(metroDistricts).map(([sgg, cands]) => (
-          <div key={sgg} className="sgg-block">
-            <div className="sgg-name">{sgg}</div>
-            <CandTable rows={cands} />
-          </div>
-        )) : <p className="muted">데이터 없음</p>}
+        <h3 className="sec-title">광역의회의원 <span className="muted">(시·도의원 지역구 · 클릭 시 후보)</span></h3>
+        <DistrictList groups={metroDistricts} />
 
         <h3 className="sec-title">광역비례의원 <span className="muted">({sggName} 정당 득표)</span></h3>
         <PrVotes rows={prSgg} />
@@ -182,8 +179,11 @@ export default function MetroDashboard({ hoecha, sidoCode, sidoName, sggCode, sg
       <h3 className="sec-title">광역의회 구성 <span className="muted">(광역의원+비례)</span></h3>
       <CouncilSeatsPanel hoecha={hoecha} level="metro" sido={sidoCode} heading={false} />
 
-      <h3 className="sec-title">광역의회의원 <span className="muted">(시·도의원 지역구 당선자 · 선거구 클릭 시 상세)</span></h3>
-      <CouncilMembers hoecha={hoecha} members={members} />
+      <h3 className="sec-title sec-toggle" onClick={() => setOpenMembers((o) => !o)}>
+        <span className="sec-exp">{openMembers ? "▾" : "▸"}</span> 광역의회의원
+        <span className="muted"> (시·도의원 지역구 {members?.length || 0}석 · {openMembers ? "접기" : "펼쳐 보기"})</span>
+      </h3>
+      {openMembers && <CouncilMembers hoecha={hoecha} members={members} />}
 
       <h3 className="sec-title">광역비례의원 <span className="muted">(시·도 비례 당선자)</span></h3>
       {prMetro?.parties?.length ? (

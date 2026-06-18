@@ -1,6 +1,7 @@
 import { useEffect, useState } from "react";
 import { getRegionResults, getRegionHistory, getCouncilDetail, getCouncilPr } from "../api";
 import CouncilSeatsPanel from "../components/CouncilSeatsPanel.jsx";
+import DistrictList from "../components/DistrictList.jsx";
 
 const fmt = (n) => (n == null ? "무투표" : Number(n).toLocaleString());
 
@@ -75,8 +76,8 @@ export default function SigunguDashboard({ hoecha, sggCode, sggName, sidoCode, s
     <aside className="detail">
       <h2>{sidoName} {sggName} <span className="office-badge">종합</span></h2>
 
-      <h3 className="sec-title">기초의회 의석분포 <span className="muted">(기초의원+기초비례)</span></h3>
-      <CouncilSeatsPanel hoecha={hoecha} level="basic" sigungu={sggCode} heading={false} />
+      {/* 광역 (시·도 차원) */}
+      <div className="level-head">광역 <small>시·도</small></div>
 
       <h3 className="sec-title">광역단체장 <span className="muted">({sidoName} 시·도지사)</span></h3>
       {metroWin ? (
@@ -89,27 +90,23 @@ export default function SigunguDashboard({ hoecha, sggCode, sggName, sidoCode, s
         </div>
       ) : <p className="muted">데이터 없음</p>}
 
-      <h3 className="sec-title">기초단체장 <span className="muted">(구청장·시장·군수)</span></h3>
-      <CandTable rows={basic} />
-
-      <h3 className="sec-title">광역의원 (시·도의원)</h3>
-      {Object.keys(groups[5]).length ? Object.entries(groups[5]).map(([sgg, cands]) => (
-        <div key={sgg} className="sgg-block">
-          <div className="sgg-name">{sgg}</div>
-          <CandTable rows={cands} />
-        </div>
-      )) : <p className="muted">데이터 없음</p>}
+      <h3 className="sec-title">광역의원 <span className="muted">({sggName} 선거구 · 클릭 시 후보)</span></h3>
+      <DistrictList groups={groups[5]} />
 
       <h3 className="sec-title">광역비례의원 <span className="muted">({sidoName} 시·도 비례, 당선자)</span></h3>
       <PrSection pr={prMetro} />
 
-      <h3 className="sec-title">기초의원 (구·시·군의원)</h3>
-      {Object.keys(groups[6]).length ? Object.entries(groups[6]).map(([sgg, cands]) => (
-        <div key={sgg} className="sgg-block">
-          <div className="sgg-name">{sgg}</div>
-          <CandTable rows={cands} />
-        </div>
-      )) : <p className="muted">데이터 없음</p>}
+      {/* 기초 (시·군·구 차원) */}
+      <div className="level-head">기초 <small>시·군·구</small></div>
+
+      <h3 className="sec-title">기초단체장 <span className="muted">(구청장·시장·군수)</span></h3>
+      <CandTable rows={basic} />
+
+      <h3 className="sec-title">기초의회 의석분포 <span className="muted">(기초의원+기초비례)</span></h3>
+      <CouncilSeatsPanel hoecha={hoecha} level="basic" sigungu={sggCode} heading={false} />
+
+      <h3 className="sec-title">기초의원 <span className="muted">(구·시·군의원 · 클릭 시 후보)</span></h3>
+      <DistrictList groups={groups[6]} />
 
       <h3 className="sec-title">기초비례의원 <span className="muted">({sggName} 비례, 당선자)</span></h3>
       <PrSection pr={prBasic} />

@@ -105,6 +105,9 @@ body { margin: 0; color: #1a1a1a; background: #fafafa; }
 /* 총선 선거구 상세: 후보표 + 투표구표 */
 .sec-title { margin: 18px 0 8px; font-size: 15px; }
 .sec-title .muted { font-weight: 400; font-size: 12px; }
+.sec-toggle { cursor: pointer; user-select: none; }
+.sec-toggle:hover { color: #4f46e5; }
+.sec-exp { color: #9ca3af; font-size: 12px; margin-right: 2px; }
 .cand-table { width: 100%; border-collapse: collapse; font-size: 13px; }
 .cand-table th, .cand-table td { padding: 5px 6px; border-bottom: 1px solid var(--line); text-align: left; }
 .cand-table th.num, .cand-table td.num { text-align: right; font-variant-numeric: tabular-nums; }
@@ -120,6 +123,29 @@ body { margin: 0; color: #1a1a1a; background: #fafafa; }
 .prec-table th:first-child, .prec-table td:first-child,
 .prec-table th:nth-child(2), .prec-table td:nth-child(2) { text-align: left; }
 .prec-table td.num, .prec-table th.num { text-align: right; font-variant-numeric: tabular-nums; }
+
+/* 종합 패널: 행정 계층 구분 헤더 (광역 / 기초) */
+.level-head {
+  font-size: 12px; font-weight: 800; letter-spacing: .02em; color: #4b5563;
+  margin: 22px 0 2px; padding: 4px 8px; border-radius: 5px;
+  background: #f1f3f5; border-left: 3px solid #94a3b8;
+}
+.level-head small { font-weight: 600; color: #94a3b8; margin-left: 3px; }
+
+/* 선거구별 접힘 목록(광역의원·기초의원): 기본 한 줄, 클릭 시 후보 전원 펼침 */
+.dist-list { margin: 2px 0 6px; }
+.dist-item { border-bottom: 1px solid #f0f0f0; }
+.dist-row { width: 100%; display: flex; align-items: center; gap: 7px;
+  background: none; border: none; padding: 7px 4px; cursor: pointer; text-align: left; font-size: 13px; }
+.dist-row:hover { background: #f3f4f6; }
+.dist-row.open { background: #eef2ff; }
+.dist-row.open .dist-exp { color: #4f46e5; }
+.dist-exp { width: 1em; color: #9ca3af; font-size: 11px; }
+.dist-sgg { min-width: 90px; color: #374151; font-weight: 600; white-space: nowrap; }
+.dist-win { font-weight: 600; white-space: nowrap; }
+.dist-party { margin-left: auto; color: var(--muted); font-size: 12px; white-space: nowrap; }
+.dist-item .cand-table { margin: 0 0 6px 22px; width: calc(100% - 22px); }
+.dist-item .cand-table td { font-size: 12px; }
 
 /* 지방의원 상세 */
 .sgg-block { margin: 6px 0 12px; }
@@ -211,6 +237,31 @@ body { margin: 0; color: #1a1a1a; background: #fafafa; }
 .bye-toggle { color: var(--muted); font-size: 11px; text-align: center; }
 .bye-cands { width: 100%; border-top: 1px solid var(--line); }
 .bye-cands tr.elected-row { font-weight: 700; background: #f9fafb; }
+
+/* 재·보궐 직책별 지도 레이아웃 */
+.bye-cats { margin: 6px 0 8px; }
+.bye-subs { margin-bottom: 10px; }
+.bye-maplayout { display: grid; grid-template-columns: minmax(320px, 1fr) 380px; gap: 16px; align-items: start; }
+.bye-map { padding-top: 2px; }
+.bye-mapnote { margin-top: 6px; }
+.bye-maplayout .detail { min-height: 0; max-height: calc(100vh - 220px); overflow-y: auto; padding: 4px 0 8px 16px; }
+.bye-reglist { list-style: none; margin: 6px 0; padding: 0; }
+.bye-reglist > li { border-bottom: 1px solid #f0f0f0; }
+.bye-regrow { width: 100%; display: flex; align-items: center; gap: 8px; background: none; border: none;
+  padding: 7px 4px; cursor: pointer; text-align: left; font-size: 13px; }
+.bye-regrow:hover { background: #f7f9fc; }
+.bye-regnm { font-weight: 600; min-width: 92px; white-space: nowrap; }
+.bye-regwin { color: #333; }
+.bye-regwin .bye-party { color: var(--muted); font-size: 12px; }
+.bye-cnt { margin-left: auto; font-size: 11px; font-weight: 700; color: #b45309;
+  background: #fff5e6; border-radius: 4px; padding: 1px 6px; }
+.bye-racecard { border: 1px solid var(--line); border-radius: 8px; padding: 8px 10px; margin: 8px 0; background: #fff; }
+.bye-racehead { display: flex; align-items: center; gap: 8px; margin-bottom: 4px; }
+.bye-racehead .bye-region { font-weight: 600; }
+@media (max-width: 820px) {
+  .bye-maplayout { grid-template-columns: 1fr; }
+  .bye-maplayout .detail { border-left: none; border-top: 1px solid var(--line); max-height: none; padding: 10px 0 0; }
+}
 
 /* 역대 단체장 당선인 매트릭스 */
 .win-crumbs { padding: 0 0 10px; }

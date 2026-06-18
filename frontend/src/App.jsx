@@ -2,6 +2,7 @@ import { useEffect, useMemo, useState } from "react";
 import MapKorea from "./maps/MapKorea.jsx";
 import MapSigungu from "./maps/MapSigungu.jsx";
 import MapDistrict from "./maps/MapDistrict.jsx";
+import ByelectionMap from "./maps/ByelectionMap.jsx";
 import Legend from "./components/Legend.jsx";
 import RegionDetail from "./pages/RegionDetail.jsx";
 import AssemblyDistrictDetail from "./pages/AssemblyDistrictDetail.jsx";
@@ -19,10 +20,18 @@ import WinnersPage from "./pages/WinnersPage.jsx";
 import MetroDashboard from "./pages/MetroDashboard.jsx";
 import BasicDashboard from "./pages/BasicDashboard.jsx";
 import CouncilSeatsPanel from "./components/CouncilSeatsPanel.jsx";
-import { getElections, getMap, getCouncilMap, getMetroSggMap, getBasicSidoMap, getPresidentElections, getPresidentMap } from "./api";
+import { getElections, getMap, getCouncilMap, getMetroSggMap, getBasicSidoMap, getPresidentElections, getPresidentMap, getByelectionDates, getByelectionRoundMap } from "./api";
 
-// 지방의원 데이터가 있는 지선 회차
-const COUNCIL_HOECHA = new Set([3, 4, 5, 6, 7, 8]);
+// 지방의회 데이터 보유 회차 — 의원 유형별(council 테이블 실측 기준)
+// 광역의원·광역비례는 1회(1995)부터, 기초의원은 3회(2002)부터, 기초비례는 4회(2006, 1인2표)부터.
+const COUNCIL_HOECHA = {
+  5: new Set([1, 2, 3, 4, 5, 6, 7, 8, 9]), // 광역의원
+  8: new Set([1, 2, 3, 4, 5, 6, 7, 8, 9]), // 광역비례
+  6: new Set([3, 4, 5, 6, 7, 8, 9]),       // 기초의원
+  9: new Set([4, 5, 6, 7, 8, 9]),          // 기초비례
+};
+const councilHas = (sgtype, hoecha) => !!COUNCIL_HOECHA[sgtype]?.has(hoecha);
+const COUNCIL_LABEL = { 5: "광역의원", 6: "기초의원", 8: "광역비례", 9: "기초비례" };
 
 // 선거구 경계 지도가 있는 총선 회차 -> {topojson, 당선자, 대수}
 const DISTRICT_GEO = {
@@ -58,6 +67,8 @@ export default function App() {
   const [assemblyView, setAssemblyView] = useState("sido");
   const [districtWin, setDistrictWin] = useState(null);
   const [selectedDist, setSelectedDist] = useState(null); // {key, sido, sgg, party, color}
+  const [byeDate, setByeDate] = useState(null);   // 단체장 탭에서 선택한 보궐 선거일(null=정규 회차)
+  const [byeDates, setByeDates] = useState([]);   // 현재 직책의 보궐 선거일 목록(셀렉터용)
 
   useEffect(() => {
     getElections().then(setElections).catch((e) => setError(String(e)));
@@ -69,10 +80,11 @@ export default function App() {
 
   // 선택 선거의 연도 → 2023.7 군위군 대구 편입 이후면 지도에 편입 반영
   const electionYear = useMemo(() => {
+    if (byeDate) return Number(byeDate.slice(0, 4));
     if (isPres) return presList.find((e) => e.daesu === daesu)?.year ?? null;
     const y = byType.find((e) => e.id === electionId)?.election_date?.slice(0, 4);
     return y ? Number(y) : null;
-  }, [isPres, presList, daesu, byType, electionId]);
+  }, [byeDate, isPres, presList, daesu, byType, electionId]);
   const mergeGunwi = electionYear != null && electionYear >= 2023;
   // 인천 2026-07-01 자치구 개편(검단/영종/제물포 신설) — 9회 지선(2026)부터 신 경계
   const incheon2026 = electionYear != null && electionYear >= 2026;
@@ -96,9 +108,34 @@ export default function App() {
     }
   }, [type, byType.length, presList.length]);
 
+  // 단체장·교육감·지방의회 탭이면 그 직책 보궐 선거일을 셀렉터에 끼움. 탭을 벗어나면 보궐 해제.
+  useEffect(() => {
+    setByeDate(null);
+    let office = null;
+    if (type === "총선") office = "국회의원";
+    else if (type === "지선") {
+      if (superView === "교육감") office = "교육감";
+      else if (superView === "단체장") office = "광역단체장";
+      else if (superView === "의원" && councilType === 5) office = "광역의원";
+      else if (superView === "의원" && councilType === 6) office = "기초의원";
+    }
+    if (office) getByelectionDates(office).then(setByeDates).catch(() => setByeDates([]));
+    else setByeDates([]);
+  }, [type, superView, councilType]);
+
   const isCouncil = type === "지선" && superView === "의원";
   const isMetroSummary = type === "지선" && superView === "광역종합";
   const isBasicSummary = type === "지선" && superView === "기초종합";
+  const isDanche = type === "지선" && superView === "단체장";   // 단체장 탭(보궐 회차 지원)
+  // 보궐 회차 지원 직책. 단체장·교육감=시도지도, 광역/기초의원·국회의원=시군구 국가지도.
+  const byeOffice = type === "총선" ? "국회의원"
+    : type !== "지선" ? null
+    : superView === "교육감" ? "교육감"
+    : superView === "단체장" ? "광역단체장"
+    : (superView === "의원" && councilType === 5) ? "광역의원"
+    : (superView === "의원" && councilType === 6) ? "기초의원" : null;
+  const canBye = !!byeOffice;
+  const byeIsSigungu = byeOffice === "광역의원" || byeOffice === "기초의원" || byeOffice === "국회의원";
   const isLookup = type === "투표소";
   const isOverview = type === "개관";
   const isByelection = type === "보궐";
@@ -106,16 +143,20 @@ export default function App() {
   const isPolitician = type === "정치인";
   const sidoOffice = type === "총선" ? "국회의원"
     : superView === "교육감" ? "교육감" : "광역단체장";
-  const districtConf = type === "총선" ? DISTRICT_GEO[electionId] : null;
+  const districtConf = type === "총선" && !byeDate ? DISTRICT_GEO[electionId] : null;
   const showDistrict = !!districtConf && assemblyView === "district";
   // 시도별 보기에서 시도 선택 + 경계 데이터 있으면 그 시도 지역구 경계로 줌
-  const districtZoom = type === "총선" && assemblyView === "sido" && !!districtConf && !!selected?.code;
+  const districtZoom = type === "총선" && !byeDate && assemblyView === "sido" && !!districtConf && !!selected?.code;
 
   // 시도 지도(지선 광역/지방의원 / 총선 시도집계 / 대선)
   useEffect(() => {
     if (isPres) {
       if (!daesu) return;
       getPresidentMap(daesu).then(setSidoMap).catch((e) => setError(String(e)));
+      return;
+    }
+    if (byeDate) {   // 보궐 회차: 보궐 지역 진하게 + 직전 기준 옅게(단체장 시도 / 의회 시군구)
+      getByelectionRoundMap(byeOffice, byeDate).then(setSidoMap).catch(() => setSidoMap([]));
       return;
     }
     if (!electionId) return;
@@ -127,7 +168,7 @@ export default function App() {
     } else {
       getMap(electionId, sidoOffice).then(setSidoMap).catch((e) => setError(String(e)));
     }
-  }, [electionId, sidoOffice, isCouncil, isBasicSummary, councilType, isPres, daesu]);
+  }, [electionId, sidoOffice, isCouncil, isBasicSummary, councilType, isPres, daesu, byeDate, byeOffice]);
 
   // 시군구 지도(기초단체장 / 지방의원 / 대선)
   useEffect(() => {
@@ -142,11 +183,13 @@ export default function App() {
       p = getCouncilMap(electionId, councilType, sido.code);
     } else if (isMetroSummary) {
       p = getMetroSggMap(electionId, sido.code);
+    } else if (byeDate && isDanche) {   // 단체장 보궐 회차: 그 시도 기초단체장 보궐 진하게 + 직전 옅게
+      p = getByelectionRoundMap("기초단체장", byeDate, sido.code);
     } else {
       p = getMap(electionId, "기초단체장", sido.code);
     }
     p.then(setSigunguMap).catch(() => setSigunguMap([]));
-  }, [electionId, view, sido, isCouncil, isMetroSummary, councilType, isPres, daesu]);
+  }, [electionId, view, sido, isCouncil, isMetroSummary, councilType, isPres, daesu, byeDate]);
 
   // 선거구 당선자 파일
   useEffect(() => {
@@ -163,6 +206,33 @@ export default function App() {
   const sigunguColor = useMemo(() => {
     const m = {}; for (const d of sigunguMap) m[d.region_code] = d.color_hex; return m;
   }, [sigunguMap]);
+  // 보궐 회차에서 클릭한 지역의 round-map 행(보궐 당선 or 직전 옅게)
+  const byeSel = byeDate && selected?.code
+    ? (sigunguMap.find((d) => d.region_code === selected.code)
+      || sidoMap.find((d) => d.region_code === selected.code))
+    : null;
+
+  // 회차 셀렉터: 정규 선거 + 보궐을 연도(날짜)순으로 섞어 표시. 같은 해 보궐 2회↑면 날짜순 번호.
+  const selectorOptions = useMemo(() => {
+    if (isPres) return [];
+    const kind = type === "총선" ? "국회의원선거" : "전국동시지방선거";
+    const reg = byType.map((e) => {
+      const ord = type === "총선" ? `제${e.id - 100}대` : `제${e.id}회`;
+      return {
+        key: `r${e.id}`, value: String(e.id), date: e.election_date || "",
+        label: `${(e.election_date || "").slice(0, 4)} ${ord} ${kind}`,
+      };
+    });
+    const byYear = {};
+    for (const b of byeDates) (byYear[b.date.slice(0, 4)] ||= []).push(b.date);
+    const bye = byeDates.map((b) => {
+      const yr = b.date.slice(0, 4);
+      const lst = byYear[yr];
+      const n = lst.length > 1 ? ` ${lst.indexOf(b.date) + 1}` : "";
+      return { key: `b${b.date}`, value: `b:${b.date}`, date: b.date, label: `${yr} 재·보궐선거${n}` };
+    });
+    return [...reg, ...bye].sort((a, b) => a.date.localeCompare(b.date));
+  }, [isPres, type, byType, byeDates]);
 
   // 선거구 범례용 (정당별 1개)
   const districtLegend = useMemo(() => {
@@ -179,7 +249,7 @@ export default function App() {
   const summaryParams = useMemo(() => {
     if (isPres) return daesu ? { kind: "president", daesu } : null;
     if (type === "총선") return electionId ? { kind: "assembly", election_id: electionId } : null;
-    if (isCouncil) return COUNCIL_HOECHA.has(electionId) ? { kind: "council", hoecha: electionId, sgtype: councilType } : null;
+    if (isCouncil) return councilHas(councilType, electionId) ? { kind: "council", hoecha: electionId, sgtype: councilType } : null;
     if (type === "지선" && superView === "교육감") return electionId ? { kind: "superintendent", election_id: electionId } : null;
     if (type === "지선") return electionId ? { kind: "local", election_id: electionId, office: superView === "기초종합" ? "기초단체장" : "광역단체장" } : null;
     return null;
@@ -222,7 +292,7 @@ export default function App() {
         </nav>
         {type === "지선" && (
           <nav className="tabs subtabs">
-            {[["광역종합", "광역 종합"], ["기초종합", "기초 종합"], ["단체장", "단체장"], ["교육감", "교육감"], ["의원", "의원"]].map(([v, label]) => (
+            {[["광역종합", "광역 종합"], ["기초종합", "기초 종합"], ["단체장", "단체장"], ["교육감", "교육감"], ["의원", "지방의회"]].map(([v, label]) => (
               <button key={v} className={`tab ${superView === v ? "active" : ""}`} onClick={() => { setSuperView(v); setView("sido"); setSido(null); setSelected(null); setSigunguMap([]); }}>
                 {label}
               </button>
@@ -258,9 +328,15 @@ export default function App() {
               ))}
             </select>
           ) : (
-          <select value={electionId ?? ""} onChange={(e) => setElectionId(Number(e.target.value))}>
-            {byType.map((e) => (
-              <option key={e.id} value={e.id}>{e.name} ({e.election_date?.slice(0, 4)})</option>
+          <select
+            value={byeDate ? `b:${byeDate}` : (electionId ?? "")}
+            onChange={(e) => {
+              const v = e.target.value;
+              if (v.startsWith("b:")) { setByeDate(v.slice(2)); }
+              else { setByeDate(null); setElectionId(Number(v)); }
+            }}>
+            {selectorOptions.map((o) => (
+              <option key={o.key} value={o.value}>{o.label}</option>
             ))}
           </select>
           )}
@@ -315,7 +391,7 @@ export default function App() {
         ) : isCouncil ? (
           <>
             <button className="crumb" onClick={backToNation} disabled={view === "sido"}>
-              전국 · {councilType === 5 ? "광역의원" : "기초의원"}
+              전국 · {COUNCIL_LABEL[councilType]}
             </button>
             {view === "sigungu" && sido && (
               <><span className="sep">›</span><span className="crumb cur">{sido.name} · 선거구별</span></>
@@ -343,7 +419,13 @@ export default function App() {
 
       <main className="layout">
         <section className="map-pane">
-          {showDistrict ? (
+          {(byeDate && byeIsSigungu) ? (
+            <>
+              <ByelectionMap level="sigungu" colorByCode={sidoColor}
+                selectedCode={selected?.code} onSelect={(code) => setSelected({ code })} />
+              <Legend mapData={sidoMap} />
+            </>
+          ) : showDistrict ? (
             <>
               <MapDistrict
                 geoUrl={districtConf.topo}
@@ -409,6 +491,24 @@ export default function App() {
               <div className="detail empty">선거구를 클릭하세요.</div>
             )}
           </aside>
+        ) : byeDate ? (
+          <aside className="detail">
+            <h2>{byeSel?.region_name || (selected?.code && nameOfSido(selected.code)) || "재·보궐"} <span className="office-badge">{byeOffice} 보궐 {byeDate}</span></h2>
+            {byeSel ? (byeSel.faded ? (
+              <p className="muted">이 지역은 {byeDate} 보궐선거가 없었습니다. 지도색은 직전 정규선거 {byeIsSigungu ? "다수당" : "당선자"}(<b>{byeSel.winner_party}</b>)을 옅게 표시한 것입니다.</p>
+            ) : (
+              <div className="winner-card" style={{ borderLeftColor: byeSel.color_hex }}>
+                <div className="wc-label">{byeSel.winner_party === "경합" ? "보궐(같은날 분할)" : "보궐 당선"}</div>
+                <div className="wc-name">{byeSel.winner_party === "경합" ? "경합" : byeSel.winner_name}</div>
+                <div className="wc-party" style={{ color: byeSel.color_hex }}>{byeSel.winner_party}</div>
+              </div>
+            )) : <p className="muted">지도에서 지역을 클릭하면 보궐/직전 당선자가 보입니다.</p>}
+            <p className="muted">진한 색 = {byeDate} 보궐 당선 정당{isDanche
+              ? " · 옅은 색 = 직전 정규선거 당선자. 시도 클릭 시 기초단체장 보궐도 표시."
+              : byeOffice === "국회의원" ? " (직전 정규 데이터 없이 보궐 지역만 표시)"
+              : byeIsSigungu ? " · 옅은 색 = 직전 정규선거 다수당"
+              : " (교육감은 직전 정규 데이터가 없어 보궐 지역만)"}.</p>
+          </aside>
         ) : isPres ? (
           <aside className="detail">
             {selected?.code ? (
@@ -472,8 +572,8 @@ export default function App() {
           />
         ) : isCouncil ? (
           <aside className="detail">
-            {!COUNCIL_HOECHA.has(electionId) ? (
-              <div className="detail empty">이 회차의 지방의원 데이터는 아직 없습니다.</div>
+            {!councilHas(councilType, electionId) ? (
+              <div className="detail empty">이 회차의 {COUNCIL_LABEL[councilType]} 데이터는 아직 없습니다.</div>
             ) : view === "sigungu" && sido?.code ? (
               <>
                 <h2>{sido.name} <span className="office-badge">광역의회</span></h2>

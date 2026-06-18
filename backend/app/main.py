@@ -2,6 +2,7 @@
 실행: uvicorn app.main:app --reload --port 8000  (backend/ 에서)
 """
 import json
+import re
 import sqlite3
 import pathlib
 from fastapi import FastAPI, APIRouter, HTTPException
@@ -514,7 +515,7 @@ def summary(kind: str, daesu: int | None = None, election_id: int | None = None,
         agg = {}
         for r in q(f"SELECT party, COUNT(*) n FROM council WHERE {where} GROUP BY party", tuple(args)):
             agg[r["party"]] = r["n"]
-        lab = "광역의원" if sgtype == 5 else "기초의원"
+        lab = {5: "광역의원", 6: "기초의원", 8: "광역비례", 9: "기초비례"}.get(sgtype, "지방의원")
         total = sum(agg.values())
         rows = [{"label": k, "color": colors.get(k, "#bbb"), "value": v, "sub": f"{v}석"}
                 for k, v in sorted(agg.items(), key=lambda x: -x[1])]
@@ -772,6 +773,240 @@ def byelection_detail(sg_id: str, sgtype: int):
             "winner_party": win["party"], "color_hex": win["color_hex"],
             "seats": len(winners), "candidates": cs})
     out.sort(key=lambda x: (x["sido"], _sgg_sort_key(x["sgg"])))
+    return out
+
+
+# 보궐 직종 → 지도 채색 단위(시도 3·11 / 시군구 2·4·5·6)
+_BYE_SIDO_SGT = {3, 11}
+_BYE_OFFICE_SGT = {"광역단체장": 3, "기초단체장": 4, "교육감": 11,
+                   "광역의원": 5, "기초의원": 6, "국회의원": 2}
+
+
+def _lighten(hex_color, t=0.70):
+    """정당색을 흰색 쪽으로 t(0~1)만큼 섞어 옅게. 보궐 없는 지역(직전 당선자) 표시용."""
+    h = (hex_color or "").lstrip("#")
+    if len(h) != 6:
+        return "#dcdcdc"
+    try:
+        r, g, b = int(h[0:2], 16), int(h[2:4], 16), int(h[4:6], 16)
+    except ValueError:
+        return "#dcdcdc"
+    r = int(r + (255 - r) * t); g = int(g + (255 - g) * t); b = int(b + (255 - b) * t)
+    return f"#{r:02x}{g:02x}{b:02x}"
+
+
+def _sigungu_from_sgg(sgg):
+    """선거구명에서 부모 시군구만 추출 — 명시적 지방의원 선거구 지정자만 제거.
+    '화성시제7선거구'→'화성시', '화성시가선거구'→'화성시'. 국회의원 '화성시갑'·'서구강화군을'은
+    이 패턴이 없어 그대로 둠(갑/을/병/정은 선거구 자체라 건드리지 않는다)."""
+    if not sgg:
+        return None
+    s = re.sub(r"제\d+선거구$", "", sgg)     # 시도의원
+    s = re.sub(r"[가-힣]선거구$", "", s)      # 구시군의원(가·나·다선거구)
+    return s if s and s != sgg else None
+
+
+def _bye_region_code(sgtype, sido_short, region_name, sgg=None):
+    """보궐 행의 (시도약칭, 시군구명) → 지도 폴리곤 코드. 시군구는 일반구를 상위 시로 합산.
+    표기 보정: 군→시 승격, 세종(시도=기초 단일), region 오염 시 sgg에서 시군구 추출."""
+    sido_code = SIDO_CODE.get(sido_short)
+    if sgtype in _BYE_SIDO_SGT:        # 시도지사·교육감 → 시도 코드
+        return sido_code
+    if not sido_code:
+        return None
+    if sido_short == "세종":           # 세종은 시도=기초 단일 → 세종시 폴리곤
+        return "29010"
+    cands = []
+    for base in (region_name, _sigungu_from_sgg(sgg)):
+        base = (base or "").strip()
+        if not base:
+            continue
+        cands.append(base)
+        if base.endswith("군"):                          # '당진군' → '당진시'(승격)
+            cands.append(base[:-1] + "시")
+        m = re.match(r"^(.+?시).+[구군]$", base)          # 일반구 '고양시덕양구' → '고양시'
+        if m:
+            cands.append(m.group(1))
+    for name in cands:
+        r = q("SELECT code FROM regions WHERE name=? AND parent_code=?", (name, sido_code))
+        if r:
+            return r[0]["code"]
+    return None
+
+
+@api.get("/byelection/map")
+def byelection_map(sgtype: int):
+    """한 직종(sgtype)의 보궐을 지역별로 묶어 지도 채색용 반환.
+    색 = 그 지역에서 가장 많이 이긴 정당(계열). 최다가 둘 이상 동률이면 경합색.
+    한나라당↔새누리당↔국민의힘처럼 같은 계열은 한 편으로 합산(무소속·군소는 이름별로 분리).
+    시도단위(광역단체장3·교육감11)는 시도코드, 그 외는 시군구코드(일반구→시 합산)."""
+    colors = _party_colors()
+    lin = _lineage_map()
+    rows = q("SELECT vote_date, sido, sgg, region, party, name FROM byelection "
+             "WHERE sgtype=? AND elected=1 ORDER BY vote_date", (sgtype,))
+    agg = {}
+    for r in rows:
+        code = _bye_region_code(sgtype, r["sido"], r["region"], r["sgg"])
+        if not code:
+            continue
+        agg.setdefault(code, []).append(r)
+    name_by = {}
+    if sgtype not in _BYE_SIDO_SGT:
+        for rr in q("SELECT code, name FROM regions"):
+            name_by[rr["code"]] = rr["name"]
+    out = []
+    for code, races in agg.items():
+        latest = races[-1]  # vote_date 오름차순이라 마지막이 최근
+        rname = latest["sido"] if sgtype in _BYE_SIDO_SGT else name_by.get(code, latest["region"])
+        # 시차를 둔 보궐이 여럿이면 '가장 최근 연도'만으로 채색(그 해 안에서 갈리면 경합)
+        latest_year = latest["vote_date"][:4]
+        recent = [r for r in races if r["vote_date"][:4] == latest_year]
+        groups = {}  # 계열키 → {승수, 최근 정당명}
+        for r in recent:
+            key = lin.get(r["party"])
+            if not key or key == ETC_LABEL:   # 무소속·군소는 정당명 그대로(서로 합치지 않음)
+                key = r["party"]
+            g = groups.setdefault(key, {"n": 0, "party": None})
+            g["n"] += 1
+            g["party"] = r["party"]           # 같은 계열 중 최근 정당명으로 표기/채색
+        ranked = sorted(groups.values(), key=lambda g: -g["n"])
+        tie = len(ranked) > 1 and ranked[0]["n"] == ranked[1]["n"]
+        top = ranked[0]
+        out.append({
+            "region_code": code, "region_name": rname,
+            "color_hex": TIE_COLOR if tie else colors.get(top["party"], "#bbb"),
+            "winner_party": "경합" if tie else top["party"],
+            "winner_name": latest["name"], "latest_date": latest["vote_date"],
+            "count": len(races), "tie": tie, "recent_year": latest_year,
+        })
+    out.sort(key=lambda x: x["region_name"])
+    return out
+
+
+@api.get("/byelection/region")
+def byelection_region(sgtype: int, code: str):
+    """지도에서 클릭한 지역의 그 직종 보궐 전체(여러 회차 가능): 선거일·선거구별 후보 전원."""
+    colors = _party_colors()
+    rows = q("SELECT vote_date, label, sido, sgg, region, party, name, votes, rate, elected "
+             "FROM byelection WHERE sgtype=? ORDER BY vote_date", (sgtype,))
+    races = {}
+    for r in rows:
+        if _bye_region_code(sgtype, r["sido"], r["region"], r["sgg"]) != code:
+            continue
+        g = races.setdefault((r["vote_date"], r["sido"], r["sgg"]), {
+            "vote_date": r["vote_date"], "label": r["label"],
+            "sido": r["sido"], "sgg": r["sgg"], "candidates": []})
+        g["candidates"].append({"party": r["party"], "name": r["name"], "votes": r["votes"],
+                                "rate": r["rate"], "elected": r["elected"],
+                                "color_hex": colors.get(r["party"], "#bbb")})
+    out = []
+    for g in races.values():
+        g["candidates"].sort(key=lambda c: (0 if c["elected"] else 1, -(c["votes"] or 0)))
+        win = next((c for c in g["candidates"] if c["elected"]), g["candidates"][0])
+        out.append({**g, "winner_name": win["name"], "winner_party": win["party"],
+                    "color_hex": win["color_hex"]})
+    out.sort(key=lambda x: (x["vote_date"], _sgg_sort_key(x["sgg"])), reverse=True)
+    return out
+
+
+@api.get("/byelection/dates")
+def byelection_dates(office: str):
+    """한 직책의 보궐 선거일 목록(지방선거 탭 회차 셀렉터에 끼워넣기용). 최신 정규선거 이후만."""
+    sgtype = _BYE_OFFICE_SGT.get(office)
+    if not sgtype:
+        return []
+    rows = q("SELECT DISTINCT vote_date FROM byelection WHERE sgtype=? AND elected=1 ORDER BY vote_date", (sgtype,))
+    return [{"date": r["vote_date"], "year": r["vote_date"][:4]} for r in rows]
+
+
+def _round_baseline(office, date, parent, colors):
+    """보궐일 직전 정규선거 기준 정당 {code:{party,color}}.
+    단체장=당선 정당, 광역/기초의원=그 단위(시군구) 다수당. 교육감·국회는 기준 데이터 없음→빈값."""
+    base = {}
+    prev = q("SELECT id FROM elections WHERE type='지선' AND election_date < ? "
+             "ORDER BY election_date DESC LIMIT 1", (date,))
+    if not prev:
+        return base
+    pid = prev[0]["id"]
+    if office in ("광역단체장", "기초단체장"):
+        sql = ("SELECT s.region_code code, p.name party, p.color_hex color "
+               "FROM region_election_summary s JOIN parties p ON p.id=s.winner_party_id "
+               "LEFT JOIN regions r ON r.code=s.region_code WHERE s.election_id=? AND s.office=?")
+        args = [pid, office]
+        if parent is not None:
+            sql += " AND r.parent_code=?"; args.append(parent)
+        for r in q(sql, tuple(args)):
+            base[r["code"]] = {"party": r["party"], "color": r["color"]}
+    elif office in ("광역의원", "기초의원"):
+        sgt = 5 if office == "광역의원" else 6
+        sql = ("SELECT sigungu_code code, party, SUM(elected) seats FROM council "
+               "WHERE hoecha=? AND sgtype=? AND sigungu_code IS NOT NULL")
+        args = [pid, sgt]
+        if parent is not None:
+            sql += " AND sigungu_code IN (SELECT code FROM regions WHERE parent_code=?)"; args.append(parent)
+        sql += " GROUP BY sigungu_code, party HAVING seats>0"
+        tmp = {}
+        for r in q(sql, tuple(args)):
+            tmp.setdefault(r["code"], {})[r["party"]] = tmp.get(r["code"], {}).get(r["party"], 0) + r["seats"]
+        for c, d in tmp.items():
+            party = max(d.items(), key=lambda kv: kv[1])[0]
+            base[c] = {"party": party, "color": colors.get(party, "#bbb")}
+    return base
+
+
+@api.get("/byelection/round-map")
+def byelection_round_map(office: str, date: str, parent: str | None = None):
+    """보궐 '회차' 지도 채색: 그날 그 직책 보궐이 있던 지역은 보궐 당선 정당색(진하게),
+    나머지는 직전 정규선거 기준 정당색을 옅게. 같은 날 한 지역 여러 선거구면 계열 다수(동률 경합).
+    단체장·교육감=시도/시군구 당선자, 의회=시군구 다수당. (교육감·국회는 직전 기준 데이터 부재→보궐만)"""
+    sgtype = _BYE_OFFICE_SGT.get(office)
+    if sgtype is None:
+        return []
+    colors = _party_colors()
+    lin = _lineage_map()
+    # 보궐 당선(그 날짜) per region — 같은날 여러 선거구면 계열 다수, 동률 경합
+    rbc = {}
+    for r in q("SELECT sido, region, sgg, party, name FROM byelection "
+               "WHERE sgtype=? AND vote_date=? AND elected=1", (sgtype, date)):
+        code = _bye_region_code(sgtype, r["sido"], r["region"], r["sgg"])
+        if not code:
+            continue
+        if parent is not None and sgtype not in _BYE_SIDO_SGT:
+            pr = q("SELECT parent_code FROM regions WHERE code=?", (code,))
+            if not pr or pr[0]["parent_code"] != parent:
+                continue
+        rbc.setdefault(code, []).append(r)
+    bwin = {}
+    for code, rs in rbc.items():
+        groups = {}
+        for r in rs:
+            key = lin.get(r["party"])
+            if not key or key == ETC_LABEL:
+                key = r["party"]
+            g = groups.setdefault(key, {"n": 0, "party": None}); g["n"] += 1; g["party"] = r["party"]
+        ranked = sorted(groups.values(), key=lambda g: -g["n"])
+        tie = len(ranked) > 1 and ranked[0]["n"] == ranked[1]["n"]
+        bwin[code] = {"party": "경합" if tie else ranked[0]["party"], "name": rs[-1]["name"],
+                      "color": TIE_COLOR if tie else colors.get(ranked[0]["party"], "#bbb")}
+    base = _round_baseline(office, date, parent, colors)
+    name_by = {r["code"]: r["name"] for r in q("SELECT code, name FROM regions")}
+    sido_name = {v: k for k, v in SIDO_CODE.items()}
+    rname = (lambda c: sido_name.get(c, c)) if sgtype in _BYE_SIDO_SGT else (lambda c: name_by.get(c, c))
+    out, seen = [], set()
+    for code, b in base.items():
+        seen.add(code)
+        w = bwin.get(code)
+        if w:
+            out.append({"region_code": code, "region_name": rname(code), "color_hex": w["color"],
+                        "winner_name": w["name"], "winner_party": w["party"], "faded": False})
+        else:
+            out.append({"region_code": code, "region_name": rname(code), "color_hex": _lighten(b["color"]),
+                        "winner_name": b["party"], "winner_party": b["party"], "faded": True})
+    for code, w in bwin.items():  # 기준에 없던 보궐 지역(교육감/국회/신설 등)
+        if code in seen:
+            continue
+        out.append({"region_code": code, "region_name": rname(code), "color_hex": w["color"],
+                    "winner_name": w["name"], "winner_party": w["party"], "faded": False})
     return out
 
 
