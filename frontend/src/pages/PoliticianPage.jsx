@@ -1,4 +1,4 @@
-import { useEffect, useMemo, useState } from "react";
+import { useEffect, useState } from "react";
 import { getPoliticianSearch, getPolitician } from "../api";
 
 const fmt = (n) => (n == null ? "—" : Number(n).toLocaleString());
@@ -25,14 +25,6 @@ export default function PoliticianPage() {
     getPolitician(sel).then(setData).catch(() => setData(null));
   }, [sel]);
 
-  // 연도별 그룹(최신순)
-  const grouped = useMemo(() => {
-    if (!data) return [];
-    const by = {};
-    for (const r of data.records) (by[r.year || "?"] || (by[r.year || "?"] = [])).push(r);
-    return Object.entries(by).sort((a, b) => Number(b[0]) - Number(a[0]));
-  }, [data]);
-
   return (
     <div className="lookup-page politician">
       <h2>정치인 검색 <span className="muted">(이름으로 역대 선거 기록)</span></h2>
@@ -56,14 +48,18 @@ export default function PoliticianPage() {
       {data && (
         <div className="poli-result">
           <h3 className="sec-title">{data.name} <span className="muted">출마 {data.total}회 · 당선 {data.wins}회</span></h3>
-          <p className="hint">※ 동명이인이 함께 표시될 수 있습니다(이름 기준 조회).</p>
-          {grouped.map(([year, recs]) => (
-            <div key={year} className="poli-year">
-              <div className="poli-yr">{year}</div>
+          {data.multi && (
+            <p className="hint">※ 지역(시도)별로 묶었습니다. 같은 이름이 여러 지역에 있으면 <b>동명이인</b>일 수 있습니다
+              (전국 단위 인물은 여러 지역에 걸쳐 표시됨).</p>
+          )}
+          {data.groups.map((g) => (
+            <div key={g.sido} className="poli-group">
+              <div className="poli-group-head">{g.sido} <span className="muted">기록 {g.records.length} · 당선 {g.wins}</span></div>
               <table className="cand-table">
                 <tbody>
-                  {recs.map((r, i) => (
+                  {g.records.map((r, i) => (
                     <tr key={i} className={r.elected ? "elected-row" : ""}>
+                      <td className="poli-yr2">{r.year}</td>
                       <td><span className="badge-sm">{ETYPE_BADGE[r.etype] || r.etype}</span></td>
                       <td>{r.office}{r.sub ? <span className="muted"> {r.sub}</span> : null}</td>
                       <td className="poli-region">{r.region}</td>

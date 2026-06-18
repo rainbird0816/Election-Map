@@ -176,37 +176,41 @@ def council_seats(hoecha: int, level: str, sido: str | None = None, sigungu: str
 @api.get("/council/map")
 def council_map(hoecha: int, sgtype: int, parent: str | None = None):
     """지방의원 의석 최다 정당색. parent(시도코드) 있으면 시군구, 없으면 시도 단위."""
+    colors = _party_colors()
     if parent is None:
         rows = q(
-            "SELECT c.sido, c.party, SUM(c.elected) AS seats, p.color_hex "
-            "FROM council c LEFT JOIN parties p ON p.name=c.party "
-            "WHERE c.hoecha=? AND c.sgtype=? GROUP BY c.sido, c.party HAVING seats>0",
+            "SELECT c.sido, c.party, SUM(c.elected) AS seats "
+            "FROM council c WHERE c.hoecha=? AND c.sgtype=? "
+            "GROUP BY c.sido, c.party HAVING seats>0",
             (hoecha, sgtype))
         for r in rows:
             r["region_code"] = SIDO_CODE.get(r["sido"], r["sido"])
             r["region_name"] = r["sido"]
+            r["color_hex"] = colors.get(r["party"], "#bbb")
         return _top_parties(rows, "sido")
     sido_short = next((s for s, c in SIDO_CODE.items() if c == parent), parent)
     rows = q(
-        "SELECT c.sigungu_code, c.sigungu_name, c.party, SUM(c.elected) AS seats, p.color_hex "
-        "FROM council c LEFT JOIN parties p ON p.name=c.party "
-        "WHERE c.hoecha=? AND c.sgtype=? AND c.sido=? AND c.sigungu_code IS NOT NULL "
+        "SELECT c.sigungu_code, c.sigungu_name, c.party, SUM(c.elected) AS seats "
+        "FROM council c WHERE c.hoecha=? AND c.sgtype=? AND c.sido=? AND c.sigungu_code IS NOT NULL "
         "GROUP BY c.sigungu_code, c.party HAVING seats>0",
         (hoecha, sgtype, sido_short))
     for r in rows:
         r["region_code"] = r["sigungu_code"]
         r["region_name"] = r["sigungu_name"]
+        r["color_hex"] = colors.get(r["party"], "#bbb")
     return _top_parties(rows, "sigungu_code")
 
 
 @api.get("/council/detail")
 def council_detail(hoecha: int, sigungu_code: str):
     """시군구의 광역의원·기초의원 선거구별 후보(낙선 포함). 선거구 자연순."""
+    colors = _party_colors()
     rows = q(
-        "SELECT c.sgtype, c.sgg, c.idx, c.party, c.name, c.votes, c.rate, c.elected, p.color_hex "
-        "FROM council c LEFT JOIN parties p ON p.name=c.party "
-        "WHERE c.hoecha=? AND c.sigungu_code=?",
+        "SELECT c.sgtype, c.sgg, c.idx, c.party, c.name, c.votes, c.rate, c.elected "
+        "FROM council c WHERE c.hoecha=? AND c.sigungu_code=?",
         (hoecha, sigungu_code))
+    for r in rows:
+        r["color_hex"] = colors.get(r["party"], "#bbb")
     rows.sort(key=lambda r: (r["sgtype"], _sgg_sort_key(r["sgg"]),
                              0 if r["elected"] else 1, -(r["votes"] or 0)))
     return rows
@@ -688,12 +692,14 @@ def assembly_keys(daesu: int, sido: str):
 def assembly_district(daesu: int, key: str):
     """총선 선거구 상세: 후보 전원(낙선 포함) + 투표구별 득표.
     precincts.votes_json 은 후보 idx(0..n-1) 순서의 득표 배열."""
+    colors = _party_colors()
     cands = q(
-        "SELECT g.idx, g.party, g.name, g.votes, g.rate, g.elected, p.color_hex "
-        "FROM gukhoe_cand g LEFT JOIN parties p ON p.name = g.party "
-        "WHERE g.daesu=? AND g.key=? ORDER BY g.votes DESC",
+        "SELECT g.idx, g.party, g.name, g.votes, g.rate, g.elected "
+        "FROM gukhoe_cand g WHERE g.daesu=? AND g.key=? ORDER BY g.votes DESC",
         (daesu, key),
     )
+    for c in cands:
+        c["color_hex"] = colors.get(c["party"], "#bbb")
     precs = q(
         "SELECT dong, unit, tusu, votes_json FROM gukhoe_precinct "
         "WHERE daesu=? AND key=?",
@@ -1195,36 +1201,39 @@ def q_(sql, args=()):
 def politician(name: str):
     """한 정치인의 역대 선거 기록(대선·총선·단체장·지방의원·재보궐)을 연도순으로."""
     colors = _party_colors()
+    sido_name = {v: k for k, v in SIDO_CODE.items()}  # std코드 → 시도 약칭
     rows = []
 
-    def add(year, etype, office, region, party, votes, rate, elected, sub=None):
+    def add(year, etype, office, region, party, votes, rate, elected, sido="전국", sub=None):
         rows.append({"year": year, "etype": etype, "office": office, "region": region,
-                     "party": party, "color": colors.get(party, "#bbb"),
+                     "party": party, "color": colors.get(party, "#bbb"), "sido": sido or "전국",
                      "votes": votes, "rate": rate, "elected": bool(elected), "sub": sub})
 
-    # 단체장 등 candidates+results (대통령/광역단체장/기초단체장 등)
+    # 단체장 등 candidates+results (광역단체장/기초단체장)
     for r in q("""SELECT e.type etype, e.election_date, ca.office, ca.region_code,
-                         rg.name region, p.name party, rs.votes, rs.vote_rate, ca.is_elected
+                         rg.name region, rg.parent_code, p.name party, rs.votes, rs.vote_rate, ca.is_elected
                   FROM candidates ca JOIN elections e ON e.id=ca.election_id
                   LEFT JOIN parties p ON p.id=ca.party_id
                   LEFT JOIN regions rg ON rg.code=ca.region_code
                   LEFT JOIN results rs ON rs.candidate_id=ca.id AND rs.election_id=ca.election_id
                   WHERE ca.name=?""", (name,)):
         y = (r["election_date"] or "")[:4]
+        sido_code = r["parent_code"] or r["region_code"]
         add(int(y) if y else None, r["etype"], r["office"], r["region"],
-            r["party"], r["votes"], r["vote_rate"], r["is_elected"])
+            r["party"], r["votes"], r["vote_rate"], r["is_elected"],
+            sido=sido_name.get(sido_code, "전국"))
 
     # 지방의원 council
     for r in q("SELECT hoecha, sgtype, sido, sigungu_name, sgg, party, votes, rate, elected "
                "FROM council WHERE name=?", (name,)):
         region = " ".join(x for x in [r["sido"], r["sgg"] or r["sigungu_name"]] if x)
         add(_HOE_Y.get(r["hoecha"]), "지선", _SGT_OFFICE.get(r["sgtype"], "지방의원"),
-            region, r["party"], r["votes"], r["rate"], r["elected"])
+            region, r["party"], r["votes"], r["rate"], r["elected"], sido=r["sido"])
 
     # 총선 지역구 assembly_sgg
     for r in q("SELECT daesu, sido, sgg, party, votes, rate, elected FROM assembly_sgg WHERE name=?", (name,)):
         add(_DAESU_Y.get(r["daesu"]), "총선", "국회의원", f"{r['sido']} {r['sgg']}",
-            r["party"], r["votes"], r["rate"], r["elected"], sub=f"{r['daesu']}대")
+            r["party"], r["votes"], r["rate"], r["elected"], sido=r["sido"], sub=f"{r['daesu']}대")
 
     # 대선 후보 pres_cand (전국 득표 합산 + 당선 여부)
     for r in q("SELECT daesu, idx, party FROM pres_cand WHERE name=?", (name,)):
@@ -1237,17 +1246,24 @@ def politician(name: str):
         v = mine["v"] if mine else None
         add(PRES_YEAR.get(r["daesu"]), "대선", "대통령", "전국", r["party"],
             v, round(v / tot * 100, 1) if v else None,
-            1 if (win and win["idx"] == r["idx"]) else 0, sub=f"{r['daesu']}대")
+            1 if (win and win["idx"] == r["idx"]) else 0, sido="전국", sub=f"{r['daesu']}대")
 
     # 재·보궐
     for r in q("SELECT vote_date, sgtype_name, sido, sgg, party, votes, rate, elected "
                "FROM byelection WHERE name=?", (name,)):
         y = (r["vote_date"] or "")[:4]
         add(int(y) if y else None, "보궐", r["sgtype_name"], f"{r['sido']} {r['sgg']}",
-            r["party"], r["votes"], r["rate"], r["elected"], sub=r["vote_date"])
+            r["party"], r["votes"], r["rate"], r["elected"], sido=r["sido"], sub=r["vote_date"])
 
     rows.sort(key=lambda x: (x["year"] or 0, x["office"]))
-    return {"name": name, "records": rows,
+    # 시도(지역)별 묶음 — 동명이인 구분용. 전국(대선)은 마지막.
+    sidos = {}
+    for r in rows:
+        sidos.setdefault(r["sido"], []).append(r)
+    groups = sorted(sidos.items(), key=lambda kv: (kv[0] == "전국", -len(kv[1]), kv[0]))
+    groups = [{"sido": s, "records": sorted(recs, key=lambda x: -(x["year"] or 0)),
+               "wins": sum(1 for x in recs if x["elected"])} for s, recs in groups]
+    return {"name": name, "records": rows, "groups": groups, "multi": len(sidos) > 1,
             "wins": sum(1 for r in rows if r["elected"]), "total": len(rows)}
 
 
