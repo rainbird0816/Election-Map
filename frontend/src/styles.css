@@ -10,7 +10,7 @@ body { margin: 0; color: #1a1a1a; background: #fafafa; }
   display: flex; align-items: center; gap: 16px;
   padding: 12px 20px; border-bottom: 1px solid var(--line); background: #fff;
 }
-.topbar h1 { font-size: 18px; margin: 0; }
+.topbar h1 { font-size: 18px; margin: 0; white-space: nowrap; }
 .tabs .tab {
   border: 1px solid var(--line); background: #f3f4f6; border-radius: 999px;
   padding: 6px 14px; font-size: 13px; cursor: pointer;
@@ -301,3 +301,48 @@ body { margin: 0; color: #1a1a1a; background: #fafafa; }
 .strip-chip.bye { outline: 2px dashed rgba(180,83,9,.55); outline-offset: -2px; }
 .sum-row.bye .sum-bar { outline: 2px dashed rgba(180,83,9,.5); outline-offset: 2px; border-radius: 3px; }
 .sum-row.bye .sum-year small { color: #b45309; font-weight: 700; }
+
+/* ============================================================
+   반응형 — 데스크톱(≥1025px)은 기존 그대로. 태블릿·모바일만 조정.
+   ============================================================ */
+
+/* 태블릿 가로(≤1024px): 2단 유지하되 우측 패널·여백 압축 */
+@media (max-width: 1024px) {
+  .layout { grid-template-columns: minmax(300px, 1fr) 360px; }
+  .map-pane { padding: 10px 14px; }
+  .detail { padding: 14px 14px; }
+  .winmap-layout { grid-template-columns: minmax(300px, 1fr) 380px; }
+}
+
+/* 태블릿 세로·모바일(≤820px): 1단 스택 — 지도 위, 상세 아래(전폭) */
+@media (max-width: 820px) {
+  .layout { grid-template-columns: 1fr; }
+  .detail {
+    border-left: none; border-top: 1px solid var(--line);
+    min-height: 0; overflow-y: visible;
+  }
+  /* 화면높이 기준 내부 스크롤 영역 → 스택 시 페이지 스크롤로 일원화 */
+  .prec-wrap.tall, .bye-dates, .win-wrap, .winmap-detail { max-height: none; }
+  .topbar { flex-wrap: wrap; gap: 8px 12px; padding: 10px 14px; }
+  .tabs { display: flex; flex-wrap: wrap; gap: 6px; }
+  .selector { margin-left: 0; }
+  .crumbs { padding: 8px 14px 0; flex-wrap: wrap; }
+  .layout.single { padding: 14px 16px; }
+}
+
+/* 휴대폰(≤540px): 글자·여백·탭 추가 축소, 셀렉터 전폭 */
+@media (max-width: 540px) {
+  .topbar { gap: 6px 8px; padding: 9px 12px; }
+  .topbar h1 { font-size: 16px; width: 100%; }
+  .tabs .tab { padding: 5px 11px; font-size: 12px; }
+  .subtabs .tab { padding: 4px 9px; font-size: 11px; }
+  .selector { width: 100%; }
+  .selector select { width: 100%; }
+  .map-pane { padding: 8px 10px; }
+  .detail { padding: 12px; }
+  .detail h2 { font-size: 18px; }
+  .layout.single { padding: 12px; }
+  .cand-table, .results-table { font-size: 12px; }
+  .cand-table th, .cand-table td,
+  .results-table th, .results-table td { padding: 5px 4px; }
+}
